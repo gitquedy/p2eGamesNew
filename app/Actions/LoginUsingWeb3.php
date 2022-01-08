@@ -21,9 +21,9 @@ class LoginUsingWeb3
             ]);
         }
 
-        Auth::login(User::firstOrCreate([
-            'eth_address' => $request->address
-        ]));
+        Auth::login(User::firstOrCreate(
+            ['eth_address' => $request->address]
+        ));
 
         return Redirect::route('dashboard');
     }

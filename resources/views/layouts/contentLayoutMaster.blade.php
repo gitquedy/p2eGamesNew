@@ -1,3 +1,4 @@
+@inject('request', 'Illuminate\Http\Request')
 @isset($pageConfigs)
 {!! Helper::updatePageConfig($pageConfigs) !!}
 @endisset

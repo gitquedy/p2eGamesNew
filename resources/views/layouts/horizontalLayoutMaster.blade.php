@@ -5,7 +5,7 @@ data-menu="horizontal-menu"
 data-col="{{$configData['showMenu'] ? $configData['contentLayout'] : '1-column' }}"
 data-framework="laravel"
 data-asset-path="{{ asset('/')}}">
-
+<div id="app">
   <!-- BEGIN: Header-->
   @include('panels.navbar')
 
@@ -60,7 +60,7 @@ data-asset-path="{{ asset('/')}}">
 
   {{-- include footer --}}
   @include('panels/footer')
-
+  </div>
   {{-- include default scripts --}}
   @include('panels/scripts')
 

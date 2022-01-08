@@ -15,7 +15,8 @@
         {
           "url": "layouts/full",
           "name": "Layout Full",
-          "slug": "layout-full"
+          "slug": "layout-full",
+          "icon": "home"
         },
         {
           "url": "layouts/without-menu",

@@ -54,29 +54,45 @@ $configData = Helper::applClasses();
     <!-- Horizontal menu content-->
     <div class="navbar-container main-menu-content" data-menu="menu-container">
       <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-      {{-- Foreach menu item starts --}}
-        @if(isset($menuData[1]))
-        @foreach($menuData[1]->menu as $menu)
-        @php
-        $custom_classes = "";
-        if(isset($menu->classlist)) {
-        $custom_classes = $menu->classlist;
-        }
-        @endphp
-        <li class="nav-item @if(isset($menu->submenu)){{'dropdown'}}@endif {{ $custom_classes }} {{ Route::currentRouteName() === $menu->slug ? 'active' : ''}}"
-         @if(isset($menu->submenu)){{'data-menu=dropdown'}}@endif>
-          <a href="{{isset($menu->url)? url($menu->url):'javascript:void(0)'}}" class="nav-link d-flex align-items-center @if(isset($menu->submenu)){{'dropdown-toggle'}}@endif" target="{{isset($menu->newTab) ? '_blank':'_self'}}"  @if(isset($menu->submenu)){{'data-bs-toggle=dropdown'}}@endif>
-            <i data-feather="{{ $menu->icon }}"></i>
-            <span>{{ __('locale.'.$menu->name) }}</span>
+
+        <li class="nav-item {{ $request->segment(1) == '' && $request->segment(2) == '' ? 'active' : '' }}">
+          <a href="" class="nav-link d-flex align-items-center">
+            <i data-feather="home"></i>
+            <span>Home</span>
           </a>
-          @if(isset($menu->submenu))
-          @include('panels/horizontalSubmenu', ['menu' => $menu->submenu])
-          @endif
         </li>
-        @endforeach
-        @endif
-        {{-- Foreach menu item ends --}}
+
+        <li class="nav-item dropdown" data-menu=dropdown>
+          <a href="javascript:void(0)" class="nav-link d-flex align-items-center dropdown-toggle" target="_self" data-bs-toggle=dropdown>
+            <i data-feather="figma"></i>
+            <span>Games</span>
+          </a>
+            <ul class="dropdown-menu" data-bs-popper="none">
+              <li class="{{ $request->segment(1) == 'game' && $request->segment(2) == '' ? 'active' : '' }}">
+                <a href="#" class="dropdown-item d-flex align-items-center" target="_self">
+                  <i data-feather="list"></i>
+                  <span>Game List</span>
+                </a>
+              </li>
+
+              <li class="{{ $request->segment(1) == 'genre' && $request->segment(2) == '' ? 'active' : '' }}">
+                <a href="#" class="dropdown-item d-flex align-items-center" target="_self">
+                  <i data-feather="tag"></i>
+                  <span>Genre</span>
+                </a>
+              </li>
+
+              <li class="{{ $request->segment(1) == 'blockchain' && $request->segment(2) == '' ? 'active' : '' }}">
+                <a href="#" class="dropdown-item d-flex align-items-center" target="_self">
+                  <i data-feather="code"></i>
+                  <span>BlockChain</span>
+                </a>
+              </li>
+
+            </ul>
+        </li>
       </ul>
+
     </div>
   </div>
 </div>

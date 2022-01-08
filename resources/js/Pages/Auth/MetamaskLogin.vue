@@ -1,23 +1,12 @@
 <template>
-    <div>
-        <div class="text-center pt-4 pb-8 border-b border-gray-200">
-            <jet-button @click="loginWeb3">
-                Login with MetaMask
-            </jet-button>
-        </div>
-        <div class="py-6 text-sm text-gray-500 text-center">
-            or login with your credentials…
-        </div>
+    <div @click="loginWeb3">
+       <i class="me-50" data-feather="log-in"></i> Login with MetaMask
     </div>
 </template>
 <script>
     import Web3 from 'web3/dist/web3.min.js'
-    import { useForm } from '@inertiajs/inertia-vue3'
-    import JetButton from '@/Jetstream/Button.vue'
+
     export default  {
-        components : {
-            JetButton,
-        },
         methods : {
         async loginWeb3() {
                if (! window.ethereum) {
@@ -34,7 +23,17 @@
                 const address = (await web3.eth.requestAccounts())[0]
                 const signature = await web3.eth.personal.sign(message, address)
 
-                return useForm({ message, address, signature }).post('/login-web3') // Our Meta Mask integration goes here
+                const  params = {
+                    address: address,
+                    signature : signature,
+                    message: message,
+                };
+                    axios.post('/login-web3', params)
+                    .then(response => window.location.reload())
+                    .catch(err => alert(err.response.data.message)
+                        );
+
+
             }
         }
     }

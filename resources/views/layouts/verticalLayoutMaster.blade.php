@@ -4,7 +4,6 @@ data-menu="vertical-menu-modern"
 data-col="{{$configData['showMenu'] ? $configData['contentLayout'] : '1-column' }}"
 data-framework="laravel"
 data-asset-path="{{ asset('/')}}">
-
   <!-- BEGIN: Header-->
   @include('panels.navbar')
   <!-- END: Header-->
