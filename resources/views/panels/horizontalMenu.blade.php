@@ -69,21 +69,21 @@ $configData = Helper::applClasses();
           </a>
             <ul class="dropdown-menu" data-bs-popper="none">
               <li class="{{ $request->segment(1) == 'game' && $request->segment(2) == '' ? 'active' : '' }}">
-                <a href="#" class="dropdown-item d-flex align-items-center" target="_self">
+                <a href="{{ route('game.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
                   <i data-feather="list"></i>
                   <span>Game List</span>
                 </a>
               </li>
 
               <li class="{{ $request->segment(1) == 'genre' && $request->segment(2) == '' ? 'active' : '' }}">
-                <a href="#" class="dropdown-item d-flex align-items-center" target="_self">
+                <a href="{{ route('genre.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
                   <i data-feather="tag"></i>
                   <span>Genre</span>
                 </a>
               </li>
 
               <li class="{{ $request->segment(1) == 'blockchain' && $request->segment(2) == '' ? 'active' : '' }}">
-                <a href="#" class="dropdown-item d-flex align-items-center" target="_self">
+                <a href="{{ route('blockchain.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
                   <i data-feather="code"></i>
                   <span>BlockChain</span>
                 </a>

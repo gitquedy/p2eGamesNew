@@ -5,6 +5,10 @@
   <link rel="stylesheet" href="vendors/css/vendors.min.css"/>
 @endif
 
+<!-- Global Page Css -->
+<link rel="stylesheet" href="{{ asset('vendors/css/animate/animate.min.css') }}">
+<link rel="stylesheet" href="{{ asset('vendors/css/extensions/sweetalert2.min.css') }}">
+<!-- Global Page Css -->
 @yield('vendor-style')
 <!-- END: Vendor CSS-->
 

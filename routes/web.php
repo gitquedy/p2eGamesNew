@@ -4,6 +4,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\StaterkitController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\BlockChainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +21,15 @@ use App\Http\Controllers\StaterkitController;
 
 
 Route::get('/', [StaterkitController::class, 'home'])->name('home');
+Route::post('login-web3', \App\Actions\LoginUsingWeb3::class);
+
+Route::resource('/genre', GenreController::class);
+Route::get('/genre/delete/{genre}', [GenreController::class, 'delete'])->name('genre.delete');
+
+Route::resource('/blockchain', BlockChainController::class);
+Route::get('/genre/blockchain/{blockchain}', [BlockChainController::class, 'delete'])->name('blockchain.delete');
+Route::resource('/game', GameController::class);
+
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -28,12 +40,12 @@ Route::get('/', [StaterkitController::class, 'home'])->name('home');
 //     ]);
 // });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->name('dashboard');
 
-Route::post('login-web3', \App\Actions\LoginUsingWeb3::class);
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

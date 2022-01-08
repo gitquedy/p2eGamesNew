@@ -17,6 +17,26 @@
 <script src="js/scripts/customizer.js"></script>
 @endif
 <!-- END: Theme JS-->
+
+<!-- Global Page Scripts -->
+<script src="{{ asset('vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('vendors/js/extensions/polyfill.min.js') }}"></script>
+<!-- Global Page Scripts -->
 <!-- BEGIN: Page JS-->
 @yield('page-script')
 <!-- END: Page JS-->
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(document).on('click', '.modal_button', function() {
+          $.ajax({
+              url: $(this).data('action'),
+              method: "GET",
+              success:function(result)
+              {
+                  $('.view_modal').html(result).modal('toggle');
+              }
+          });
+      });
+    });
+</script>

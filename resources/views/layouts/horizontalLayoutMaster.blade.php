@@ -73,6 +73,18 @@ data-asset-path="{{ asset('/')}}">
       }
     })
   </script>
+
+  <!-- <script type="text/javascript">
+    @if($request->session()->has('status'))
+     toastr.{{ $request->session()->get('alert-class', 'success') }}('{{ $request->session()->get('status') }}', '', {timeOut: 7000})
+    @endif
+  </script> -->
+  <!-- <div class="modal-size-xl d-inline-block"> -->
+    <div class="modal fade view_modal" tabindex="-1" role="dialog"
+    aria-labelledby="#modal-title" aria-hidden="true" data-backdrop="static">
+    </div>
+  <!-- </div> -->
+
 </body>
 
 </html>
