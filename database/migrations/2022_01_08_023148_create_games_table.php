@@ -27,7 +27,7 @@ class CreateGamesTable extends Migration
             $table->string('f2p');
             $table->text('screenshots')->nullable();
             $table->boolean('is_approved')->default(0);
-            // $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('genre_ids');
             $table->string('blockchain_ids');
 

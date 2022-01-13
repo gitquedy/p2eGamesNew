@@ -179,6 +179,7 @@ class GameController extends Controller
             DB::beginTransaction();
 
             $data = $request->all();
+            $data['user_id'] = $request->user()->id;
             $data['genre_ids'] = implode(',', $request->genre_ids);
             $data['blockchain_ids'] = implode(',', $request->blockchain_ids);
             $data['device'] = implode(',', $request->device);

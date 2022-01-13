@@ -16,7 +16,7 @@ class Game extends Model
 
     protected $table = 'games';
 
-    protected $fillable = ['name', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'github', 'facebook'];
+    protected $fillable = ['name', 'user_id', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'github', 'facebook'];
 
 
     public function getNameAndImgDisplay(){

@@ -15,6 +15,7 @@ class GameSeeder extends Seeder
     public function run()
     {
         Game::create([
+            'user_id' => 1,
             'name' => 'Axie Infinity',
             'description' => 'Axie Infinity is an NFT-based online video game developed by Vietnamese studio Sky Mavis, which uses Ethereum-based cryptocurrencies, Axie Infinity Shards and Smooth Love Potion. As of October 2021, Axie Infinity has 2 million daily active users.',
             'image' => 'image_441a86c36d75ec36858814aebb91150a72021b47.jpg',
@@ -32,6 +33,7 @@ class GameSeeder extends Seeder
 
 
         Game::create([
+            'user_id' => 1,
             'name' => 'Crypto Cars',
             'short_description' => 'Build your own cryptro cars and enjoy races',
             'description' => 'CryptoCars is the first NFT Racing game developed by the team that used to work for Gameloft & Genshin Impact project.
