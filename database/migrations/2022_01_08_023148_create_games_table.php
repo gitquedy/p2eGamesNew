@@ -25,7 +25,7 @@ class CreateGamesTable extends Migration
             $table->string('rewards_token')->nullable();
             $table->double('minimum_investment', 20, 4)->nullable();
             $table->string('f2p');
-            $table->string('screenshots')->nullable();
+            $table->text('screenshots')->nullable();
             $table->boolean('is_approved')->default(0);
             // $table->unsignedBigInteger('user_id');
             $table->string('genre_ids');

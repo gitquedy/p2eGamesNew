@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/swiper.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/toastr.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/jquery.rateyo.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/extensions/swiper.min.css') }}">
 @endsection
 
 @section('page-style')
@@ -15,6 +16,7 @@
   <link rel="stylesheet" href="{{ asset('css/base/pages/app-ecommerce-details.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-number-input.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-toastr.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-swiper.css') }}">
 @endsection
 
 @section('content')
@@ -25,13 +27,30 @@
     <div class="card-body">
       <div class="row my-2">
         <div class="col-12 col-md-5 d-flex align-items-center justify-content-center mb-2 mb-md-0">
-          <div class="d-flex align-items-center justify-content-center">
-            <img
+          <!-- <div class="d-flex align-items-center justify-content-center"> -->
+            <!-- <img
               src="{{ $game->imageUrl() }}"
               class="img-fluid product-img"
               alt="product image"
-            />
-          </div>
+            /> -->
+            <div class="swiper-autoplay swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <img class="img-fluid" src="{{ $game->imageUrl() }}" alt="banner" />
+                </div>
+                @foreach(explode(',', $game->screenshots) as $screenshot)
+                  <div class="swiper-slide">
+                    <img class="img-fluid" src="{{ $game->screenshotUrl($screenshot) }}" alt="banner" />
+                  </div>
+                @endforeach
+              </div>
+              <!-- Add Pagination -->
+              <div class="swiper-pagination"></div>
+              <!-- Add Arrows -->
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </div>
+          <!-- </div> -->
         </div>
         <div class="col-12 col-md-7">
           <h4>{{ $game->name }}</h4>
@@ -62,7 +81,7 @@
             </span></li>
             <li><span>-</span></li>
             <li>
-              <span>FREE-TO-PLAY - {!! $game->getF2pDisplay() !!}</span>
+              <span>{!! $game->getF2pDisplay() !!}</span>
             </li>
           </ul>
           <hr />
@@ -150,6 +169,7 @@
   <script src="{{ asset('vendors/js/extensions/swiper.min.js') }}"></script>
   <script src="{{ asset('vendors/js/extensions/toastr.min.js') }}"></script>
   <script src="{{ asset('vendors/js/extensions/jquery.rateyo.min.js') }}"></script>
+  <script src="{{ asset('vendors/js/extensions/swiper.min.js') }}"></script>
 @endsection
 
 @section('page-script')
@@ -170,6 +190,23 @@
     });
 
     $('.rating').rateYo();
+
+    var mySwiper10 = new Swiper('.swiper-autoplay', {
+    spaceBetween: 30,
+    centeredSlides: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    }
+  });
 
   </script>
 @endsection

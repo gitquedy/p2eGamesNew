@@ -32,6 +32,10 @@ class Game extends Model
         return asset('images/game/image/'. $this->image);
     }
 
+    public function screenshotUrl($screenshot){
+        return asset('images/game/screenshots/'. $screenshot);
+    }
+
     public function avgRating(){
         return $this->reviews()
           ->selectRaw('avg(rating) as aggregate, game_id')
