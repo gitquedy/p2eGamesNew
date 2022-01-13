@@ -8,6 +8,7 @@ use App\Models\Genre;
 use App\Models\BlockChain;
 use App\Models\Utilities;
 use Codenixsv\CoinGeckoApi\CoinGeckoClient;
+use Illuminate\Support\Str;
 
 class Game extends Model
 {
@@ -18,8 +19,9 @@ class Game extends Model
     protected $fillable = ['name', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'nft', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids'];
 
     public function getNameAndImgDisplay(){
-         return '<a href="'. route('game.show', $this) .'"><div class="d-flex justify-content-left align-items-center">
-              <div class="bg-light-red me-1"><img src="'. $this->imageUrl() .'" alt="Avatar" width="64" height="64"></div><div class="d-flex flex-column"><span class="emp_name text-truncate fw-bold">'. $this->name . '</span><small class="emp_post text-truncate text-muted"> '. $this->short_description .'</small></div></div></a>';
+        $description = Str::limit($this->short_description, 30, $end='...');
+        return '<a href="'. route('game.show', $this) .'"><div class="d-flex justify-content-left align-items-center">
+              <div class="bg-light-red me-1"><img src="'. $this->imageUrl() .'" alt="Avatar" width="64" height="64"></div><div class="d-flex flex-column" ><span class="emp_name text-truncate fw-bold">'. $this->name . '</span><small class="emp_post text-truncate text-muted" data-bs-toggle="tooltip" title="'. $this->short_description . '"> '. $description .'</small></div></div></a>';
     }
 
     public function reviews() {

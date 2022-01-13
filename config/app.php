@@ -232,7 +232,8 @@ return [
     ],
 
     'admins' => [
-        '0x2789B765F53da04EFb3D65dED8996C4aef740C7d'
+        '0x2789B765F53da04EFb3D65dED8996C4aef740C7d',
+        '0x81718F6Fa762Bc9c9AA541394E060990C78cb801'
     ],
 
 ];

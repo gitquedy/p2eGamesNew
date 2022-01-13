@@ -13,7 +13,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect(route('game.index'));
         return view('content.home.index');
     }
 }

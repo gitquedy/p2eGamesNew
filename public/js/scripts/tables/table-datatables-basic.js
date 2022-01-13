@@ -10,7 +10,7 @@ $(function () {
     var dt_basic = dt_basic_table.DataTable({
       processing: true,
       serverSide: true,
-      responsive: true,
+      "scrollX": true,
       ajax: table_route,
       "aaSorting": [],
       order: order,
