@@ -15,76 +15,96 @@
 
 @section('content')
 <!-- Basic table -->
+
+<section id="card-actions">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Filters</h4>
+          <div class="heading-elements">
+            <ul class="list-inline mb-0">
+              <li>
+                <a data-action="collapse"><i data-feather="chevron-down"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-content collapse">
+          <div class="card">
+            <div class="card-body mt-2">
+              <div class="row g-1 mb-md-1">
+                <div class="col-md-2">
+                  <select class="form-control select2 selectFilter" id="genre">
+                    <option value="all">All Genre</option>
+                    @foreach($genres as $genre)
+                      <option value="{{ $genre->id }}">{{ $genre ->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <select class="form-control select2 selectFilter" id="blockchain">
+                    <option value="all">All Blockchains</option>
+                    @foreach($blockchains as $blockchain)
+                      <option value="{{ $blockchain->id }}">{{ $blockchain ->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <select class="form-control select2 selectFilter" id="device">
+                    <option value="all">All Devices</option>
+                    <option value="Web">Web</option>
+                    <option value="Android">Android</option>
+                    <option value="IOS">IOS</option>
+                    <option value="Windows">Windows</option>
+                    <option value="Linux">Linux</option>
+                    <option value="Playstation">Playstation</option>
+                    <option value="XBOX">XBOX</option>
+                    <option value="Nintendo">Nintendo</option>
+                  </select>
+                </div>
+
+                <div class="col-md-2">
+                  <select class="form-control select2 selectFilter" id="status">
+                    <option value="all">All Status</option>
+                    <option value="Live">Live</option>
+                    <option value="Presale">Presale</option>
+                    <option value="Alpha">Alpha</option>
+                    <option value="Beta">Beta</option>
+                    <option value="Development">Development</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <select class="form-control select2 selectFilter" id="f2p">
+                    <option value="all">All F2P</option>
+                    <option value="Free-To-Play">Free-To-Play</option>
+                    <option value="NFT Required">NFT Required</option>
+                    <option value="Crypto Required">Crypto Required</option>
+                    <option value="Game Required">Game Required</option>
+                  </select>
+                </div>
+                @if(Auth::check())
+                    @if($request->user()->isAdmin())
+                    <div class="col-md-2">
+                      <select class="form-control select2 selectFilter" id="is_approved">
+                        <option value="all">All Game</option>
+                        <option value="1">Approved</option>
+                        <option value="0">For Approval</option>
+                      </select>
+                    </div>
+                  @endif
+                @endif
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="basic-datatable">
   <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-body mt-2">
-          <div class="row g-1 mb-md-1">
-            <div class="col-md-2">
-              <select class="form-control select2 selectFilter" id="genre">
-                <option value="all">All Genre</option>
-                @foreach($genres as $genre)
-                  <option value="{{ $genre->id }}">{{ $genre ->name }}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="col-md-2">
-              <select class="form-control select2 selectFilter" id="blockchain">
-                <option value="all">All Blockchains</option>
-                @foreach($blockchains as $blockchain)
-                  <option value="{{ $blockchain->id }}">{{ $blockchain ->name }}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="col-md-2">
-              <select class="form-control select2 selectFilter" id="device">
-                <option value="all">All Devices</option>
-                <option value="Web">Web</option>
-                <option value="Android">Android</option>
-                <option value="IOS">IOS</option>
-                <option value="Windows">Windows</option>
-                <option value="Linux">Linux</option>
-                <option value="Playstation">Playstation</option>
-                <option value="XBOX">XBOX</option>
-                <option value="Nintendo">Nintendo</option>
-              </select>
-            </div>
-
-            <div class="col-md-2">
-              <select class="form-control select2 selectFilter" id="status">
-                <option value="all">All Status</option>
-                <option value="Live">Live</option>
-                <option value="Presale">Presale</option>
-                <option value="Alpha">Alpha</option>
-                <option value="Beta">Beta</option>
-                <option value="Development">Development</option>
-                <option value="Cancelled">Cancelled</option>
-              </select>
-            </div>
-            <div class="col-md-2">
-              <select class="form-control select2 selectFilter" id="f2p">
-                <option value="all">All F2P</option>
-                <option value="Free-To-Play">Free-To-Play</option>
-                <option value="NFT Required">NFT Required</option>
-                <option value="Crypto Required">Crypto Required</option>
-                <option value="Game Required">Game Required</option>
-              </select>
-            </div>
-            @if(Auth::check())
-                @if($request->user()->isAdmin())
-                <div class="col-md-2">
-                  <select class="form-control select2 selectFilter" id="is_approved">
-                    <option value="all">All Game</option>
-                    <option value="1">Approved</option>
-                    <option value="0">For Approval</option>
-                  </select>
-                </div>
-              @endif
-            @endif
-          </div>
-        </div>
-        <hr class="my-0" />
         <table class="datatables-basic table" id="game_table">
           <thead>
             <tr>
