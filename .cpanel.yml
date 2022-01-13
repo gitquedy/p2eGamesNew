@@ -1,0 +1,4 @@
+deployment:
+ tasks:
+ - export DEPLOYPATH=/home3/p2egames/public_html/app/
+ - /bin/cp -r * $DEPLOYPATH
