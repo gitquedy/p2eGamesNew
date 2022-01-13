@@ -102,7 +102,7 @@
               <th>Blockchains</th>
               <th>Devices</th>
               <th>Status</th>
-              <!-- <th>NFT</th> -->
+              <th>NFT</th>
               <th>F2P</th>
               <th>Minimum Investment</th>
               <th>Rating</th>
@@ -179,7 +179,7 @@
               { data: 'blockchains', name: 'blockchains', 'orderable' : false},
               { data: 'devices', name: 'devices', 'orderable' : false},
               { data: 'status', name: 'status', 'orderable' : false},
-              // { data: 'nft', name: 'nft', 'orderable' : false},
+              { data: 'nft', name: 'nft', 'orderable' : false},
               { data: 'f2p', name: 'f2p', 'orderable' : false},
               { data: 'minimum_investment', name: 'minimum_investment'},
               { data: 'ratings', name: 'ratings', 'orderable' : false},
@@ -193,7 +193,7 @@
               { data: 'blockchains', name: 'blockchains', 'orderable' : false},
               { data: 'devices', name: 'devices', 'orderable' : false},
               { data: 'status', name: 'status', 'orderable' : false},
-              // { data: 'nft', name: 'nft', 'orderable' : false},
+              { data: 'nft', name: 'nft', 'orderable' : false},
               { data: 'f2p', name: 'f2p', 'orderable' : false},
               { data: 'minimum_investment_formatted', name: 'minimum_investment', 'orderable' : false},
               { data: 'ratings', name: 'ratings', 'orderable' : false},
