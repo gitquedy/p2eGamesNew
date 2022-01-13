@@ -17,6 +17,11 @@
   <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-number-input.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-toastr.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-swiper.css') }}">
+  <style type="text/css">
+    .game-links{
+      padding-right:  10px;
+    }
+  </style>
 @endsection
 
 @section('content')
@@ -27,12 +32,6 @@
     <div class="card-body">
       <div class="row my-2">
         <div class="col-12 col-md-5 d-flex align-items-center justify-content-center mb-2 mb-md-0">
-          <!-- <div class="d-flex align-items-center justify-content-center"> -->
-            <!-- <img
-              src="{{ $game->imageUrl() }}"
-              class="img-fluid product-img"
-              alt="product image"
-            /> -->
             <div class="swiper-autoplay swiper-container">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
@@ -44,9 +43,7 @@
                   </div>
                 @endforeach
               </div>
-              <!-- Add Pagination -->
               <div class="swiper-pagination"></div>
-              <!-- Add Arrows -->
               <div class="swiper-button-next"></div>
               <div class="swiper-button-prev"></div>
             </div>
@@ -66,6 +63,11 @@
           <hr />
           <div>
             {!! $game->getBlockChainDisplay() !!}
+            <br><div class="d-flex justify-content-left align-items-center">
+              {!! $game->getGovernanceTokenDisplay() !!}
+              {!! $game->getRewardsToklenDisplay() !!}
+            </div>
+
           </div><br>
           <ul class="product-features list-unstyled">
             <li></li>
@@ -79,12 +81,19 @@
                 {{ $device }}
               @endforeach
             </span></li>
+            <li><i data-feather="dollar-sign"></i> Minimum Investment: <span>
+              {{ $game->minimum_investment ? $game->minimum_investment : '--' }}
+            </span></li>
             <li><span>-</span></li>
             <li>
               <span>{!! $game->getF2pDisplay() !!}</span>
             </li>
           </ul>
           <hr />
+
+          <div class="d-flex justify-content-left align-items-center">
+              {!! $game->get3rdPartyDisplay() !!}
+            </div>
         </div>
       </div>
     </div>
@@ -93,25 +102,46 @@
   <div class="col-12 mt-1" id="blogComment">
       <h6 class="section-label mt-25">Reviews</h6>
       <div class="card">
-        @foreach($game->reviews()->orderBy('created_at', 'desc')->get() as $review)
-          <div class="card-body">
-            <div class="d-flex align-items-start">
-              <div class="avatar me-75">
-                <img src="{{ $review->user->profileUrl() }}" width="38" height="38" alt="Avatar" />
+        <div class="card-body">
+          @foreach($game->reviews()->orderBy('created_at', 'desc')->get() as $review)
+          <div class="row my-2">
+            <div class="col-8">
+              <div class="d-flex align-items-start">
+                <div class="avatar me-75">
+                  <img src="{{ $review->user->profileUrl() }}" width="38" height="38" alt="Avatar" />
+                </div>
+                <div class="author-info">
+                  <h6 class="fw-bolder mb-25" data-toggle="tooltip" title="{{ $review->user->eth_address }}">{{ App\Models\Utilities::limitString($review->user->eth_address, 12) }}</h6>
+                  <p class="card-text"><div class="read-only-ratings rating" data-rateyo-rating="{{ $review->rating }}" data-rateyo-read-only="true"></div> &nbsp {{ $review->rating }}/5 </p>
+                  <p class="card-text">{{ App\Models\Utilities::format_date($review->created_at, 'F d, Y') }} | {{ $review->subject }}</p>
+                  <span class="card-text">
+                    {{ $review->description }}
+                  </span>
+                </div>
               </div>
-              <div class="author-info">
-                <h6 class="fw-bolder mb-25">{{ $review->user->eth_address }}</h6>
-                <p class="card-text">&nbsp {{ $review->rating }}/5<div class="read-only-ratings rating" data-rateyo-rating="{{ $review->rating }}" data-rateyo-read-only="true"></div> </p>
-                <p class="card-text">{{ App\Models\Utilities::format_date($review->created_at, 'F d, Y') }} | {{ $review->subject }}</p>
-                <p class="card-text">
-                  {{ $review->description }}
-                </p>
+            </div>
+            <div class="col-md-4">
+              <div class="swiper-autoplay swiper-container">
+                <div class="swiper-wrapper">
+                  @if($review->screenshots)
+                    @foreach(explode(',', $review->screenshots) as $reviewScreenshot)
+                      <div class="swiper-slide">
+                        <img class="img-fluid" src="{{ $game->screenshotUrl($reviewScreenshot) }}" alt="banner" />
+                      </div>
+                    @endforeach
+                  @endif
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
               </div>
             </div>
           </div>
-        @endforeach
+          @endforeach
+        </div>
       </div>
     </div>
+
 
     @if(Auth::user())
     <div class="col-12 mt-1">
@@ -143,7 +173,7 @@
               <div class="col-sm-6 col-12">
                 <div class="mb-2">
                   <label>Screenshots:</label>
-                  <input type="file" class="form-control" name="screenshots[]" placeholder="screenshots" />
+                  <input type="file" class="form-control" name="screenshots[]" placeholder="screenshots" multiple="multiple" />
                 </div>
               </div>
               <div class="col-12">

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class Utilities extends Model
 {
@@ -77,5 +78,9 @@ class Utilities extends Model
 
     public static function nameLink($action, $name){
         return '<a target="_blank" href="'. $action .'"> '. $name .' <a/>';
+    }
+
+    public function limitString($string, $number, $end = "..."){
+        return Str::limit($string, $number, $end);
     }
 }

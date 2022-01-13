@@ -30,6 +30,13 @@ class CreateGamesTable extends Migration
             // $table->unsignedBigInteger('user_id');
             $table->string('genre_ids');
             $table->string('blockchain_ids');
+
+            $table->string('website')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('discord')->nullable();
+            $table->string('telegram')->nullable();
+            $table->string('github')->nullable();
+            $table->string('facebook')->nullable();
             $table->timestamps();
         });
     }

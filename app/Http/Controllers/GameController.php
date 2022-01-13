@@ -19,7 +19,8 @@ class GameController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('admin', ['only' => ['destroy', 'delete', 'approve', 'approveGame']]);
+        $this->middleware('auth', ['only' => ['create', 'store']]);
+        $this->middleware('admin', ['only' => ['destroy', 'delete', 'approve', 'approveGame', 'edit', 'update']]);
     }
 
     /**
@@ -161,6 +162,12 @@ class GameController extends Controller
             'f2p' => 'required|string',
             'screenshots.*' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'short_description' => 'required',
+            'website' => ['nullable', 'url'],
+            'twitter' => ['nullable', 'url'],
+            'discord' => ['nullable', 'url'],
+            'telegram' => ['nullable', 'url'],
+            'github' => ['nullable', 'url'],
+            'facebook' => ['nullable', 'url'],
           ],[
             'genre_ids.required' => 'The genre field is Required',
             'blockchain_ids.required' => 'The blockChain field is Required',

@@ -142,6 +142,46 @@
                             </div>
                           </div><br>
                           <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="name">Facebook:</label>
+                                    <input type="text" class="form-control" name="facebook" placeholder="https://www.facebook.com/P2EGamesPH">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="name">Website:</label>
+                                    <input type="text" class="form-control" name="website" placeholder="https://p2egames.ph/">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="name">Twitter:</label>
+                                    <input type="text" class="form-control" name="twitter" placeholder="https://twitter.com/p2egamesph">
+                                </div>
+                            </div>
+                          </div><br>
+                          <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="name">Discord:</label>
+                                    <input type="text" class="form-control" name="discord" placeholder="https://discord.gg/p2egamesph">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="name">Telegram:</label>
+                                    <input type="text" class="form-control" name="telegram" placeholder="https://t.me/p2egamesph">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="name">Github:</label>
+                                    <input type="text" class="form-control" name="github" placeholder="https://github.com/p2egamesph">
+                                </div>
+                            </div>
+                          </div><br>
+                          <div class="row">
                             <div class="col-sm-6 offset-sm-5">
                               <button type="submit" class="btn btn-primary me-1 btn_save">Submit</button>
                               <button type="reset" class="btn btn-outline-secondary">Reset</button>

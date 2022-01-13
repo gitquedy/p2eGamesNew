@@ -208,13 +208,15 @@
           ];
       @endif
     @endif
-      var buttons = [{
-          text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Add New Game',
-          className: 'create-new btn btn-primary',
-          attr: {
-            'onclick': 'location.href="' + '{{ route("game.create") }}' + '"',
-          }
-        }];
+      @if(Auth::check())
+        var buttons = [{
+            text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Add New Game',
+            className: 'create-new btn btn-primary',
+            attr: {
+              'onclick': 'location.href="' + '{{ route("game.create") }}' + '"',
+            }
+          }];
+      @endif
         var displayLength = 10;
         var lengthMenu = [10, 50, 100];
 
