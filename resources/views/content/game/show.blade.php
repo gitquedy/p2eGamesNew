@@ -97,10 +97,10 @@
           <div class="card-body">
             <div class="d-flex align-items-start">
               <div class="avatar me-75">
-                <img src="{{asset('images/portrait/small/avatar-s-9.jpg')}}" width="38" height="38" alt="Avatar" />
+                <img src="{{ $review->user->profileUrl() }}" width="38" height="38" alt="Avatar" />
               </div>
               <div class="author-info">
-                <h6 class="fw-bolder mb-25">Chad Alexander</h6>
+                <h6 class="fw-bolder mb-25">{{ $review->user->eth_address }}</h6>
                 <p class="card-text">&nbsp {{ $review->rating }}/5<div class="read-only-ratings rating" data-rateyo-rating="{{ $review->rating }}" data-rateyo-read-only="true"></div> </p>
                 <p class="card-text">{{ App\Models\Utilities::format_date($review->created_at, 'F d, Y') }} | {{ $review->subject }}</p>
                 <p class="card-text">

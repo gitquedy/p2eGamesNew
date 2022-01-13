@@ -28,6 +28,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_photo_path',
     ];
 
     /**
@@ -62,5 +63,9 @@ class User extends Authenticatable
 
     public function isAdmin(){
         return in_array($this->eth_address, config('app.admins'));
+    }
+
+    public function profileUrl(){
+        return asset('images/user/profile/' . $this->profile_photo_path);
     }
 }
