@@ -18,6 +18,13 @@
                 <label>Short Name:*</label>
                 <input type="text" class="form-control" name="short_name" value="{{ $blockchain->short_name }}">
               </div>
+            </div><br>
+            <div class="row">
+              <div class="col-sm-6">
+                <label>Icon:*</label>
+                <small>Currently: <a href="{{ $blockchain->imageUrl() }}" target="_blank">{{ $blockchain->icon }}</a></small>
+                <input type="file" class="form-control" name="icon">
+              </div>
             </div>
         </div>
         <div class="modal-footer">

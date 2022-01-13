@@ -59,4 +59,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function isAdmin(){
+        return in_array($this->eth_address, config('app.admins'));
+    }
 }

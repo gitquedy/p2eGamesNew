@@ -11,12 +11,49 @@ class Utilities extends Model
         return date_format(date_create($date), $format);
     }
 
+    public static function getFeatherIcons(){
+        return [
+            'Edit' => 'edit-2',
+            'Delete' => 'trash',
+            'Approve' => 'check',
+            // 'Web' => 'user',
+            // 'Android' => 'te',
+            // 'IOS' => 'te',
+            // 'Windows' => 'te',
+            // 'Linux' => 'te',
+            // 'Playstation' => 'te',
+            // 'XBOX' => 'te',
+            // 'Nintendo' => 'te',
+        ];
+    }
+
+    public static function getBtnClasses(){
+        return [
+            'Live' => 'primary',
+            'Presale' => 'success',
+            'Alpha' => 'secondary',
+            'Beta' => 'warning',
+            'Development' => 'info',
+            'Cancelled' => 'dark',
+            'Free-To-Play' => 'success',
+            'NFT Required' => 'danger',
+            'Crypto Required' => 'danger',
+            'Game Required' => 'danger',
+        ];
+    }
 
     public function actionDropdown($actions){
-        $html = '<div class="d-inline-flex">
-              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Actions</button><div class="dropdown-menu dropdown-menu-end">';
+        $html = '<div class="dropdown">
+                  <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
+                    <i data-feather="more-vertical"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end">';
+        $icons = static::getFeatherIcons();
         foreach($actions as $action){
-            $html .= '<a href="#" class="dropdown-item modal_button" data-action="'. $action['route'] . '">'. $action['name'] .'</a>';
+            $html .=' <a class="dropdown-item modal_button" href="#" data-action="'. $action['route'] . '">
+                          <i data-feather="'. $icons[$action['name']] .'" class="me-50"></i>
+                          <span>'. $action['name'] .'</span>
+                       </a>';
         }
         $html .= '</div></div>';
         return $html;

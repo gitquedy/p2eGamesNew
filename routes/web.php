@@ -3,10 +3,14 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\StaterkitController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\BlockChainController;
+use Codenixsv\CoinGeckoApi\CoinGeckoClient;
+use App\Models\Game;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,16 +23,36 @@ use App\Http\Controllers\BlockChainController;
 |
 */
 
+// Route::get('/', function(){
+//     $client = new CoinGeckoClient();
+//     $data = Game::first()->getRewardsToklenDisplay();
+//     dd($data);
+// });
 
-Route::get('/', [StaterkitController::class, 'home'])->name('home');
+
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::post('login-web3', \App\Actions\LoginUsingWeb3::class);
 
-Route::resource('/genre', GenreController::class);
-Route::get('/genre/delete/{genre}', [GenreController::class, 'delete'])->name('genre.delete');
 
-Route::resource('/blockchain', BlockChainController::class);
-Route::get('/genre/blockchain/{blockchain}', [BlockChainController::class, 'delete'])->name('blockchain.delete');
 Route::resource('/game', GameController::class);
+
+Route::group(['middleware' => ['auth', 'admin']], function()
+{
+    Route::resource('/genre', GenreController::class);
+    Route::get('/genre/delete/{genre}', [GenreController::class, 'delete'])->name('genre.delete');
+    Route::resource('/blockchain', BlockChainController::class);
+    Route::get('/blockchain/delete/{blockchain}', [BlockChainController::class, 'delete'])->name('blockchain.delete');
+
+    Route::get('/game/delete/{game}', [GameController::class, 'delete'])->name('game.delete');
+    Route::get('/game/approve/{game}', [GameController::class, 'approve'])->name('game.approve');
+    Route::put('/game/approveGame/{game}', [GameController::class, 'approveGame'])->name('game.approveGame');
+});
+
+Route::group(['middleware' => ['auth']], function()
+{
+    Route::post('/review', [ReviewController::class ,'store'])->name('review.store');
+    Route::get('profile/settings/', [UserController::class, 'settings'])->name('profile.settings');
+});
 
 
 // Route::get('/', function () {

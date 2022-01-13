@@ -37,7 +37,7 @@
   display: none;
 }
 .horizontal-menu .header-navbar {
-  background: #fff;
+  background: #0d1520;
   z-index: 999 !important;
   line-height: 1;
   min-height: auto;
@@ -71,7 +71,7 @@
   font-size: inherit;
 }
 .horizontal-menu .header-navbar.navbar-brand-center .navbar-header .navbar-brand .brand-logo img {
-  max-width: 36px;
+  max-width: 140px;
 }
 .horizontal-menu .header-navbar.navbar-brand-center .navbar-header .navbar-brand .brand-text {
   color: #7367f0;

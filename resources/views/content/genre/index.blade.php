@@ -99,8 +99,6 @@
   <script type="text/javascript">
     var table_id = 'genre_table'
     var table_title = 'Genre List';
-    var create_button_href = "{{ route('genre.create') }}";
-    var create_button_type = "modal";
     var table_route = {
           url: '{{ route('genre.index') }}',
           data: function (data) {
@@ -112,6 +110,13 @@
             { data: 'name', name: 'name'},
             { data: 'action', name: 'action', 'orderable' : false}
         ];
+
+      var drawCallback = function( settings ) {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+        feather.replace({
+          width: 14,height: 14
+        });
+      };
   </script>
   <script src="{{ asset('js/scripts/tables/table-datatables-basic.js') }}"></script>
   <script src="{{ asset('js/scripts/forms-validation/form-normal.js') }}"></script>

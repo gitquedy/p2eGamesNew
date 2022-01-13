@@ -30,7 +30,11 @@ class BlockChainController extends Controller
                             $html = Utilities::actionDropdown([['route' => route('blockchain.edit', $blockchain->id), 'name' => 'Edit'], ['route' => route('blockchain.delete', $blockchain->id), 'name' => 'Delete']]);
                             return $html;
                         })
-            ->rawColumns(['action'])
+            ->addColumn('nameAndIcon', function(BlockChain $blockchain) {
+                            $html = $blockchain->getNameAndIconDisplay();
+                            return $html;
+                        })
+            ->rawColumns(['action', 'nameAndIcon'])
             ->make(true);
         }
         return view('content.blockchain.index', [
@@ -58,7 +62,8 @@ class BlockChainController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'unique:blockchains,name'],
-            'short_name' => ['required']
+            'short_name' => ['required'],
+            'icon' => ['required', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()]);
@@ -66,6 +71,12 @@ class BlockChainController extends Controller
         try {
             DB::beginTransaction();
             $data = $request->all();
+            if($request->hasFile('icon')){
+              $photo = $data['icon'];
+              $new_name = 'icon_'  . sha1(time()) . '.' . $photo->getClientOriginalExtension();
+              $photo->move(public_path('images/blockchain/icon') , $new_name);
+              $data['icon'] = $new_name;
+            }
             BlockChain::create($data);
             DB::commit();
             $output = ['success' => 1,
@@ -114,8 +125,9 @@ class BlockChainController extends Controller
     public function update(Request $request, BlockChain $blockchain)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'unique:blockchains,name'],
-            'short_name' => ['required']
+            'name' => ['required', 'unique:blockchains,name,' . $blockchain->id],
+            'short_name' => ['required'],
+            'icon' => ['mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()]);
@@ -123,6 +135,12 @@ class BlockChainController extends Controller
         try {
             DB::beginTransaction();
             $data = $request->all();
+            if($request->hasFile('icon')){
+              $photo = $data['icon'];
+              $new_name = 'icon_'  . sha1(time()) . '.' . $photo->getClientOriginalExtension();
+              $photo->move(public_path('images/blockchain/icon') , $new_name);
+              $data['icon'] = $new_name;
+            }
             $blockchain = $blockchain->update($data);
             DB::commit();
             $output = ['success' => 1,
@@ -144,11 +162,11 @@ class BlockChainController extends Controller
      * @param  \App\Models\BlockChain  $blockChain
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BlockChain $blockChain)
+    public function destroy(BlockChain $blockchain)
     {
         try {
             DB::beginTransaction();
-            $blockChain->update(['is_deleted' => true]);
+            $blockchain->update(['is_deleted' => true]);
             DB::commit();
             $output = ['success' => 1,
                         'msg' => 'BlockChain successfully deleted!'
@@ -163,9 +181,11 @@ class BlockChainController extends Controller
         return response()->json($output);
     }
 
-    public function delete(BlockChain $blockChain){
-        $action = route('blockChain.destroy', $genre->id);
-        $title = 'blockChain ' . $blockChain->name;
+    public function delete(BlockChain $blockchain){
+        $action = route('blockchain.destroy', $blockchain->id);
+        $title = 'blockchain ' . $blockchain->name;
         return view('layouts.delete', compact('action' , 'title'));
     }
+
+
 }

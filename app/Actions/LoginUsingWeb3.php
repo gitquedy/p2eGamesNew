@@ -25,7 +25,7 @@ class LoginUsingWeb3
             ['eth_address' => $request->address]
         ));
 
-        return Redirect::route('dashboard');
+        return Redirect::route('home.index');
     }
 
     protected function authenticate(Request $request): bool

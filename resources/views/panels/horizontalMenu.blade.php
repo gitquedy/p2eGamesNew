@@ -1,3 +1,4 @@
+@inject('request', 'Illuminate\Http\Request')
 @php
 $configData = Helper::applClasses();
 @endphp
@@ -56,41 +57,43 @@ $configData = Helper::applClasses();
       <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
 
         <li class="nav-item {{ $request->segment(1) == '' && $request->segment(2) == '' ? 'active' : '' }}">
-          <a href="" class="nav-link d-flex align-items-center">
+          <a href="/" class="nav-link d-flex align-items-center">
             <i data-feather="home"></i>
             <span>Home</span>
           </a>
         </li>
-
         <li class="nav-item dropdown" data-menu=dropdown>
           <a href="javascript:void(0)" class="nav-link d-flex align-items-center dropdown-toggle" target="_self" data-bs-toggle=dropdown>
             <i data-feather="figma"></i>
             <span>Games</span>
           </a>
             <ul class="dropdown-menu" data-bs-popper="none">
-              <li class="{{ $request->segment(1) == 'game' && $request->segment(2) == '' ? 'active' : '' }}">
+              <li class="{{ $request->segment(1) == 'game' ? 'active' : '' }}">
                 <a href="{{ route('game.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
                   <i data-feather="list"></i>
                   <span>Game List</span>
                 </a>
               </li>
+              @if (Auth::check())
+                @if($request->user()->isAdmin() == true)
+                  <li class="{{ $request->segment(1) == 'genre' && $request->segment(2) == '' ? 'active' : '' }}">
+                    <a href="{{ route('genre.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
+                      <i data-feather="tag"></i>
+                      <span>Genre</span>
+                    </a>
+                  </li>
 
-              <li class="{{ $request->segment(1) == 'genre' && $request->segment(2) == '' ? 'active' : '' }}">
-                <a href="{{ route('genre.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
-                  <i data-feather="tag"></i>
-                  <span>Genre</span>
-                </a>
-              </li>
-
-              <li class="{{ $request->segment(1) == 'blockchain' && $request->segment(2) == '' ? 'active' : '' }}">
-                <a href="{{ route('blockchain.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
-                  <i data-feather="code"></i>
-                  <span>BlockChain</span>
-                </a>
-              </li>
-
+                  <li class="{{ $request->segment(1) == 'blockchain' && $request->segment(2) == '' ? 'active' : '' }}">
+                    <a href="{{ route('blockchain.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
+                      <i data-feather="code"></i>
+                      <span>BlockChain</span>
+                    </a>
+                  </li>
+                @endif
+              @endif
             </ul>
         </li>
+
       </ul>
 
     </div>

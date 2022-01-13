@@ -81,7 +81,7 @@ data-asset-path="{{ asset('/')}}">
   </script> -->
   <!-- <div class="modal-size-xl d-inline-block"> -->
     <div class="modal fade view_modal" tabindex="-1" role="dialog"
-    aria-labelledby="#modal-title" aria-hidden="true" data-backdrop="static">
+    aria-labelledby="#modal-title" aria-hidden="true" data-backdrop="static" id="view_modal">
     </div>
   <!-- </div> -->
 

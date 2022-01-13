@@ -17,6 +17,7 @@ class CreateBlockchainsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('short_name');
+            $table->string('icon');
             $table->boolean('is_deleted')->default(0);
             $table->timestamps();
         });

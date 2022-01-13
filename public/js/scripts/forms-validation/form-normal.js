@@ -42,7 +42,15 @@ $(function() {
           }
           }else{
             if(result.msg){
-              toastr.error(result.msg);
+              Swal.fire({
+                icon: 'error',
+                title: result.msg,
+                showConfirmButton: false,
+                timer: 1500,
+                showClass: {
+                  popup: 'animate__animated animate__fadeIn'
+                },
+              });
             }
             $('.error').remove();
               $.each(result.error, function(index, val){

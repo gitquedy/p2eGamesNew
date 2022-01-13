@@ -34,17 +34,24 @@
               @csrf
               <div class="form-body">
                 <div class="row">
-                      <div class="col-6">
+                      <div class="col-4">
                           <div class="form-group">
                               <label for="name">BlockChain Name</label>
                               <input type="text" class="form-control" name="name" placeholder="BlockChain Name">
                           </div>
                       </div>
 
-                      <div class="col-6">
+                      <div class="col-4">
                           <div class="form-group">
                               <label for="name">Short Name</label>
                               <input type="text" class="form-control" name="short_name" placeholder="Short Name">
+                          </div>
+                      </div>
+
+                      <div class="col-4">
+                          <div class="form-group">
+                              <label for="name">Icon</label>
+                              <input type="file" class="form-control" name="icon" placeholder="icon">
                           </div>
                       </div>
                   </div><br>
@@ -107,8 +114,6 @@
   <script type="text/javascript">
     var table_id = 'blockchain_table'
     var table_title = 'BlockChain List';
-    var create_button_href = "{{ route('blockchain.create') }}";
-    var create_button_type = "modal";
     var table_route = {
           url: '{{ route('blockchain.index') }}',
           data: function (data) {
@@ -117,10 +122,17 @@
         };
       var columnns = [
             { data: 'id', name: 'id'},
-            { data: 'name', name: 'name'},
+            { data: 'nameAndIcon', name: 'name'},
             { data: 'short_name', name: 'short_name'},
             { data: 'action', name: 'action', 'orderable' : false}
         ];
+
+      var drawCallback = function( settings ) {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+        feather.replace({
+          width: 14,height: 14
+        });
+      };
   </script>
   <script src="{{ asset('js/scripts/tables/table-datatables-basic.js') }}"></script>
   <script src="{{ asset('js/scripts/forms-validation/form-normal.js') }}"></script>
