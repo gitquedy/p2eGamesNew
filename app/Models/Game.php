@@ -16,7 +16,7 @@ class Game extends Model
 
     protected $table = 'games';
 
-    protected $fillable = ['name', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'nft', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids'];
+    protected $fillable = ['name', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids'];
 
     public function getNameAndImgDisplay(){
         $description = Str::limit($this->short_description, 30, $end='...');
@@ -100,14 +100,6 @@ class Game extends Model
         $html = '<div class="d-flex justify-content-left align-items-center"><div class="d-flex flex-column">';
         $html .= '<button class="btn btn-outline-'. $btnClasses[$this->status] .' btn-sm" data-bs-toggle="tooltip" title="'. $this->status . '">'. $this->status . '</button>';
         $html .= '</div></div>';
-        return $html;
-     }
-
-     public function getNftDisplay(){
-        $title = $this->nft ? 'Yes' : 'No';
-        $tooltip = $this->nft ? 'NFT Support' : 'No NFT Support';
-        $class = $this->nft ? 'success' : 'danger';
-        $html = '<button class="btn btn-'. $class . ' btn-sm" data-bs-toggle="tooltip" title="'. $tooltip . '">'. $title . '</button>';
         return $html;
      }
 

@@ -60,9 +60,6 @@
                 {{ $device }}
               @endforeach
             </span></li>
-            <li>
-              <span>NFT SUPPORT - {!! $game->getNftDisplay() !!}</span>
-            </li>
             <li><span>-</span></li>
             <li>
               <span>FREE-TO-PLAY - {!! $game->getF2pDisplay() !!}</span>

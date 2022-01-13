@@ -46,9 +46,6 @@ class GameController extends Controller
             if($request->status != "all"){
                 $game->where('status', $request->status);
             }
-            if($request->nft != "all"){
-                $game->where('nft', $request->nft);
-            }
             if($request->f2p != "all"){
                 $game->where('f2p', $request->f2p);
             }
@@ -101,12 +98,6 @@ class GameController extends Controller
                 $html = $game->getStatusDisplay();
                 return $html;
             })
-            ->addColumn('nft', function(Game $game) {
-                $html = '<div class="d-flex justify-content-left align-items-center"><div class="d-flex flex-column">';
-                $html .= $game->getNftDisplay();
-                $html .= '</div></div>';
-                return $html;
-            })
             ->addColumn('f2p', function(Game $game) {
                 $html = '<div class="d-flex justify-content-left align-items-center"><div class="d-flex flex-column">';
                 $html .= $game->getF2pDisplay();
@@ -124,7 +115,7 @@ class GameController extends Controller
                 return number_format($game->minimum_investment, 2);
             })
 
-            ->rawColumns(['action', 'nameAndImgDisplay', 'genres', 'blockchains', 'devices', 'status', 'nft', 'f2p', 'ratings'])
+            ->rawColumns(['action', 'nameAndImgDisplay', 'genres', 'blockchains', 'devices', 'status', 'f2p', 'ratings'])
             ->make(true);
         }
         $genres = Genre::all();
@@ -167,7 +158,6 @@ class GameController extends Controller
             'governance_token' => ['nullable','string', new ValidApiId],
             'rewards_token' => ['nullable','string', new ValidApiId],
             'minimum_investment' => ['nullable', 'integer'],
-            'nft' => 'required|boolean',
             'f2p' => 'required|string',
             'screenshots.*' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'short_description' => 'required',
@@ -267,7 +257,6 @@ class GameController extends Controller
             'governance_token' => ['nullable','string', new ValidApiId],
             'rewards_token' => ['nullable','string', new ValidApiId],
             'minimum_investment' => ['nullable', 'integer'],
-            'nft' => 'required|boolean',
             'f2p' => 'required|string',
             'screenshots.*' => ['mimes:jpeg,png,jpg,gif,svg','max:2048'],
             'short_description' => 'required',

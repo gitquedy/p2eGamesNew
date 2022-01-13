@@ -62,14 +62,6 @@
                 <option value="Cancelled">Cancelled</option>
               </select>
             </div>
-
-            <div class="col-md-2">
-              <select class="form-control select2 selectFilter" id="nft">
-                <option value="all">All NFT</option>
-                <option value="1">NFT Support</option>
-                <option value="0">No NFT Support</option>
-              </select>
-            </div>
             <div class="col-md-2">
               <select class="form-control select2 selectFilter" id="f2p">
                 <option value="all">All F2P</option>
@@ -102,7 +94,6 @@
               <th>Blockchains</th>
               <th>Devices</th>
               <th>Status</th>
-              <th>NFT</th>
               <th>F2P</th>
               <th>Minimum Investment</th>
               <th>Rating</th>
@@ -152,7 +143,6 @@
                   data.blockchain = $("#blockchain").val();
                   data.device = $("#device").val();
                   data.status = $("#status").val();
-                  data.nft = $("#nft").val();
                   data.f2p = $("#f2p").val();
               }
           };
@@ -165,7 +155,6 @@
                   data.blockchain = $("#blockchain").val();
                   data.device = $("#device").val();
                   data.status = $("#status").val();
-                  data.nft = $("#nft").val();
                   data.f2p = $("#f2p").val();
                   data.is_approved = $("#is_approved").val();
               }
@@ -179,7 +168,6 @@
               { data: 'blockchains', name: 'blockchains', 'orderable' : false},
               { data: 'devices', name: 'devices', 'orderable' : false},
               { data: 'status', name: 'status', 'orderable' : false},
-              { data: 'nft', name: 'nft', 'orderable' : false},
               { data: 'f2p', name: 'f2p', 'orderable' : false},
               { data: 'minimum_investment', name: 'minimum_investment'},
               { data: 'ratings', name: 'ratings', 'orderable' : false},
@@ -193,7 +181,6 @@
               { data: 'blockchains', name: 'blockchains', 'orderable' : false},
               { data: 'devices', name: 'devices', 'orderable' : false},
               { data: 'status', name: 'status', 'orderable' : false},
-              { data: 'nft', name: 'nft', 'orderable' : false},
               { data: 'f2p', name: 'f2p', 'orderable' : false},
               { data: 'minimum_investment_formatted', name: 'minimum_investment', 'orderable' : false},
               { data: 'ratings', name: 'ratings', 'orderable' : false},

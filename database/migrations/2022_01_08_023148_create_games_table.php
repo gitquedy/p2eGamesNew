@@ -24,7 +24,6 @@ class CreateGamesTable extends Migration
             $table->string('governance_token')->nullable();
             $table->string('rewards_token')->nullable();
             $table->double('minimum_investment', 20, 4)->nullable();
-            $table->boolean('nft');
             $table->string('f2p');
             $table->string('screenshots')->nullable();
             $table->boolean('is_approved')->default(0);

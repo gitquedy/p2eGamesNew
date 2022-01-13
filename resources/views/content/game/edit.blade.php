@@ -83,15 +83,6 @@
                   </div>
               </div>
             <div class="col-4">
-              <div class="form-group">
-                  <label for="nft">NFT:*</label>
-                  <select class="form-control select2Modal" name="nft" placeholder="Select NFT Type">
-                    <option value="1" {{ $game->nft == 1 ? 'selected' : '' }}>NFT Support</option>
-                    <option value="0" {{ $game->nft == 0 ? 'selected' : '' }}>No NFT Support</option>
-                  </select>
-              </div>
-            </div>
-            <div class="col-4">
                 <div class="form-group">
                     <label for="nft">F2P:*</label>
                     <select class="form-control select2Modal" name="f2p" placeholder="Select f2p Type">
@@ -102,9 +93,7 @@
                     </select>
                 </div>
             </div>
-        </div><br>
-        <div class="row">
-          <div class="col-4">
+            <div class="col-4">
                 <div class="form-group">
                     <label for="nft">Device:*<i class="ficon" data-feather="info" data-bs-toggle="tooltip" title="You can select multiple"></i></label>
                     <select class="form-control select2Modal" name="device[]" placeholder="Select device" multiple="multiple">

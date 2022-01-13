@@ -94,16 +94,6 @@
                                     </div>
                                 </div>
                               <div class="col-4">
-                                <div class="form-group">
-                                    <label for="nft">NFT:*</label>
-                                    <select class="form-control select2" name="nft" placeholder="Select NFT Type">
-                                      <option value="" disabled selected></option>
-                                      <option value="1">NFT Support</option>
-                                      <option value="0">No NFT Support</option>
-                                    </select>
-                                </div>
-                              </div>
-                              <div class="col-4">
                                   <div class="form-group">
                                       <label for="nft">F2P:*</label>
                                       <select class="form-control select2" name="f2p" placeholder="Select f2p Type">
@@ -115,11 +105,9 @@
                                       </select>
                                   </div>
                               </div>
-                          </div><br>
-                          <div class="row">
-                            <div class="col-4">
+                              <div class="col-4">
                                   <div class="form-group">
-                                      <label for="nft">Device:*<i class="ficon" data-feather="info" data-bs-toggle="tooltip" title="You can select multiple"></i></label>
+                                      <label for="device">Device:*<i class="ficon" data-feather="info" data-bs-toggle="tooltip" title="You can select multiple"></i></label>
                                       <select class="form-control select2" name="device[]" placeholder="Select device" multiple="multiple">
                                         <option value="Web">Web</option>
                                         <option value="Android">Android</option>
