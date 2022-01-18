@@ -226,7 +226,9 @@ class GameController extends Controller
         $breadcrumbs = [
             ['link'=>"/",'name'=>"Home"],['link'=> route('game.index'), 'name'=>"Games"], ['name'=> $game->name]
         ];
-        return view('content.game.show', compact('game', 'breadcrumbs'));
+        $rewards_coin = $game->rewards_coin;
+        $governance_coin = $game->governance_coin;
+        return view('content.game.show', compact('game', 'breadcrumbs', 'rewards_coin', 'governance_coin'));
     }
 
     /**

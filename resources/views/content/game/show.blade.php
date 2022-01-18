@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/toastr.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/jquery.rateyo.min.css')}}">
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/swiper.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
+
 @endsection
 
 @section('page-style')
@@ -17,6 +19,8 @@
   <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-number-input.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-toastr.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-swiper.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/pickers/form-flat-pickr.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/base/plugins/charts/chart-apex.css') }}">
   <style type="text/css">
     .game-links{
       padding-right:  10px;
@@ -64,8 +68,8 @@
           <div>
             {!! $game->getBlockChainDisplay() !!}
             <br><div class="d-flex justify-content-left align-items-center">
-              {!! $game->getGovernanceTokenDisplay() !!}
-              {!! $game->getRewardsToklenDisplay() !!}
+              {!! $game->governance_token ? $game->getCoinDisplay($governance_coin) : '' !!}
+              {!! $game->rewards_token ? $game->getCoinDisplay($rewards_coin) : '' !!}
             </div>
 
           </div><br>
@@ -97,8 +101,58 @@
         </div>
       </div>
     </div>
-    <!-- Product Details ends -->
   </div>
+   <!-- Product Details ends -->
+
+  <!-- Governance Token -->
+    @if($game->governance_token)
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
+            <div>
+              <h4 class="card-title mb-25">{!! $game->getCoinDisplay($governance_coin) !!} {{ $governance_coin['name'] }} ({{ strtoupper($governance_coin['symbol']) }}) </h4>
+              <span class="card-subtitle text-muted"><a href="{{ $governance_coin['links']['blockchain_site'][0] }}" target="_blank">Contract Address: {{ $governance_coin['contract_address'] }}</a></span>
+            </div>
+            <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
+              <h5 class="fw-bolder mb-0 me-1">₱ {{ $governance_coin['market_data']['current_price']['php'] }}</h5>
+              <span class="badge badge-light-secondary">
+                <i class="text-{{ $governance_coin['market_data']['price_change_percentage_30d'] < 0 ? 'danger' : 'success'}} font-small-3" data-feather="arrow-{{ $governance_coin['market_data']['price_change_percentage_30d'] < 0 ? 'down' : 'up'}}"></i>
+                <span class="align-middle">{{ number_format($governance_coin['market_data']['price_change_percentage_30d'], 2) }}% 30d</span>
+              </span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="governance_token"></div>
+          </div>
+        </div>
+      </div>
+    @endif
+    <!-- Governance token -->
+
+     <!-- Rewards Token -->
+    @if($game->rewards_token)
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
+            <div>
+              <h4 class="card-title mb-25">{!! $game->getCoinDisplay($rewards_coin) !!} {{ $rewards_coin['name'] }} ({{ strtoupper($rewards_coin['symbol']) }}) </h4>
+              <span class="card-subtitle text-muted"><a href="{{ $rewards_coin['links']['blockchain_site'][0] }}" target="_blank">Contract Address: {{ $rewards_coin['contract_address'] }}</a></span>
+            </div>
+            <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
+              <h5 class="fw-bolder mb-0 me-1">₱ {{ $rewards_coin['market_data']['current_price']['php'] }}</h5>
+              <span class="badge badge-light-secondary">
+                <i class="text-{{ $rewards_coin['market_data']['price_change_percentage_30d'] < 0 ? 'danger' : 'success'}} font-small-3" data-feather="arrow-{{ $rewards_coin['market_data']['price_change_percentage_30d'] < 0 ? 'down' : 'up'}}"></i>
+                <span class="align-middle">{{ number_format($rewards_coin['market_data']['price_change_percentage_30d'], 2) }}% 30d</span>
+              </span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="rewards_token"></div>
+          </div>
+        </div>
+      </div>
+    @endif
+    <!-- Rewards token -->
   <div class="col-12 mt-1" id="blogComment">
       <h6 class="section-label mt-25">Reviews</h6>
       <div class="card">
@@ -141,6 +195,8 @@
         </div>
       </div>
     </div>
+
+
 
 
     @if(Auth::user())
@@ -189,6 +245,7 @@
     </div>
     @endif
 
+
 </section>
 <!-- app e-commerce details end -->
 @endsection
@@ -200,6 +257,7 @@
   <script src="{{ asset('vendors/js/extensions/toastr.min.js') }}"></script>
   <script src="{{ asset('vendors/js/extensions/jquery.rateyo.min.js') }}"></script>
   <script src="{{ asset('vendors/js/extensions/swiper.min.js') }}"></script>
+  <script src="{{ asset('vendors/js/charts/apexcharts.min.js') }}"></script>
 @endsection
 
 @section('page-script')
@@ -238,5 +296,143 @@
     }
   });
 
+  </script>
+  <script type="text/javascript">
+    @if($game->governance_token)
+    var governance_chart_data = @json($game->governance_market_chart['prices']);
+    var options = {
+        series: [{
+        name: '{{ $game->governance_token }}',
+        data: governance_chart_data
+      }],
+        chart: {
+        type: 'area',
+        stacked: false,
+        height: 350,
+        zoom: {
+          type: 'x',
+          enabled: true,
+          autoScaleYaxis: true
+        },
+        toolbar: {
+          autoSelected: 'zoom'
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      markers: {
+        size: 0,
+      },
+      title: {
+        text: '',
+        align: 'left'
+      },
+      fill: {
+        type: 'gradient',
+        gradient: {
+          shadeIntensity: 1,
+          inverseColors: false,
+          opacityFrom: 0.5,
+          opacityTo: 0,
+          stops: [0, 90, 100]
+        },
+      },
+      yaxis: {
+        labels: {
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+        },
+        title: {
+          text: 'Price'
+        },
+      },
+      xaxis: {
+        type: 'datetime',
+      },
+      tooltip: {
+        shared: false,
+        y: {
+          formatter: function (val) {
+            return val.toFixed(2);
+          }
+        }
+      }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#governance_token"), options);
+    chart.render();
+
+    @endif
+
+
+     @if($game->rewards_token)
+    var rewards_chart_data = @json($game->rewards_market_chart['prices']);
+    var options = {
+        series: [{
+        name: '{{ $game->rewards_token }}',
+        data: rewards_chart_data
+      }],
+        chart: {
+        type: 'area',
+        stacked: false,
+        height: 350,
+        zoom: {
+          type: 'x',
+          enabled: true,
+          autoScaleYaxis: true
+        },
+        toolbar: {
+          autoSelected: 'zoom'
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      markers: {
+        size: 0,
+      },
+      title: {
+        text: '',
+        align: 'left'
+      },
+      fill: {
+        type: 'gradient',
+        gradient: {
+          shadeIntensity: 1,
+          inverseColors: false,
+          opacityFrom: 0.5,
+          opacityTo: 0,
+          stops: [0, 90, 100]
+        },
+      },
+      yaxis: {
+        labels: {
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+        },
+        title: {
+          text: 'Price'
+        },
+      },
+      xaxis: {
+        type: 'datetime',
+      },
+      tooltip: {
+        shared: false,
+        y: {
+          formatter: function (val) {
+            return val.toFixed(2);
+          }
+        }
+      }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#rewards_token"), options);
+    chart.render();
+
+    @endif
   </script>
 @endsection

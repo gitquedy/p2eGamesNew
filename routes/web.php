@@ -23,14 +23,14 @@ use App\Http\Controllers\ReviewController;
 |
 */
 
-// Route::get('/', function(){
-//     $client = new CoinGeckoClient();
-//     $data = Game::first()->getRewardsToklenDisplay();
-//     dd($data);
-// });
+Route::get('/', function(){
+    $client = new CoinGeckoClient();
+    $coin = $client->coins()->getMarketChart('smooth-love-potion', 'usd', "1");
+    dd($coin);
+});
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
+// Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::post('login-web3', \App\Actions\LoginUsingWeb3::class);
 
 

@@ -54,26 +54,7 @@ class Game extends Model
     }
 
 
-    public function getGovernanceTokenDisplay() {
-        if($this->governance_token){
-            $client = new CoinGeckoClient();
-            $coin = $client->coins()->getCoin($this->governance_token, ['tickers' => 'true']);
-            return $this->getCoinDisplay($coin);
-        }
-    }
 
-    public function getRewardsToklenDisplay() {
-        if($this->rewards_token){
-            $client = new CoinGeckoClient();
-            $coin = $client->coins()->getCoin($this->rewards_token, ['tickers' => 'false']);
-            return $this->getCoinDisplay($coin);
-        }
-     }
-
-     public function getCoinDisplay($coin){
-        $html = '<img src="'. $coin['image']['small'] .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $coin['name'] . ' ('. strtoupper($coin['symbol']). ')">';
-        return $html;
-     }
 
      public function genres(){
           $ids = explode(',', $this->genre_ids);
@@ -144,10 +125,53 @@ class Game extends Model
             $html .= '<a href="'. $this->github .'" class="game-links"><img src="'. asset('images/links/github.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->github .'"></a>';
         }
         return $html;
+     }
+
+     public function getGovernanceMarketChartAttribute(){
+        if($this->governance_token){
+            $client = new CoinGeckoClient();
+            $governance_token = $client->coins()->getMarketChart($this->governance_token, 'php', "30");
+        }
+        return $this->governance_token ? $governance_token : null;
+     }
+
+     public function getRewardsMarketChartAttribute(){
+        if($this->rewards_token){
+            $client = new CoinGeckoClient();
+            $rewards_token = $client->coins()->getMarketChart($this->rewards_token, 'php', "30");
+        }
+        return $this->rewards_token ? $rewards_token : null;
+     }
+
+     public function getRewardsCoinAttribute(){
+        if($this->rewards_token){
+            $client = new CoinGeckoClient();
+            $coin = $client->coins()->getCoin($this->rewards_token, ['tickers' => 'true']);
+        }
+        return $this->rewards_token ? $coin : null;
+     }
+
+     public function getGovernanceCoinAttribute(){
+        if($this->governance_token){
+            $client = new CoinGeckoClient();
+            $coin = $client->coins()->getCoin($this->governance_token, ['tickers' => 'true']);
+        }
+        return $this->governance_token ? $coin : null;
+     }
 
 
+     public function getGovernanceTokenDisplay() {
+        $coin = $this->rewards_coin;
+        return $coin ? $this->getCoinDisplay($coin) : '';
+    }
 
+    public function getRewardsToklenDisplay() {
+         $coin = $this->governance_coin;
+         return $coin ? $this->getCoinDisplay($coin) : '';
+     }
 
-
+     public function getCoinDisplay($coin){
+        $html = '<img src="'. $coin['image']['small'] .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $coin['name'] . ' ('. strtoupper($coin['symbol']). ')">';
+        return $html;
      }
 }

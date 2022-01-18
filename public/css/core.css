@@ -18718,6 +18718,7 @@ footer.footer-border {
   overflow-y: scroll !important;
 }
 .main-menu .navbar-header {
+  background-color: #0d1520;
   height: 100%;
   width: 260px;
   height: 4.45rem;
@@ -18732,7 +18733,7 @@ footer.footer-border {
   font-size: inherit;
 }
 .main-menu .navbar-header .navbar-brand .brand-logo img {
-  max-width: 36px;
+  max-width: 200px;
 }
 .main-menu .navbar-header .navbar-brand .brand-text {
   color: #7367f0;

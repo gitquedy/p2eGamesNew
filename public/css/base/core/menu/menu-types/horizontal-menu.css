@@ -71,7 +71,7 @@
   font-size: inherit;
 }
 .horizontal-menu .header-navbar.navbar-brand-center .navbar-header .navbar-brand .brand-logo img {
-  max-width: 140px;
+  max-width: 200px;
 }
 .horizontal-menu .header-navbar.navbar-brand-center .navbar-header .navbar-brand .brand-text {
   color: #7367f0;
@@ -401,7 +401,7 @@
     display: none;
   }
   .horizontal-layout .header-navbar {
-    background: #fff;
+    background: #0d1520;
   }
   .horizontal-layout .app-content {
     padding: calc(4.45rem + calc(2rem - 0.8rem)) calc(2rem - 0.8rem) 0 calc(2rem - 0.8rem) !important;
