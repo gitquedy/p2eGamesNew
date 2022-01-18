@@ -67,11 +67,6 @@
           <hr />
           <div>
             {!! $game->getBlockChainDisplay() !!}
-            <br><div class="d-flex justify-content-left align-items-center">
-              {!! $game->governance_token ? $game->getCoinDisplay($governance_coin) : '' !!}
-              {!! $game->rewards_token ? $game->getCoinDisplay($rewards_coin) : '' !!}
-            </div>
-
           </div><br>
           <ul class="product-features list-unstyled">
             <li></li>
@@ -106,51 +101,13 @@
 
   <!-- Governance Token -->
     @if($game->governance_token)
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
-            <div>
-              <h4 class="card-title mb-25">{!! $game->getCoinDisplay($governance_coin) !!} {{ $governance_coin['name'] }} ({{ strtoupper($governance_coin['symbol']) }}) </h4>
-              <span class="card-subtitle text-muted"><a href="{{ $governance_coin['links']['blockchain_site'][0] }}" target="_blank">Contract Address: {{ $governance_coin['contract_address'] }}</a></span>
-            </div>
-            <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
-              <h5 class="fw-bolder mb-0 me-1">₱ {{ $governance_coin['market_data']['current_price']['php'] }}</h5>
-              <span class="badge badge-light-secondary">
-                <i class="text-{{ $governance_coin['market_data']['price_change_percentage_30d'] < 0 ? 'danger' : 'success'}} font-small-3" data-feather="arrow-{{ $governance_coin['market_data']['price_change_percentage_30d'] < 0 ? 'down' : 'up'}}"></i>
-                <span class="align-middle">{{ number_format($governance_coin['market_data']['price_change_percentage_30d'], 2) }}% 30d</span>
-              </span>
-            </div>
-          </div>
-          <div class="card-body">
-            <div id="governance_token"></div>
-          </div>
-        </div>
-      </div>
+      @include('content.game.partials.coin-chart', ['game' => $game, 'coin' => $governance_coin, 'chart_name' => 'governance_market_chart'])
     @endif
     <!-- Governance token -->
 
      <!-- Rewards Token -->
     @if($game->rewards_token)
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
-            <div>
-              <h4 class="card-title mb-25">{!! $game->getCoinDisplay($rewards_coin) !!} {{ $rewards_coin['name'] }} ({{ strtoupper($rewards_coin['symbol']) }}) </h4>
-              <span class="card-subtitle text-muted"><a href="{{ $rewards_coin['links']['blockchain_site'][0] }}" target="_blank">Contract Address: {{ $rewards_coin['contract_address'] }}</a></span>
-            </div>
-            <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
-              <h5 class="fw-bolder mb-0 me-1">₱ {{ $rewards_coin['market_data']['current_price']['php'] }}</h5>
-              <span class="badge badge-light-secondary">
-                <i class="text-{{ $rewards_coin['market_data']['price_change_percentage_30d'] < 0 ? 'danger' : 'success'}} font-small-3" data-feather="arrow-{{ $rewards_coin['market_data']['price_change_percentage_30d'] < 0 ? 'down' : 'up'}}"></i>
-                <span class="align-middle">{{ number_format($rewards_coin['market_data']['price_change_percentage_30d'], 2) }}% 30d</span>
-              </span>
-            </div>
-          </div>
-          <div class="card-body">
-            <div id="rewards_token"></div>
-          </div>
-        </div>
-      </div>
+      @include('content.game.partials.coin-chart', ['game' => $game, 'coin' => $rewards_coin, 'chart_name' => 'rewards_market_chart'])
     @endif
     <!-- Rewards token -->
   <div class="col-12 mt-1" id="blogComment">
@@ -297,13 +254,15 @@
   });
 
   </script>
-  <script type="text/javascript">
-    @if($game->governance_token)
-    var governance_chart_data = @json($game->governance_market_chart['prices']);
+
+<script type="text/javascript">
+
+    var governance_market_chart = @json($game->governance_market_chart['prices']);
+
     var options = {
         series: [{
         name: '{{ $game->governance_token }}',
-        data: governance_chart_data
+        data: governance_market_chart
       }],
         chart: {
         type: 'area',
@@ -361,78 +320,16 @@
       }
     };
 
-    var chart = new ApexCharts(document.querySelector("#governance_token"), options);
-    chart.render();
+    var governance_chart = new ApexCharts(document.querySelector("#governance_market_chart"), options);
+    governance_chart.render();
 
-    @endif
+    var rewards_market_chart = @json($game->rewards_market_chart['prices']);
+    options.series[0].name = '{{ $game->rewards_token }}';
+    options.series[0].data = rewards_market_chart;
+
+    var rewards_chart = new ApexCharts(document.querySelector("#rewards_market_chart"), options);
+    rewards_chart.render();
+</script>
 
 
-     @if($game->rewards_token)
-    var rewards_chart_data = @json($game->rewards_market_chart['prices']);
-    var options = {
-        series: [{
-        name: '{{ $game->rewards_token }}',
-        data: rewards_chart_data
-      }],
-        chart: {
-        type: 'area',
-        stacked: false,
-        height: 350,
-        zoom: {
-          type: 'x',
-          enabled: true,
-          autoScaleYaxis: true
-        },
-        toolbar: {
-          autoSelected: 'zoom'
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      markers: {
-        size: 0,
-      },
-      title: {
-        text: '',
-        align: 'left'
-      },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shadeIntensity: 1,
-          inverseColors: false,
-          opacityFrom: 0.5,
-          opacityTo: 0,
-          stops: [0, 90, 100]
-        },
-      },
-      yaxis: {
-        labels: {
-          formatter: function (val) {
-            return val.toFixed(0);
-          },
-        },
-        title: {
-          text: 'Price'
-        },
-      },
-      xaxis: {
-        type: 'datetime',
-      },
-      tooltip: {
-        shared: false,
-        y: {
-          formatter: function (val) {
-            return val.toFixed(2);
-          }
-        }
-      }
-    };
-
-    var chart = new ApexCharts(document.querySelector("#rewards_token"), options);
-    chart.render();
-
-    @endif
-  </script>
 @endsection

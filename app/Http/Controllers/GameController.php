@@ -34,7 +34,7 @@ class GameController extends Controller
             ['link'=>"/",'name'=>"Home"],['link'=> route('game.index'), 'name'=>"Games"], ['name'=>"list of Games"]
         ];
         if (request()->ajax()) {
-            $game = Game::orderBy('updated_at', 'desc');
+            $game = Game::withAvg('reviews', 'rating')->orderBy('reviews_avg_rating', 'desc');
             if($request->genre != "all"){
                 $game->whereRaw('find_in_set("'. $request->genre .'",genre_ids)');
             }
@@ -59,6 +59,7 @@ class GameController extends Controller
             }
 
             return Datatables::eloquent($game)
+            ->addIndexColumn()
             ->addColumn('action', function(Game $game) {
                             if($game->is_approved){
                                 $actions = [

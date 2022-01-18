@@ -182,7 +182,7 @@
       @endif
     @endif
     var columnns = [
-              { data: 'id', name: 'id', 'orderable' : false},
+              { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
               { data: 'nameAndImgDisplay', name: 'name', 'orderable' : false},
               { data: 'genres', name: 'genres', 'orderable' : false},
               { data: 'blockchains', name: 'blockchains', 'orderable' : false},
@@ -195,7 +195,7 @@
     @if(Auth::check())
       @if($request->user()->isAdmin())
         var columnns = [
-              { data: 'id', name: 'id', 'orderable' : false},
+              { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
               { data: 'nameAndImgDisplay', name: 'name', 'orderable' : false},
               { data: 'genres', name: 'genres', 'orderable' : false},
               { data: 'blockchains', name: 'blockchains', 'orderable' : false},

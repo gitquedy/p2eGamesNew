@@ -146,7 +146,7 @@ class Game extends Model
      public function getRewardsCoinAttribute(){
         if($this->rewards_token){
             $client = new CoinGeckoClient();
-            $coin = $client->coins()->getCoin($this->rewards_token, ['tickers' => 'true']);
+            $coin = $client->coins()->getCoin($this->rewards_token, ['tickers' => 'false']);
         }
         return $this->rewards_token ? $coin : null;
      }
@@ -154,7 +154,7 @@ class Game extends Model
      public function getGovernanceCoinAttribute(){
         if($this->governance_token){
             $client = new CoinGeckoClient();
-            $coin = $client->coins()->getCoin($this->governance_token, ['tickers' => 'true']);
+            $coin = $client->coins()->getCoin($this->governance_token, ['tickers' => 'false']);
         }
         return $this->governance_token ? $coin : null;
      }
