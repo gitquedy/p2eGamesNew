@@ -189,7 +189,7 @@
               { data: 'devices', name: 'devices', 'orderable' : false},
               { data: 'status', name: 'status', 'orderable' : false},
               { data: 'f2p', name: 'f2p', 'orderable' : false},
-              { data: 'minimum_investment', name: 'minimum_investment'},
+              { data: 'minimum_investment_formatted', name: 'minimum_investment'},
               { data: 'ratings', name: 'ratings', 'orderable' : false},
           ];
     @if(Auth::check())

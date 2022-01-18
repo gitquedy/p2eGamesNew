@@ -256,7 +256,7 @@
   </script>
 
 <script type="text/javascript">
-
+    @if($game->governance_token)
     var governance_market_chart = @json($game->governance_market_chart['prices']);
 
     var options = {
@@ -322,13 +322,16 @@
 
     var governance_chart = new ApexCharts(document.querySelector("#governance_market_chart"), options);
     governance_chart.render();
+    @endif
 
-    var rewards_market_chart = @json($game->rewards_market_chart['prices']);
-    options.series[0].name = '{{ $game->rewards_token }}';
-    options.series[0].data = rewards_market_chart;
+    @if($game->rewards_token)
+      var rewards_market_chart = @json($game->rewards_market_chart['prices']);
+      options.series[0].name = '{{ $game->rewards_token }}';
+      options.series[0].data = rewards_market_chart;
 
-    var rewards_chart = new ApexCharts(document.querySelector("#rewards_market_chart"), options);
-    rewards_chart.render();
+      var rewards_chart = new ApexCharts(document.querySelector("#rewards_market_chart"), options);
+      rewards_chart.render();
+    @endif
 </script>
 
 
