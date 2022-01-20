@@ -22,12 +22,19 @@ use App\Http\Controllers\ReviewController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function(){
+// Test
+// Route::get('/test', function(){
 //     $client = new CoinGeckoClient();
 //     $coin = $client->coins()->getMarketChart('smooth-love-potion', 'usd', "1");
 //     dd($coin);
 // });
+
+Route::get('/test', function(){
+    $client = new CoinGeckoClient();
+    $coin = $client->coins()->getCoin('smooth-love-potion',['tickers' => 'false']);
+    dd($coin);
+});
+// End test
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
