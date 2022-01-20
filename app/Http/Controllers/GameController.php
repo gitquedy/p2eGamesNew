@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use App\Models\Genre;
+use App\Models\Review;
 use App\Models\BlockChain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -378,7 +379,7 @@ class GameController extends Controller
         return response()->json($output);
     }
 
-    public function screenshots(Game $game){
-        return view('content.game.partials.screenshots', compact('game'));
+    public function screenshots(Review $review){
+        return view('content.game.partials.review-screenshots', compact('review'));
     }
 }

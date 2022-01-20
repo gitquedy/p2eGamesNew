@@ -10,16 +10,13 @@
             <div class="col-12">
                 <div class="swiper-autoplay swiper-container modal-swiper">
                   <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <img class="img-fluid" src="{{ $game->imageUrl() }}" alt="banner" />
-                    </div>
-                    @isset($game->screenshots)
-                      @foreach(explode(',', $game->screenshots) as $screenshot)
+                    @if($review->screenshots)
+                      @foreach(explode(',', $review->screenshots) as $reviewScreenshot)
                         <div class="swiper-slide">
-                          <img class="img-fluid" src="{{ $game->screenshotUrl($screenshot) }}" alt="banner" />
+                          <img class="img-fluid" src="{{ asset('images/game/screenshots/'. $reviewScreenshot) }}" alt="banner" />
                         </div>
                       @endforeach
-                    @endisset
+                    @endif
                   </div>
                   <div class="swiper-pagination"></div>
                   <div class="swiper-button-next"></div>

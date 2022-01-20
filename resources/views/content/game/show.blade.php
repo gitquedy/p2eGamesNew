@@ -135,7 +135,7 @@
                 </div>
               </div>
               <div class="col-md-2">
-                <div class="swiper-autoplay swiper-container modal_button" data-action="{{ route('game.screenshots', $game) }}">
+                <div class="swiper-autoplay swiper-container modal_button" data-action="{{ route('game.review.screenshots', $review) }}">
                   <div class="swiper-wrapper">
                     @if($review->screenshots)
                       @foreach(explode(',', $review->screenshots) as $reviewScreenshot)
@@ -244,7 +244,7 @@
     spaceBetween: 30,
     centeredSlides: true,
     autoplay: {
-      delay: 2500,
+      delay: 3000,
       disableOnInteraction: false
     },
     pagination: {
