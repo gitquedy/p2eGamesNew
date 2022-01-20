@@ -35,6 +35,7 @@ Route::post('login-web3', \App\Actions\LoginUsingWeb3::class);
 
 
 Route::resource('/game', GameController::class);
+Route::get('/game/screenshots/{game}', [GameController::class, 'screenshots'])->name('game.screenshots');
 
 Route::group(['middleware' => ['auth', 'admin']], function()
 {

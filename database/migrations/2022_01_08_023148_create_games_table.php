@@ -35,7 +35,7 @@ class CreateGamesTable extends Migration
             $table->string('twitter')->nullable();
             $table->string('discord')->nullable();
             $table->string('telegram')->nullable();
-            $table->string('github')->nullable();
+            $table->string('medium')->nullable();
             $table->string('facebook')->nullable();
             $table->timestamps();
         });

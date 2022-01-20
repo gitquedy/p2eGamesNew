@@ -112,7 +112,7 @@ class BlockChainController extends Controller
      */
     public function edit(BlockChain $blockchain)
     {
-        return view('content.blockChain.edit', compact('blockchain'));
+        return view('content.blockchain.edit', compact('blockchain'));
     }
 
     /**

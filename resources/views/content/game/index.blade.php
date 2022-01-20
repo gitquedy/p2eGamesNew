@@ -108,7 +108,7 @@
         <table class="datatables-basic table" id="game_table">
           <thead>
             <tr>
-              <th>Id</th>
+              <th>Rank</th>
               <th>Name</th>
               <th>Genre</th>
               <th>Blockchains</th>

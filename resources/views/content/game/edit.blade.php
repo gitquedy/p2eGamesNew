@@ -164,8 +164,8 @@
           </div>
           <div class="col-4">
               <div class="form-group">
-                  <label for="name">Github:</label>
-                  <input type="text" class="form-control" name="github" placeholder="https://github.com/p2egamesph" value="{{ $game->github }}">
+                  <label for="name">Medium:</label>
+                  <input type="text" class="form-control" name="medium" placeholder="https://p2egamesph.medium.com/" value="{{ $game->medium }}">
               </div>
           </div>
         </div><br>

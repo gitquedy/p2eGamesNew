@@ -176,8 +176,8 @@
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="name">Github:</label>
-                                    <input type="text" class="form-control" name="github" placeholder="https://github.com/p2egamesph">
+                                    <label for="name">Medium:</label>
+                                    <input type="text" class="form-control" name="medium" placeholder="https://p2egamesph.medium.com/">
                                 </div>
                             </div>
                           </div><br>

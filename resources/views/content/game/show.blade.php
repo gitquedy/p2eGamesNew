@@ -41,11 +41,13 @@
                 <div class="swiper-slide">
                   <img class="img-fluid" src="{{ $game->imageUrl() }}" alt="banner" />
                 </div>
-                @foreach(explode(',', $game->screenshots) as $screenshot)
-                  <div class="swiper-slide">
-                    <img class="img-fluid" src="{{ $game->screenshotUrl($screenshot) }}" alt="banner" />
-                  </div>
-                @endforeach
+                @isset($game->screenshots)
+                  @foreach(explode(',', $game->screenshots) as $screenshot)
+                    <div class="swiper-slide">
+                      <img class="img-fluid" src="{{ $game->screenshotUrl($screenshot) }}" alt="banner" />
+                    </div>
+                  @endforeach
+                @endisset
               </div>
               <div class="swiper-pagination"></div>
               <div class="swiper-button-next"></div>
@@ -55,7 +57,7 @@
         </div>
         <div class="col-12 col-md-7">
           <h4>{{ $game->name }}</h4>
-          <span class="card-text item-company">{{ $game->short_description }}</span>
+<!--           <span class="card-text item-company">{{ $game->short_description }}</span> -->
           <div class="ecommerce-details-price d-flex flex-wrap mt-1">
             <h4 class="item-price me-1">{!! $game->getStatusDisplay() !!}</h4>
             <div class="read-only-ratings rating" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
@@ -81,9 +83,9 @@
               @endforeach
             </span></li>
             <li><i data-feather="dollar-sign"></i> Minimum Investment: <span>
-              {{ $game->minimum_investment ? $game->minimum_investment : '--' }}
+              {{ $game->minimum_investment ? '₱ ' . number_format($game->minimum_investment, 2) : '--' }}
             </span></li>
-            <li><span>-</span></li>
+            <br>
             <li>
               <span>{!! $game->getF2pDisplay() !!}</span>
             </li>
@@ -109,49 +111,51 @@
     @if($game->rewards_token)
       @include('content.game.partials.coin-chart', ['game' => $game, 'coin' => $rewards_coin, 'chart_name' => 'rewards_market_chart'])
     @endif
+    @if($game->reviews()->count() > 0)
     <!-- Rewards token -->
-  <div class="col-12 mt-1" id="blogComment">
-      <h6 class="section-label mt-25">Reviews</h6>
-      <div class="card">
-        <div class="card-body">
-          @foreach($game->reviews()->orderBy('created_at', 'desc')->get() as $review)
-          <div class="row my-2">
-            <div class="col-8">
-              <div class="d-flex align-items-start">
-                <div class="avatar me-75">
-                  <img src="{{ $review->user->profileUrl() }}" width="38" height="38" alt="Avatar" />
+    <div class="col-12 mt-1" id="blogComment">
+        <h6 class="section-label mt-25">Reviews</h6>
+        <div class="card">
+          <div class="card-body">
+            @foreach($game->reviews()->orderBy('created_at', 'desc')->get() as $review)
+            <div class="row my-2">
+              <div class="col-8">
+                <div class="d-flex align-items-start">
+                  <div class="avatar me-75">
+                    <img src="{{ $review->user->profileUrl() }}" width="38" height="38" alt="Avatar" />
+                  </div>
+                  <div class="author-info">
+                    <h6 class="fw-bolder mb-25" data-toggle="tooltip" title="{{ $review->user->eth_address }}">{{ App\Models\Utilities::limitString($review->user->eth_address, 12) }}</h6>
+                    <p class="card-text"><div class="read-only-ratings rating" data-rateyo-rating="{{ $review->rating }}" data-rateyo-read-only="true"></div> &nbsp {{ $review->rating }}/5 </p>
+                    <p class="card-text">{{ App\Models\Utilities::format_date($review->created_at, 'F d, Y') }} | {{ $review->subject }}</p>
+                    <span class="card-text">
+                      {{ $review->description }}
+                    </span>
+                  </div>
                 </div>
-                <div class="author-info">
-                  <h6 class="fw-bolder mb-25" data-toggle="tooltip" title="{{ $review->user->eth_address }}">{{ App\Models\Utilities::limitString($review->user->eth_address, 12) }}</h6>
-                  <p class="card-text"><div class="read-only-ratings rating" data-rateyo-rating="{{ $review->rating }}" data-rateyo-read-only="true"></div> &nbsp {{ $review->rating }}/5 </p>
-                  <p class="card-text">{{ App\Models\Utilities::format_date($review->created_at, 'F d, Y') }} | {{ $review->subject }}</p>
-                  <span class="card-text">
-                    {{ $review->description }}
-                  </span>
+              </div>
+              <div class="col-md-2">
+                <div class="swiper-autoplay swiper-container modal_button" data-action="{{ route('game.screenshots', $game) }}">
+                  <div class="swiper-wrapper">
+                    @if($review->screenshots)
+                      @foreach(explode(',', $review->screenshots) as $reviewScreenshot)
+                        <div class="swiper-slide">
+                          <img class="img-fluid" src="{{ $game->screenshotUrl($reviewScreenshot) }}" alt="banner" />
+                        </div>
+                      @endforeach
+                    @endif
+                  </div>
+                  <div class="swiper-pagination"></div>
+                  <div class="swiper-button-next"></div>
+                  <div class="swiper-button-prev"></div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="swiper-autoplay swiper-container">
-                <div class="swiper-wrapper">
-                  @if($review->screenshots)
-                    @foreach(explode(',', $review->screenshots) as $reviewScreenshot)
-                      <div class="swiper-slide">
-                        <img class="img-fluid" src="{{ $game->screenshotUrl($reviewScreenshot) }}" alt="banner" />
-                      </div>
-                    @endforeach
-                  @endif
-                </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-              </div>
-            </div>
+            @endforeach
           </div>
-          @endforeach
         </div>
       </div>
-    </div>
+    @endif
 
 
 

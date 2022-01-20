@@ -114,7 +114,7 @@ class GameController extends Controller
                 return $html;
             })
             ->addColumn('minimum_investment_formatted', function(Game $game) {
-                return number_format($game->minimum_investment, 2);
+                return '₱' . number_format($game->minimum_investment, 2);
             })
 
             ->rawColumns(['action', 'nameAndImgDisplay', 'genres', 'blockchains', 'devices', 'status', 'f2p', 'ratings'])
@@ -167,7 +167,7 @@ class GameController extends Controller
             'twitter' => ['nullable', 'url'],
             'discord' => ['nullable', 'url'],
             'telegram' => ['nullable', 'url'],
-            'github' => ['nullable', 'url'],
+            'medium' => ['nullable', 'url'],
             'facebook' => ['nullable', 'url'],
           ],[
             'genre_ids.required' => 'The genre field is Required',
@@ -271,6 +271,12 @@ class GameController extends Controller
             'f2p' => 'required|string',
             'screenshots.*' => ['mimes:jpeg,png,jpg,gif,svg','max:2048'],
             'short_description' => 'required',
+            'website' => ['nullable', 'url'],
+            'twitter' => ['nullable', 'url'],
+            'discord' => ['nullable', 'url'],
+            'telegram' => ['nullable', 'url'],
+            'medium' => ['nullable', 'url'],
+            'facebook' => ['nullable', 'url'],
           ],[
             'genre_ids.required' => 'The genre field is Required',
             'blockchain_ids.required' => 'The blockChain field is Required',
@@ -370,5 +376,9 @@ class GameController extends Controller
              DB::rollBack();
         }
         return response()->json($output);
+    }
+
+    public function screenshots(Game $game){
+        return view('content.game.partials.screenshots', compact('game'));
     }
 }

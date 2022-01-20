@@ -16,7 +16,7 @@ class Game extends Model
 
     protected $table = 'games';
 
-    protected $fillable = ['name', 'user_id', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'github', 'facebook'];
+    protected $fillable = ['name', 'user_id', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'medium' , 'facebook'];
 
 
     public function getNameAndImgDisplay(){
@@ -121,8 +121,8 @@ class Game extends Model
         if($this->telegram){
             $html .= '<a href="'. $this->telegram .'" class="game-links"><img src="'. asset('images/links/telegram.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->telegram .'"></a>';
         }
-        if($this->github){
-            $html .= '<a href="'. $this->github .'" class="game-links"><img src="'. asset('images/links/github.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->github .'"></a>';
+        if($this->medium){
+            $html .= '<a href="'. $this->medium .'" class="game-links"><img src="'. asset('images/links/medium.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->medium .'"></a>';
         }
         return $html;
      }
