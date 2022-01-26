@@ -51,8 +51,9 @@ Route::get('/game/gainer/', [GameController::class, 'gainer'])->name('game.gaine
 Route::get('/game/loser/', [GameController::class, 'loser'])->name('game.loser');
 Route::get('/game/redflag/', [GameController::class, 'redflag'])->name('game.redflag');
 Route::get('/game/rugpull/', [GameController::class, 'rugpull'])->name('game.rugpull');
-Route::resource('/game', GameController::class);
-
+Route::resource('/game', GameController::class)->except(['show']);
+Route::get('/game/{game:slug}', [GameController::class, 'show'])->name('game.show');
+// Route::resource('/game', GameController::class)->parameters(['game' => 'game:slug']);
 Route::get('/blockchain/get/', [BlockChainController::class, 'get'])->name('blockchain.get');
 Route::get('/genre/get/', [GenreController::class, 'get'])->name('genre.get');
 

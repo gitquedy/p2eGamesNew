@@ -183,7 +183,7 @@ class GameController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
+            'name' => ['required','string', 'unique:games'],
             'description' => 'required|string',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'genre_ids' => ['required', 'array'],
@@ -233,6 +233,7 @@ class GameController extends Controller
                 }
                 $data['screenshots'] = implode(',', $screenshots);
             }
+            $data['slug'] =strtolower(str_replace(" ", "-" , $data['name']));
             Game::create($data);
             DB::commit();
             $output = ['success' => 1,
@@ -291,7 +292,7 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
+            'name' => ['required','string', 'unique:games,name,' . $game->id ],
             'description' => 'required|string',
             'image' => ['mimes:jpeg,png,jpg,gif,svg','max:2048'],
             'genre_ids' => ['required', 'array'],
@@ -340,6 +341,7 @@ class GameController extends Controller
                 }
                 $data['screenshots'] = implode(',', $screenshots);
             }
+            $data['slug'] =strtolower(str_replace(" ", "-" , $data['name']));
             $game->update($data);
             DB::commit();
             $output = ['success' => 1,

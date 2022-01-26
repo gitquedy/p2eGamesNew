@@ -23,6 +23,8 @@ class CreateGamesTable extends Migration
             $table->string('status');
             $table->string('device');
 
+            $table->string('slug')->nullable();
+
             $table->string('governance_token')->nullable();
             $table->double('governance_price_change_percentage_24h', 10, 2)->nullable();
 

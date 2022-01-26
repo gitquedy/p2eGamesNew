@@ -16,7 +16,7 @@ class Game extends Model
 
     protected $table = 'games';
 
-    protected $fillable = ['name', 'user_id', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'medium' , 'facebook', 'governance_price_change_percentage_24h', 'rank', 'redflag', 'rugpull'];
+    protected $fillable = ['name', 'user_id', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'medium' , 'facebook', 'governance_price_change_percentage_24h', 'rank', 'redflag', 'rugpull', 'slug'];
 
     public static function syncRank(){
         $games = Game::withAvg('reviews', 'rating')->orderBy('reviews_avg_rating', 'desc')->get();
@@ -25,6 +25,10 @@ class Game extends Model
             $game->update(['rank' => $iteration]);
             $iteration += 1;
         }
+        // // sync slug
+        // foreach(Game::all() as $game){
+        //     $game->update(['slug' => strtolower(str_replace(" ", "-" , $game->name))]);
+        // }
     }
     public function getNameAndImgDisplay(){
         $description = Str::limit($this->short_description, 30, $end='...');
