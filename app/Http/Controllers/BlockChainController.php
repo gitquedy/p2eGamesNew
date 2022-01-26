@@ -188,4 +188,10 @@ class BlockChainController extends Controller
     }
 
 
+    public function get(){
+        $blockchains = Blockchain::all();
+        return view('content.blockchain.get', compact('blockchains'));
+    }
+
+
 }

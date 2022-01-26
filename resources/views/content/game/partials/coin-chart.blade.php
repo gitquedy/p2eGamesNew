@@ -3,7 +3,17 @@
     <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
       <div>
         <h4 class="card-title mb-25">{!! $game->getCoinDisplay($coin) !!} {{ $coin['name'] }} ({{ strtoupper($coin['symbol']) }}) </h4>
-        <span class="card-subtitle text-muted"><a href="{{ $coin['links']['blockchain_site'][0] }}" target="_blank">Contract Address: {{ $coin['contract_address'] }}</a></span>
+        <span class="card-subtitle">
+          <button class="btn btn-sm btn-outline-primary" data-toggle="tooltip" title="{{ $coin['contract_address'] }}">
+            <a href="{{ $coin['links']['blockchain_site'][0] }}" target="_blank">View CA: {{ \Illuminate\Support\Str::limit($coin['contract_address'], 4, $end='..') }} </a>
+          </button>
+          <button class="btn btn-sm btn-outline-success" id="btn-copy" onclick="copyToClipboard('{{ $coin['contract_address'] }}', '#btn-copy')">Copy CA <i class="ficon" data-feather="copy"></i></button>
+          @if($coin['asset_platform_id'] == 'binance-smart-chain')
+            <button class="btn btn-sm btn-outline-dark" data-toggle="tooltip" title="{{ $coin['contract_address'] }}">
+            <a href="https://poocoin.app/tokens/{{ $coin['contract_address'] }}" target="_blank" data-toggle="tooltip" title="https://poocoin.app/tokens/{{ $coin['contract_address'] }}">PooCoin </a>
+          </button>
+          @endif
+        </span>
       </div>
       <div class="d-flex align-items-center flex-wrap mt-sm-0 mt-1">
         <h5 class="fw-bolder mb-0 me-1">₱ {{ $coin['market_data']['current_price']['php'] }}</h5>

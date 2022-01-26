@@ -81,6 +81,12 @@
               href="{{ route('profile.settings') }}">
               <i class="me-50" data-feather="settings"></i> Settings
             </a>
+          @if(Auth::user()->isAdmin())
+            <a class="dropdown-item"
+              href="{{ route('banner.index') }}">
+              <i class="me-50" data-feather="columns"></i> Banner
+            </a>
+          @endif
         @endif
         @if (Auth::check() && Laravel\Jetstream\Jetstream::hasApiFeatures())
           <a class="dropdown-item" href="{{ route('api-tokens.index') }}">

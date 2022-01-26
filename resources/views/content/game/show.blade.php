@@ -56,7 +56,20 @@
           <!-- </div> -->
         </div>
         <div class="col-12 col-md-7">
-          <h4>{{ $game->name }}</h4>
+          <div class="row">
+            <div class="col-lg-10 col-sm-6">
+              <h4>{{ $game->name }} </h4>
+            </div>
+            <div class="col-lg-2 col-sm-6 align-items-end text-end">
+              <button class="btn btn-sm btn-primary" id="btn-share" onclick="copyToClipboard('{{ route('game.show', $game) }}', '#btn-share')"><i class="f-icon" data-feather="copy"></i> Share</button>
+            </div>
+          </div>
+
+       <!--    <div class="align-items-end text-end">
+
+          </div> -->
+
+
 <!--           <span class="card-text item-company">{{ $game->short_description }}</span> -->
           <div class="ecommerce-details-price d-flex flex-wrap mt-1">
             <h4 class="item-price me-1">{!! $game->getStatusDisplay() !!}</h4>
@@ -111,99 +124,125 @@
     @if($game->rewards_token)
       @include('content.game.partials.coin-chart', ['game' => $game, 'coin' => $rewards_coin, 'chart_name' => 'rewards_market_chart'])
     @endif
-    @if($game->reviews()->count() > 0)
     <!-- Rewards token -->
+    @if($game->reviews()->count() > 0)
+
+    <!-- reviews -->
     <div class="col-12 mt-1" id="blogComment">
         <h6 class="section-label mt-25">Reviews</h6>
         <div class="card">
           <div class="card-body">
-            @foreach($game->reviews()->orderBy('created_at', 'desc')->get() as $review)
-            <div class="row my-2">
-              <div class="col-8">
-                <div class="d-flex align-items-start">
-                  <div class="avatar me-75">
-                    <img src="{{ $review->user->profileUrl() }}" width="38" height="38" alt="Avatar" />
-                  </div>
-                  <div class="author-info">
-                    <h6 class="fw-bolder mb-25" data-toggle="tooltip" title="{{ $review->user->eth_address }}">{{ App\Models\Utilities::limitString($review->user->eth_address, 12) }}</h6>
-                    <p class="card-text"><div class="read-only-ratings rating" data-rateyo-rating="{{ $review->rating }}" data-rateyo-read-only="true"></div> &nbsp {{ $review->rating }}/5 </p>
-                    <p class="card-text">{{ App\Models\Utilities::format_date($review->created_at, 'F d, Y') }} | {{ $review->subject }}</p>
-                    <span class="card-text">
-                      {{ $review->description }}
-                    </span>
-                  </div>
-                </div>
+            <div class="row mb-1 custom-options-checkable g-1 text-center pt-3">
+              <div class="col-md-4">
+                <h3 class="text-primary">4.5 out of 5</h3>
+                <div class="read-only-ratings rating" style="margin-left: auto;margin-right:auto;" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
+                <small> &nbsp; out of {{ $game->reviews()->count() }} reviews</small>
               </div>
-              <div class="col-md-2">
-                <div class="swiper-autoplay swiper-container modal_button" data-action="{{ route('game.review.screenshots', $review) }}">
-                  <div class="swiper-wrapper">
-                    @if($review->screenshots)
-                      @foreach(explode(',', $review->screenshots) as $reviewScreenshot)
-                        <div class="swiper-slide">
-                          <img class="img-fluid" src="{{ $game->screenshotUrl($reviewScreenshot) }}" alt="banner" />
-                        </div>
-                      @endforeach
-                    @endif
-                  </div>
-                  <div class="swiper-pagination"></div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
-                </div>
+              <div class="col-md-1">
+                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="allStar" value="all" checked="true"/>
+                <label class="custom-option-item p-1" for="allStar">
+                  <span class="d-flex justify-content-between flex-wrap mb-50">
+                    <span class="fw-bolder">All Ratings</span>
+                  </span>
+                </label>
+              </div>
+              <div class="col-md-1">
+                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="5star" value="5"/>
+                <label class="custom-option-item p-1" for="5star">
+                  <span class="d-flex justify-content-between flex-wrap mb-50">
+                    <span class="fw-bolder">5 Star ({{ $game->reviews()->where('rating', 5)->count() }})</span>
+                  </span>
+                </label>
+              </div>
+              <div class="col-md-1">
+                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="4star" value="4"/>
+                <label class="custom-option-item p-1" for="4star">
+                  <span class="d-flex justify-content-between flex-wrap mb-50">
+                    <span class="fw-bolder">4 Star ({{ $game->reviews()->where('rating', 4)->count() }})</span>
+                  </span>
+                </label>
+              </div>
+              <div class="col-md-1">
+                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="3star" value="3"/>
+                <label class="custom-option-item p-1" for="3star">
+                  <span class="d-flex justify-content-between flex-wrap mb-50">
+                    <span class="fw-bolder">3 Star ({{ $game->reviews()->where('rating', 3)->count() }})</span>
+                  </span>
+                </label>
+              </div>
+              <div class="col-md-1">
+                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="2star" value="2"/>
+                <label class="custom-option-item p-1" for="2star">
+                  <span class="d-flex justify-content-between flex-wrap mb-50">
+                    <span class="fw-bolder">2 Star ({{ $game->reviews()->where('rating', 2)->count() }})</span>
+                  </span>
+                </label>
+              </div>
+              <div class="col-md-1">
+                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="1star" value="1"/>
+                <label class="custom-option-item p-1" for="1star">
+                  <span class="d-flex justify-content-between flex-wrap mb-50">
+                    <span class="fw-bolder">1 Star ({{ $game->reviews()->where('rating', 1)->count() }})</span>
+                  </span>
+                </label>
               </div>
             </div>
-            @endforeach
+          </div>
+          <hr/>
+          <div class="card-body" id="reviewsCard">
+
           </div>
         </div>
       </div>
     @endif
-
-
-
+    <!-- reviews -->
 
     @if(Auth::user())
-    <div class="col-12 mt-1">
-      <h6 class="section-label mt-25">Leave a Review</h6>
-      <div class="card">
-        <div class="card-body">
-          <form action="{{ route('review.store') }}" method="POST" class="form" enctype="multipart/form-data">
-            @csrf
-            <input type="text" name="game_id" value="{{ $game->id }}" hidden>
-            <div class="row">
-              <div class="col-12">
-                <div class="col-md d-flex flex-column align-items-start">
-                  <div class="onChange-event-ratings"></div>
-                  <div class="counter-wrapper mt-1">
-                    <strong>Ratings:</strong>
-                    <input type="text" name="rating" id="rating" hidden>
-                    <span class="counter"></span>
+      @if($game->reviews()->where('user_id', Auth::user()->id)->count() < 1)
+      <div class="col-12 mt-1">
+        <h6 class="section-label mt-25">Leave a Review</h6>
+        <div class="card">
+          <div class="card-body">
+            <form action="{{ route('review.store') }}" method="POST" class="form" enctype="multipart/form-data">
+              @csrf
+              <input type="text" name="game_id" value="{{ $game->id }}" hidden>
+              <div class="row">
+                <div class="col-12">
+                  <div class="col-md d-flex flex-column align-items-start">
+                    <div class="onChange-event-ratings" data-rateyo-full-star="true"></div>
+                    <div class="counter-wrapper mt-1">
+                      <strong>Ratings:</strong>
+                      <input type="text" name="rating" id="rating" hidden>
+                      <span class="counter"></span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 col-12">
-                <div class="mb-2">
-                  <label>Subject:</label>
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" />
+              <div class="row">
+                <div class="col-sm-6 col-12">
+                  <div class="mb-2">
+                    <label>Subject:</label>
+                    <input type="text" class="form-control" name="subject" placeholder="Subject" />
+                  </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                  <div class="mb-2">
+                    <label>Screenshots:</label>
+                    <input type="file" class="form-control" name="screenshots[]" placeholder="screenshots" multiple="multiple" />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <textarea class="form-control mb-2" rows="4" placeholder="Description" name="description"></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary" value="save">Post Review</button>
                 </div>
               </div>
-              <div class="col-sm-6 col-12">
-                <div class="mb-2">
-                  <label>Screenshots:</label>
-                  <input type="file" class="form-control" name="screenshots[]" placeholder="screenshots" multiple="multiple" />
-                </div>
-              </div>
-              <div class="col-12">
-                <textarea class="form-control mb-2" rows="4" placeholder="Description" name="description"></textarea>
-              </div>
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary" value="save">Post Review</button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    @endif
     @endif
 
 
@@ -336,6 +375,37 @@
       var rewards_chart = new ApexCharts(document.querySelector("#rewards_market_chart"), options);
       rewards_chart.render();
     @endif
+
+    function copyToClipboard(string, target){
+      navigator.clipboard.writeText(string)
+      $(target).prop("data-toggle", "tooltip");
+      $(target).prop("title", "Copied!");
+    }
+
+    @if($game->reviews()->count() > 0)
+
+    function getRatings(){
+      $.ajax({
+          url: "{{ route('game.reviews', $game) }}",
+          method: "GET",
+          data: {
+              "rating": $('input[name="ratings_filter"]:checked').val(),
+          },
+          success:function(result)
+          {
+              $('#reviewsCard').html(result);
+          }
+        });
+    }
+    // $('#reviewsCard');
+      $(document).ready(function(){
+        $('input[type=radio][name=ratings_filter]').change(function() {
+          getRatings();
+      });
+      getRatings();
+      });
+    @endif
+
 </script>
 
 

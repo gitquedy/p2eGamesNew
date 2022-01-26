@@ -163,4 +163,9 @@ class GenreController extends Controller
         $title = 'genre ' . $genre->name;
         return view('layouts.delete', compact('action' , 'title'));
     }
+
+    public function get(){
+        $genres = Genre::all();
+        return view('content.genre.get', compact('genres'));
+    }
 }

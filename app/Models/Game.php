@@ -16,9 +16,16 @@ class Game extends Model
 
     protected $table = 'games';
 
-    protected $fillable = ['name', 'user_id', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'medium' , 'facebook'];
+    protected $fillable = ['name', 'user_id', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'medium' , 'facebook', 'governance_price_change_percentage_24h', 'rank', 'redflag', 'rugpull'];
 
-
+    public static function syncRank(){
+        $games = Game::withAvg('reviews', 'rating')->orderBy('reviews_avg_rating', 'desc')->get();
+        $iteration = 1;
+        foreach($games as $game){
+            $game->update(['rank' => $iteration]);
+            $iteration += 1;
+        }
+    }
     public function getNameAndImgDisplay(){
         $description = Str::limit($this->short_description, 30, $end='...');
         return '<a href="'. route('game.show', $this) .'"><div class="d-flex justify-content-left align-items-center">
@@ -82,7 +89,7 @@ class Game extends Model
         $devices = explode(',', $this->device);
         $html = '<div class="d-flex justify-content-left align-items-center"><div class="d-flex flex-column">';
         foreach($devices as $device){
-            $html .= '<span class="emp_name text-truncate fw-bold">'. $device . '</span>';
+            $html .= '<small class="emp_name text-truncate fw-bold">'. $device . '</small>';
         }
         $html .= '</div></div>';
         return $html;
@@ -100,29 +107,29 @@ class Game extends Model
      public function getF2pDisplay(){
         $btnClasses = Utilities::getBtnClasses();
         $class = $this->f2p == 'Free-To-Play' ? 'success' : 'danger';
-        $html = '<button class="btn btn-'. $class .' btn-sm" data-bs-toggle="tooltip" title="'. $this->f2p . '">'. $this->f2p . '</button>';
+        $html = '<button style="font-size:10px;" class="btn btn-'. $class .' btn-sm small" data-bs-toggle="tooltip" title="'. $this->f2p . '">'. $this->f2p . '</button>';
         return $html;
      }
 
      public function get3rdPartyDisplay(){
         $html = '';
         if($this->facebook){
-            $html .= '<a href="'. $this->facebook .'" class="game-links"><img src="'. asset('images/links/facebook.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->facebook .'"></a>';
+            $html .= '<a target="_blank" href="'. $this->facebook .'" class="game-links"><img src="'. asset('images/links/facebook.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->facebook .'"></a>';
         }
         if($this->website){
-            $html .= '<a href="'. $this->website .'" class="game-links"><img src="'. asset('images/links/website.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->website .'"></a>';
+            $html .= '<a target="_blank" href="'. $this->website .'" class="game-links"><img src="'. asset('images/links/website.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->website .'"></a>';
         }
         if($this->twitter){
-            $html .= '<a href="'. $this->twitter .'" class="game-links"><img src="'. asset('images/links/twitter.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->twitter .'"></a>';
+            $html .= '<a target="_blank" href="'. $this->twitter .'" class="game-links"><img src="'. asset('images/links/twitter.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->twitter .'"></a>';
         }
         if($this->discord){
-            $html .= '<a href="'. $this->discord .'" class="game-links"><img src="'. asset('images/links/discord.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->discord .'"></a>';
+            $html .= '<a target="_blank" href="'. $this->discord .'" class="game-links"><img src="'. asset('images/links/discord.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->discord .'"></a>';
         }
         if($this->telegram){
-            $html .= '<a href="'. $this->telegram .'" class="game-links"><img src="'. asset('images/links/telegram.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->telegram .'"></a>';
+            $html .= '<a target="_blank" href="'. $this->telegram .'" class="game-links"><img src="'. asset('images/links/telegram.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->telegram .'"></a>';
         }
         if($this->medium){
-            $html .= '<a href="'. $this->medium .'" class="game-links"><img src="'. asset('images/links/medium.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->medium .'"></a>';
+            $html .= '<a target="_blank" href="'. $this->medium .'" class="game-links"><img src="'. asset('images/links/medium.png') .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $this->medium .'"></a>';
         }
         return $html;
      }
@@ -173,5 +180,11 @@ class Game extends Model
      public function getCoinDisplay($coin){
         $html = '<img src="'. $coin['image']['small'] .'" alt="Avatar" width="32" height="32" data-bs-toggle="tooltip" title="'. $coin['name'] . ' ('. strtoupper($coin['symbol']). ')">';
         return $html;
+     }
+
+     public function syncCoingeckoData(){
+        $client = new CoinGeckoClient();
+        $coin = $client->coins()->getCoin($this->governance_token,['tickers' => 'false']);
+        $this->update(['governance_price_change_percentage_24h' => $coin['market_data']['price_change_percentage_24h']]);
      }
 }

@@ -4,6 +4,7 @@
 <!-- BEGIN: Page Vendor JS-->
 <script src="{{ asset('vendors/js/ui/jquery.sticky.js') }}"></script>
 @yield('vendor-script')
+@yield('scripts')
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->
 <script src="{{ asset('js/core/app-menu.js') }}"></script>
@@ -24,6 +25,7 @@
 <!-- Global Page Scripts -->
 <!-- BEGIN: Page JS-->
 @yield('page-script')
+@yield('my-scripts')
 <!-- END: Page JS-->
 
 <script type="text/javascript">

@@ -149,7 +149,7 @@
               </div>
           </div>
         </div><br>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-4">
               <div class="form-group">
                   <label for="name">Discord:</label>
@@ -168,7 +168,27 @@
                   <input type="text" class="form-control" name="medium" placeholder="https://p2egamesph.medium.com/" value="{{ $game->medium }}">
               </div>
           </div>
-        </div><br>
+        </div>
+        <div class="row">
+          <div class="col-4">
+              <div class="form-group">
+                  <label for="redflag">Redflag:</label>
+                  <select class="form-control" name="redflag">
+                    <option value="0" {{ $game->redflag == 0 ? 'selected' : '' }}>No</option>
+                    <option value="1" {{ $game->redflag == 1 ? 'selected' : '' }}>Yes</option>
+                  </select>
+              </div>
+          </div>
+          <div class="col-4">
+              <div class="form-group">
+                  <label for="rugpull">Rugpull:</label>
+                  <select class="form-control" name="rugpull">
+                    <option value="0" {{ $game->rugpull == 0 ? 'selected' : '' }}>No</option>
+                    <option value="1" {{ $game->rugpull == 1 ? 'selected' : '' }}>Yes</option>
+                  </select>
+              </div>
+          </div>
+        </div>
         </div>
         <div class="modal-footer">
               <button type="submit" class="btn btn-primary no-print btn_save"><i class="fa fa-save"></i> Update

@@ -11,6 +11,7 @@ use Codenixsv\CoinGeckoApi\CoinGeckoClient;
 use App\Models\Game;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\BannerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +42,19 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::post('login-web3', \App\Actions\LoginUsingWeb3::class);
 
 
-Route::resource('/game', GameController::class);
+
 Route::get('/game/screenshots/{review}', [GameController::class, 'screenshots'])->name('game.review.screenshots');
+Route::get('/game/reviews/{game}', [GameController::class, 'reviews'])->name('game.reviews');
+Route::get('/game/recent/', [GameController::class, 'recent'])->name('game.recent');
+Route::get('/game/top/', [GameController::class, 'top'])->name('game.top');
+Route::get('/game/gainer/', [GameController::class, 'gainer'])->name('game.gainer');
+Route::get('/game/loser/', [GameController::class, 'loser'])->name('game.loser');
+Route::get('/game/redflag/', [GameController::class, 'redflag'])->name('game.redflag');
+Route::get('/game/rugpull/', [GameController::class, 'rugpull'])->name('game.rugpull');
+Route::resource('/game', GameController::class);
+
+Route::get('/blockchain/get/', [BlockChainController::class, 'get'])->name('blockchain.get');
+Route::get('/genre/get/', [GenreController::class, 'get'])->name('genre.get');
 
 Route::group(['middleware' => ['auth', 'admin']], function()
 {
@@ -54,6 +66,9 @@ Route::group(['middleware' => ['auth', 'admin']], function()
     Route::get('/game/delete/{game}', [GameController::class, 'delete'])->name('game.delete');
     Route::get('/game/approve/{game}', [GameController::class, 'approve'])->name('game.approve');
     Route::put('/game/approveGame/{game}', [GameController::class, 'approveGame'])->name('game.approveGame');
+
+    Route::resource('/banner', BannerController::class);
+    Route::get('/banner/delete/{banner}', [BannerController::class, 'delete'])->name('banner.delete');
 });
 
 Route::group(['middleware' => ['auth']], function()

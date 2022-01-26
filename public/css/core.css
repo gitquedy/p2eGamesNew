@@ -21219,3 +21219,8 @@ tr.group {
   background-color: #b8c2cc !important;
   opacity: 1;
 }
+
+.f-tr {
+  min-width: 10px !important;
+  width: 10px !important;
+}

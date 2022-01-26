@@ -6,6 +6,7 @@ use App\Models\Game;
 use App\Models\Genre;
 use App\Models\Review;
 use App\Models\BlockChain;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Utilities;
@@ -35,7 +36,7 @@ class GameController extends Controller
             ['link'=>"/",'name'=>"Home"],['link'=> route('game.index'), 'name'=>"Games"], ['name'=>"list of Games"]
         ];
         if (request()->ajax()) {
-            $game = Game::withAvg('reviews', 'rating')->orderBy('reviews_avg_rating', 'desc');
+            $game = (new Game)->newQuery();
             if($request->genre != "all"){
                 $game->whereRaw('find_in_set("'. $request->genre .'",genre_ids)');
             }
@@ -51,6 +52,17 @@ class GameController extends Controller
             if($request->f2p != "all"){
                 $game->where('f2p', $request->f2p);
             }
+            if($request->minimum_investment != "all"){
+                $range = explode(',', $request->minimum_investment);
+                $min = $range[0];
+                $max = isset($range[1]) ? $range[1] : 0;
+                if($max){
+                    $game->whereBetween('minimum_investment', [$min, $max]);
+                }else{
+                    $game->where('minimum_investment', '>=', $min);
+                }
+            }
+
             if($request->has('is_approved')){
                 if($request->is_approved != "all"){
                     $game->where('is_approved', $request->is_approved);
@@ -59,8 +71,25 @@ class GameController extends Controller
                 $game->where('is_approved', 1);
             }
 
+            if($request->has('filter')){
+                $filters = ['top', 'recent', 'rugpull', 'redflag', 'alphabetical'];
+                if(in_array($request->filter, $filters)){
+                    if($request->filter == 'top'){
+                        $game->orderBy('rank', 'asc');
+                    }else if ($request->filter == 'recent'){
+                        $game->orderBy('created_at', 'desc');
+                    }else if ($request->filter == 'rugpull'){
+                        $game->where('rugpull', true);
+                    }else if ($request->filter == 'redflag'){
+                        $game->where('redflag', true);
+                    }else if ($request->filter == 'alphabetical'){
+                        $game->orderBy('name', 'asc');
+                    }
+
+                }
+            }
+
             return Datatables::eloquent($game)
-            ->addIndexColumn()
             ->addColumn('action', function(Game $game) {
                             if($game->is_approved){
                                 $actions = [
@@ -84,7 +113,7 @@ class GameController extends Controller
                 $genres = $game->genres();
                 $html = '<div class="d-flex justify-content-left align-items-center"><div class="d-flex flex-column">';
                 foreach($genres as $genre){
-                    $html .= '<span class="emp_name text-truncate fw-bold">'. $genre->name . '</span>';
+                    $html .= '<small class="emp_name text-truncate fw-bold">'. $genre->name . '</small>';
                 }
                 $html .= '</div></div>';
                 return $html;
@@ -110,7 +139,7 @@ class GameController extends Controller
             })
             ->addColumn('ratings', function(Game $game) {
                 $html = '<div class="d-flex justify-content-left align-items-center">';
-                $html = '<div class="read-only-ratings rating" data-rateyo-rating="'. $game->avgRating .'" data-rateyo-read-only="true"></div><small> &nbsp; '. $game->avgRating .'/5 out of '. $game->reviews()->count() .' reviews</small>';
+                $html = '<div class="read-only-ratings rating" data-rateyo-rating="'. $game->avgRating .'" data-rateyo-read-only="true"></div><small> &nbsp; '. $game->avgRating .'/5 out of '. $game->reviews()->count() .'</small>';
                 $html .= '</div>';
                 return $html;
             })
@@ -118,12 +147,14 @@ class GameController extends Controller
                 return '₱' . number_format($game->minimum_investment, 2);
             })
 
+            ->addColumn('rank', function(Game $game) {
+                return $game->rank;
+            })
+
             ->rawColumns(['action', 'nameAndImgDisplay', 'genres', 'blockchains', 'devices', 'status', 'f2p', 'ratings'])
             ->make(true);
         }
-        $genres = Genre::all();
-        $blockchains = BlockChain::all();
-        return view('content.game.index', compact('breadcrumbs', 'genres', 'blockchains'));
+        return view('content.game.index', compact('breadcrumbs'));
     }
 
     /**
@@ -381,5 +412,64 @@ class GameController extends Controller
 
     public function screenshots(Review $review){
         return view('content.game.partials.review-screenshots', compact('review'));
+    }
+
+    public function reviews(Request $request,Game $game){
+        $reviews = $game->reviews()->orderBy('created_at', 'desc');
+        if($request->rating != "all"){
+            $reviews->where('rating', $request->rating);
+        }
+        $reviews = $reviews->get();
+        return view('content.game.partials.reviews', compact('reviews'));
+    }
+
+    public function gainer(){
+        $breadcrumbs = [
+            ['link'=>"/",'name'=>"Home"],['name'=>"Gainers"]
+        ];
+        $gainers = Game::orderBy('governance_price_change_percentage_24h', 'asc')->where('governance_price_change_percentage_24h' ,'>', '0')->limit(20)->get();
+        $losers = Game::orderBy('governance_price_change_percentage_24h', 'desc')->where('governance_price_change_percentage_24h' ,'<', '0')->limit(20)->get();
+        $banner1 = Banner::where('delegation', '1')->where('isActive', true)->inRandomOrder()->limit(1)->get()->first();
+
+        return view('content.game.filters.gainer', compact('gainers', 'losers', 'banner1', 'breadcrumbs'));
+    }
+
+    public function loser(){
+        $breadcrumbs = [
+            ['link'=>"/",'name'=>"Home"],['name'=>"Losers"]
+        ];
+        $gainers = Game::orderBy('governance_price_change_percentage_24h', 'asc')->where('governance_price_change_percentage_24h' ,'>', '0')->limit(20)->get();
+        $losers = Game::orderBy('governance_price_change_percentage_24h', 'desc')->where('governance_price_change_percentage_24h' ,'<', '0')->limit(20)->get();
+        $banner1 = Banner::where('delegation', '1')->where('isActive', true)->inRandomOrder()->limit(1)->get()->first();
+
+        return view('content.game.filters.loser', compact('gainers', 'losers', 'banner1', 'breadcrumbs'));
+    }
+
+    public function top(){
+        $breadcrumbs = [
+            ['link'=>"/",'name'=>"Home"],['link'=> route('game.top'), 'name'=>"Top Games"], ['name'=>"list of top games"]
+        ];
+        return view('content.game.filters.top', compact('breadcrumbs'));
+    }
+
+    public function recent(){
+        $breadcrumbs = [
+            ['link'=>"/",'name'=>"Home"],['link'=> route('game.recent'), 'name'=>"Recent Games"], ['name'=>"list of recent games"]
+        ];
+        return view('content.game.filters.recent', compact('breadcrumbs'));
+    }
+
+    public function rugpull(){
+        $breadcrumbs = [
+            ['link'=>"/",'name'=>"Home"],['link'=> route('game.recent'), 'name'=>"Rugpull Games"], ['name'=>"list of rugpull games"]
+        ];
+        return view('content.game.filters.rugpull', compact('breadcrumbs'));
+    }
+
+    public function redflag(){
+        $breadcrumbs = [
+            ['link'=>"/",'name'=>"Home"],['link'=> route('game.recent'), 'name'=>"Redflag Games"], ['name'=>"list of redflag games"]
+        ];
+        return view('content.game.filters.redflag', compact('breadcrumbs'));
     }
 }

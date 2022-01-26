@@ -18,4 +18,8 @@ class Review extends Model
     public function game() {
         return $this->belongsTo(Game::class, 'game_id', 'id');
     }
+
+    public function screenshotUrl($screenshot){
+        return asset('images/game/screenshots/'. $screenshot);
+    }
 }

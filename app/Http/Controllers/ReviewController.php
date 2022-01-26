@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
+use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Utilities;
@@ -66,6 +67,7 @@ class ReviewController extends Controller
             }
             $data['user_id'] = $request->user()->id;
             Review::create($data);
+            Game::syncRank();
             DB::commit();
             $output = ['success' => 1,
                         'msg' => 'Review added successfully!',

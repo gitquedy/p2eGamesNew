@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BlockChainSeeder::class);
         $this->call(GenreSeeder::class);
         $this->call(GameSeeder::class);
+        $this->call(BannerSeeder::class);
     }
 }
