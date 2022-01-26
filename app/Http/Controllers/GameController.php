@@ -428,8 +428,8 @@ class GameController extends Controller
         $breadcrumbs = [
             ['link'=>"/",'name'=>"Home"],['name'=>"Gainers"]
         ];
-        $gainers = Game::orderBy('governance_price_change_percentage_24h', 'asc')->where('governance_price_change_percentage_24h' ,'>', '0')->limit(20)->get();
-        $losers = Game::orderBy('governance_price_change_percentage_24h', 'desc')->where('governance_price_change_percentage_24h' ,'<', '0')->limit(20)->get();
+        $gainers = Game::orderBy('governance_price_change_percentage_24h', 'desc')->where('governance_price_change_percentage_24h' ,'>', '0')->limit(20)->get();
+        $losers = Game::orderBy('governance_price_change_percentage_24h', 'asc')->where('governance_price_change_percentage_24h' ,'<', '0')->limit(20)->get();
         $banner1 = Banner::where('delegation', '1')->where('isActive', true)->inRandomOrder()->limit(1)->get()->first();
 
         return view('content.game.filters.gainer', compact('gainers', 'losers', 'banner1', 'breadcrumbs'));
@@ -439,8 +439,8 @@ class GameController extends Controller
         $breadcrumbs = [
             ['link'=>"/",'name'=>"Home"],['name'=>"Losers"]
         ];
-        $gainers = Game::orderBy('governance_price_change_percentage_24h', 'asc')->where('governance_price_change_percentage_24h' ,'>', '0')->limit(20)->get();
-        $losers = Game::orderBy('governance_price_change_percentage_24h', 'desc')->where('governance_price_change_percentage_24h' ,'<', '0')->limit(20)->get();
+        $gainers = Game::orderBy('governance_price_change_percentage_24h', 'desc')->where('governance_price_change_percentage_24h' ,'>', '0')->limit(20)->get();
+        $losers = Game::orderBy('governance_price_change_percentage_24h', 'asc')->where('governance_price_change_percentage_24h' ,'<', '0')->limit(20)->get();
         $banner1 = Banner::where('delegation', '1')->where('isActive', true)->inRandomOrder()->limit(1)->get()->first();
 
         return view('content.game.filters.loser', compact('gainers', 'losers', 'banner1', 'breadcrumbs'));
