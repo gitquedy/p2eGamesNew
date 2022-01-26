@@ -79,8 +79,8 @@
                     <option value="0,500">less than 500</option>
                     <option value="501,1000">501-1000</option>
                     <option value="1001,5000">1001-5000</option>
-                    <option value="5001-10000">5001-10,000</option>
-                    <option value="10001-20000">10,001-20,000</option>
+                    <option value="5001,10000">5001-10,000</option>
+                    <option value="10001,20000">10,001-20,000</option>
                     <option value="20001,50000">20,001-50,000</option>
                     <option value="50000">more than 50,000</option>
                   </select>
