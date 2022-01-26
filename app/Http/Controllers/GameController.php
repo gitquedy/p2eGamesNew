@@ -85,8 +85,9 @@ class GameController extends Controller
                     }else if ($request->filter == 'alphabetical'){
                         $game->orderBy('name', 'asc');
                     }
-
                 }
+            }else{
+                $game->orderBy('rank', 'asc');
             }
 
             return Datatables::eloquent($game)

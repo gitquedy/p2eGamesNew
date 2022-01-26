@@ -168,6 +168,7 @@
                   data.status = $("#status").val();
                   data.f2p = $("#f2p").val();
                   data.minimum_investment = $("#minimum_investment").val();
+                  data.filter = $("#filter").val();
               }
           };
     @if(Auth::check())

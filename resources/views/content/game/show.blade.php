@@ -134,7 +134,7 @@
           <div class="card-body">
             <div class="row mb-1 custom-options-checkable g-1 text-center pt-3">
               <div class="col-md-4">
-                <h3 class="text-primary">4.5 out of 5</h3>
+                <h3 class="text-primary">{{ $game->avgRating }} out of 5</h3>
                 <div class="read-only-ratings rating" style="margin-left: auto;margin-right:auto;" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
                 <small> &nbsp; out of {{ $game->reviews()->count() }} reviews</small>
               </div>
