@@ -1,3 +1,5 @@
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="MEcDljo3"></script>
+<!-- <script type="text/javascript" async src="//platform.twitter.com/widgets.js"></script> -->
 <!-- BEGIN: Vendor JS-->
 <script src="{{ asset('vendors/js/vendors.min.js') }}"></script>
 <!-- BEGIN Vendor JS-->

@@ -57,11 +57,15 @@
         </div>
         <div class="col-12 col-md-7">
           <div class="row">
-            <div class="col-lg-10 col-sm-6">
+            <div class="col-lg-8 col-sm-6">
               <h4>{{ $game->name }} </h4>
             </div>
-            <div class="col-lg-2 col-sm-6 align-items-end text-end">
-              <button class="btn btn-sm btn-primary" id="btn-share" onclick="copyToClipboard('{{ route('game.show', $game) }}', '#btn-share')"><i class="f-icon" data-feather="copy"></i> Share</button>
+            <div class="col-lg-4 col-sm-6 align-items-end text-end d-flex flex-row-reverse">
+              <a class="btn btn-info btn-sm " data-size="large"
+                href="https://twitter.com/intent/tweet?text=Check this awesome NFT play-to-earn Game!&url={{ route('game.show', $game) }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="f-icon" data-feather="twitter"></i> Tweet</a>
+              <div class="fb-share-button " data-href="{{ route('game.show', $game) }}" data-layout="button" data-size="large">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('game.show', $game) }};src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+              </div>
             </div>
           </div>
 
