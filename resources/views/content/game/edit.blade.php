@@ -139,7 +139,7 @@
           <div class="col-4">
               <div class="form-group">
                   <label for="name">Website:</label>
-                  <input type="text" class="form-control" name="website" placeholder="https://p2egames.ph/" value="{{ $game->facebook }}">
+                  <input type="text" class="form-control" name="website" placeholder="https://p2egames.ph/" value="{{ $game->website }}">
               </div>
           </div>
           <div class="col-4">

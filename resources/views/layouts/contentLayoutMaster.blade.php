@@ -20,7 +20,7 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="description" content="Play to earn games">
   <meta name="keywords" content="play to earn, nft, games, games for earning">
-  <meta name="author" content="PIXINVENT">
+  <meta name="author" content="P2EGames">
   <title> P2E Games PH - @yield('title')</title>
   <link rel="apple-touch-icon" href="{{asset('images/ico/apple-icon-120.png')}}">
   <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo/favicon.ico')}}">

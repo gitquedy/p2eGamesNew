@@ -29,6 +29,8 @@ class GameSeeder extends Seeder
             'is_approved' => '0',
             'genre_ids' => '1,3,5',
             'blockchain_ids' => '1,4',
+            'is_approved' => true,
+            'slug' => 'axie-invinity'
         ]);
 
 
@@ -53,7 +55,8 @@ New players need to buy a car on Marketplace to start playing game.',
             'is_approved' => '0',
             'genre_ids' => '2',
             'blockchain_ids' => '2',
+            'is_approved' => true,
+            'slug' => 'crypto-cars'
         ]);
-
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Game Details')
+@section('title', $game->name)
 
 @section('vendor-style')
   {{-- Vendor Css files --}}

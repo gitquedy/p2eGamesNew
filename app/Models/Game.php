@@ -25,10 +25,6 @@ class Game extends Model
             $game->update(['rank' => $iteration]);
             $iteration += 1;
         }
-        // // sync slug
-        // foreach(Game::all() as $game){
-        //     $game->update(['slug' => strtolower(str_replace(" ", "-" , $game->name))]);
-        // }
     }
     public function getNameAndImgDisplay(){
         $description = Str::limit($this->short_description, 30, $end='...');
