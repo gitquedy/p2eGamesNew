@@ -15,9 +15,10 @@
           </span>
 
           @if($review->screenshots)
-            <div class="col-12 p-3 modal_button" data-action="{{ route('game.review.screenshots', $review) }}" style="cursor:pointer;">
+            <div class="col-12 p-1 modal_button" data-action="{{ route('game.review.screenshots', $review) }}" style="cursor:pointer;">
               @foreach(explode(',', $review->screenshots) as $reviewScreenshot)
-                  <img class="img-thumbnail px-2" src="{{ $review->screenshotUrl($reviewScreenshot) }}" alt="banner" / style="height:120px;width:120px;">
+                <img class="img-thumbnail px-2" src="{{ $review->screenshotUrl($reviewScreenshot) }}" alt="banner" / style="height:200px">
+                <img class="img-thumbnail px-2" src="{{ $review->screenshotUrl($reviewScreenshot) }}" alt="banner" / style="height:200px">
               @endforeach
             </div>
           @endif

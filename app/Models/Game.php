@@ -107,7 +107,7 @@ class Game extends Model
      public function getF2pDisplay(){
         $btnClasses = Utilities::getBtnClasses();
         $class = $this->f2p == 'Free-To-Play' ? 'success' : 'danger';
-        $html = '<button style="font-size:10px;" class="btn btn-'. $class .' btn-sm small" data-bs-toggle="tooltip" title="'. $this->f2p . '">'. $this->f2p . '</button>';
+        $html = '<button style="font-size:9px;" class="btn btn-'. $class .' btn-sm small" data-bs-toggle="tooltip" title="'. $this->f2p . '">'. $this->f2p . '</button>';
         return $html;
      }
 

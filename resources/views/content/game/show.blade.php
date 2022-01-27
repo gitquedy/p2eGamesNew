@@ -1,6 +1,7 @@
 @extends('layouts/contentLayoutMaster')
 
 @section('title', $game->name)
+@section('og-image', $game->imageUrl())
 
 @section('vendor-style')
   {{-- Vendor Css files --}}
@@ -210,6 +211,7 @@
             <form action="{{ route('review.store') }}" method="POST" class="form" enctype="multipart/form-data">
               @csrf
               <input type="text" name="game_id" value="{{ $game->id }}" hidden>
+              <input type="text" name="game_slug" value="{{ $game->slug }}" hidden>
               <div class="row">
                 <div class="col-12">
                   <div class="col-md d-flex flex-column align-items-start">

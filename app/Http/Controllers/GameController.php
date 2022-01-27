@@ -235,6 +235,7 @@ class GameController extends Controller
             }
             $data['slug'] =strtolower(str_replace(" ", "-" , $data['name']));
             Game::create($data);
+            Game::syncRank();
             DB::commit();
             $output = ['success' => 1,
                         'msg' => 'Game added successfully! Please wait for admin approval before being listed',

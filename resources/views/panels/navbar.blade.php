@@ -1,6 +1,6 @@
 @if ($configData['mainLayoutType'] === 'horizontal' && isset($configData['mainLayoutType']))
   <nav
-    class="header-navbar navbar-expand-lg navbar navbar-fixed align-items-center navbar-shadow navbar-brand-center {{ $configData['navbarColor'] }}"
+    class="header-navbar navbar-expand-lg navbar navbar-fixed align-items-center navbar-shadow navbar-brand-center {{ $configData['navbarColor'] }} pt-1"
     data-nav="brand-center">
     <div class="navbar-header d-xl-block d-none">
       <ul class="nav navbar-nav">

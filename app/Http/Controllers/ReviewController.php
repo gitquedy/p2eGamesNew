@@ -71,7 +71,7 @@ class ReviewController extends Controller
             DB::commit();
             $output = ['success' => 1,
                         'msg' => 'Review added successfully!',
-                        'redirect' => route('game.show', $data['game_id'])
+                        'redirect' => route('game.show', $data['game_slug'])
                     ];
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
