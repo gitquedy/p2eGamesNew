@@ -3,6 +3,7 @@
 @section('title', 'Gainers')
 
 @section('content')
+@if($banner1)
 <div class="row">
   <div class="col-md-12">
     <div class="card align-items-center">
@@ -17,6 +18,7 @@
     </div>
   </div>
 </div>
+@endif
 
 <div class="row">
 

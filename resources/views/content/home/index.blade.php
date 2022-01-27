@@ -12,6 +12,7 @@
 @endsection
 
 @section('content')
+@if($banner1)
 <div class="row">
   <div class="col-md-12">
     <div class="card align-items-center pb-2 pt-2">
@@ -26,6 +27,7 @@
     </div>
   </div>
 </div>
+@endif
 
 <div class="row">
   <div class="col-xs-12 col-lg-4 ">
@@ -95,7 +97,7 @@
       </div>
     </div>
   </div>
-
+@if($banner2)
   <div class="col-xs-12 col-lg-4">
     <a href="{{ $banner2->link }}" target="_blank">
       <div class="card">
@@ -104,6 +106,7 @@
     </a>
   </div>
 </div>
+@endif
 
 @include('content.game.table')
 @endsection
