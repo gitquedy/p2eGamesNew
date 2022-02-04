@@ -11,13 +11,13 @@
           <span>Add Game</span>
         </a>
       </li>
-      <li class="{{ $request->segment(1) == 'genre' && $request->segment(2) == '' ? 'active' : '' }}">
+      <li class="{{ $request->segment(1) == 'admin' && $request->segment(2) == 'genre' ? 'active' : '' }}">
         <a href="{{ route('genre.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
           <i data-feather="tag"></i>
           <span>Genre</span>
         </a>
       </li>
-      <li class="{{ $request->segment(1) == 'blockchain' && $request->segment(2) == '' ? 'active' : '' }}">
+      <li class="{{ $request->segment(1) == 'admin' && $request->segment(2) == 'blockchain' ? 'active' : '' }}">
         <a href="{{ route('blockchain.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
           <i data-feather="code"></i>
           <span>BlockChain</span>
@@ -32,7 +32,7 @@
     <span>Banner</span>
   </a>
     <ul class="dropdown-menu" data-bs-popper="none">
-      <li class="{{ $request->segment(1) == 'banner' ? 'active' : '' }}">
+      <li class="{{ $request->segment(1) == 'admin' && $request->segment(2) == 'banner' ? 'active' : '' }}">
         <a href="{{ route('banner.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
           <i data-feather="list"></i>
           <span>Banner List</span>
@@ -55,21 +55,21 @@
         </a>
       </li>
 
-      <li class="{{ $request->segment(1) == 'banner' ? 'active' : '' }}">
+      <li class="{{ $request->segment(1) == 'admin' && $request->segment(2) == 'coin' ? 'active' : '' }}">
         <a href="{{ route('coin.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
           <i data-feather="paperclip"></i>
           <span>Coin List</span>
         </a>
       </li>
 
-      <li class="{{ $request->segment(1) == 'paymentMethod' ? 'active' : '' }}">
+      <li class="{{ $request->segment(1) == 'admin' && $request->segment(2) == 'paymentMethod' ? 'active' : '' }}">
         <a href="{{ route('paymentMethod.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
           <i data-feather="credit-card"></i>
           <span>Payment Methods</span>
         </a>
       </li>
 
-      <li class="{{ $request->segment(1) == 'setting' ? 'active' : '' }}">
+      <li class="{{ $request->segment(1) == 'admin' && $request->segment(2) == 'systemSetting' ? 'active' : '' }}">
         <a href="{{ route('systemSetting.edit', 1) }}" class="dropdown-item d-flex align-items-center" target="_self">
           <i data-feather="settings"></i>
           <span>System Settings</span>

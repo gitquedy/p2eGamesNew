@@ -33,34 +33,23 @@ function addCommas(nStr)
 }
 
 function applyPrices(type = "total"){
-    console.log(type);
     var coinAmount = $('#coin_amount');
     var totalAmount = $('#totalAmount');
 
     var selectedCoin = $('#coin').find(":selected");
 
     var price = selectedCoin.data('price');
-    var minimumPrice = selectedCoin.data('minimum-price');
-    var markupPrice = selectedCoin.data('markup-price');
 
-    // var exchangeFixPrice = {{ $exchangeFixPrice }};
-
-    var usePrice = 0;
     var coinAmountValue = 0;
     var totalAmountValue = 0;
     var qty = coinAmount.val();
 
-    if(price < minimumPrice){
-        usePrice = minimumPrice;
-    }else{
-        usePrice = price;
-    }
 
     if(type == "total"){
-        totalAmountValue = ((usePrice * (markupPrice / 100) + usePrice) * qty);
+        totalAmountValue = price * qty;
         totalAmount.val(addCommas(totalAmountValue.toFixed(2)));
     }else if(type == "coin"){
-        coinAmountValue =  totalAmount.val() /  ((usePrice * (markupPrice / 100) + usePrice));
+        coinAmountValue =  totalAmount.val() /  price;
         coinAmount.val(addCommas(coinAmountValue.toFixed(8)));
     }
 }

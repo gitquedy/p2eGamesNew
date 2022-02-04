@@ -27,7 +27,7 @@
 
                                         <select class="form-control select2" name="coin_id" id="coin">
                                             @foreach($coins as $coin)
-                                                <option value="{{ $coin->id }}" data-image="{{ $coin->imageUrl() }}" data-price="{{ $coin->coingecko['market_data']['current_price']['php'] }}" data-minimum-price="{{ $coin->minimum_price }}" data-markup-price="{{ $coin->markup_price }}">{{ $coin->name }}</option>
+                                                <option value="{{ $coin->id }}" data-image="{{ $coin->imageUrl() }}" data-price="{{ $coin->usePrice }}">{{ $coin->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

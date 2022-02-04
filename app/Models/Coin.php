@@ -36,12 +36,16 @@ class Coin extends Model
         return $this->name . ' ($'. $this->short_name .')';
     }
 
-    public function computedPrice($qty = 1){
+    public function getUsePriceAttribute(){
         $coin = $this->coingecko;
         $price = $coin['market_data']['current_price']['php'];
         $usePrice = $price < $this->minimum_price ? $this->minimum_price : $price;
-        $totalAmountValue = (($usePrice * ($this->markup_price / 100) + $usePrice) * $qty);
+        $totalAmountValue = ($usePrice * ($this->markup_price / 100) + $usePrice);
         return $totalAmountValue;
+    }
+
+    public function computedPrice($qty = 1){
+        return $this->usePrice * $qty;
     }
 
     public function getTransactionFee($qty){
