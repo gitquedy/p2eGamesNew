@@ -63,9 +63,11 @@ class GameController extends Controller
                 }
             }
 
-            if($request->has('is_approved')){
-                if($request->is_approved != "all"){
+            if($request->user()){
+                if($request->is_approved != "all" && $request->user()->isAdmin()){
                     $game->where('is_approved', $request->is_approved);
+                }else{
+                    $game->where('is_approved', 1);
                 }
             }else{
                 $game->where('is_approved', 1);

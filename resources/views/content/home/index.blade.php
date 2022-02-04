@@ -36,13 +36,13 @@
         <table class="table">
           <tbody>
             <tr>
-              <td class="f-tr"><i data-feather="trending-up"></i></td>
+              <td class="f-tr px-1"><i data-feather="trending-up"></i></td>
               <td class="text-start">Gainers</td>
               <td class="text-end" > <a href="{{ route('game.gainer') }}">More <i data-feather="chevron-right"></i></a></td>
             </tr>
             @foreach($gainers as $gainer)
               <tr>
-                <td class="f-tr">{{ $loop->iteration }}</td>
+                <td class="f-tr px-1">{{ $loop->iteration }}</td>
                 <td class="text-start">
                   <a href="{{ route('game.show', $gainer) }}">
                     <div class="d-flex justify-content-left align-items-center">
@@ -70,13 +70,13 @@
         <table class="table">
           <tbody>
             <tr>
-              <td class="f-tr"><i data-feather="trending-down"></i></td>
+              <td class="f-tr px-1"><i data-feather="trending-down"></i></td>
               <td class="text-start">Losers</td>
               <td class="text-end" > <a href="{{ route('game.loser') }}">More <i data-feather="chevron-right"></i></a></td>
             </tr>
             @foreach($losers as $loser)
               <tr>
-                <td class="f-tr">{{ $loop->iteration }}</td>
+                <td class="f-tr px-1">{{ $loop->iteration }}</td>
                 <td class="text-start">
                   <a href="{{ route('game.show', $loser) }}">
                     <div class="d-flex justify-content-left align-items-center">
