@@ -27,16 +27,16 @@ class OrderController extends Controller
         if (request()->ajax()) {
             if($request->user()->isAdmin()){
                 $order = Order::orderBy('updated_at', 'desc');
+                if($request->paymentMethod != "all"){
+                    $order->where('payment_method_id', $request->paymentMethod);
+                }
+                if($request->coin != "all"){
+                    $order->where('coin_id', $request->coin);
+                }
             }else{
-                $order = Order::orderBy('updated_at', 'desc');
+                $order = Order::where('user_id', $request->user()->id)->orderBy('updated_at', 'desc');
             }
 
-            if($request->paymentMethod != "all"){
-                $order->where('payment_method_id', $request->paymentMethod);
-            }
-            if($request->coin != "all"){
-                $order->where('coin_id', $request->coin);
-            }
             if($request->status != "all"){
                 $order->where('status', $request->status);
             }

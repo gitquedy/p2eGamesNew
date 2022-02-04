@@ -64,3 +64,12 @@
     <span>Exchange</span>
   </a>
 </li>
+
+@if($request->user())
+<li class="nav-item {{ $request->segment(1) == 'order' ? 'active' : '' }}">
+  <a href="{{ route('order.index') }}" class="nav-link d-flex align-items-center">
+    <i data-feather="shopping-bag"></i>
+    <span>My Orders</span>
+  </a>
+</li>
+@endif
