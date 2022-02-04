@@ -64,10 +64,10 @@ Route::get('/genre/get/', [GenreController::class, 'get'])->name('genre.get');
 
 
 
-Route::get('exchange', [ExchangeController::class, 'index'])->name('exchange.index');
-Route::post('exchange/saveCart', [ExchangeController::class, 'saveCart'])->name('exchange.saveCart');
+Route::get('xchange', [ExchangeController::class, 'index'])->name('exchange.index');
+Route::post('xchange/saveCart', [ExchangeController::class, 'saveCart'])->name('exchange.saveCart');
 
-Route::get('exchange/checkout/', [ExchangeController::class, 'checkOut'])->name('exchange.checkOut');
+Route::get('xchange/checkout/', [ExchangeController::class, 'checkOut'])->name('exchange.checkOut');
 
 
 Route::group(['prefix' => 'admin','middleware' => ['auth', 'admin']], function()
