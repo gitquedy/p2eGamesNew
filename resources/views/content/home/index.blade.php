@@ -101,7 +101,7 @@
   <div class="col-xs-12 col-lg-4">
     <a href="{{ $banner2->link }}" target="_blank">
       <div class="card">
-        <img src="https://playtoearn.net/img/airdrop/p2e.jpg" class="img-fluid" style="height:193.85px">
+        <img src="{{ $banner2->imageUrl($banner2->full) }}" class="img-fluid" style="height:193.85px">
       </div>
     </a>
   </div>

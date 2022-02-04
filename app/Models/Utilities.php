@@ -84,3 +84,4 @@ class Utilities extends Model
         return Str::limit($string, $number, $end);
     }
 }
+

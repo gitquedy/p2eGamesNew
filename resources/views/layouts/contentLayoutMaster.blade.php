@@ -24,6 +24,7 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
   <meta name="og:image" content="@yield('og-image')">
   <meta name="og:image:width" content="600">
   <meta name="og:image:height" content="315">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title> P2E Games PH - @yield('title')</title>
   <link rel="apple-touch-icon" href="{{asset('images/ico/apple-icon-120.png')}}">
   <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo/favicon.ico')}}">

@@ -18,5 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(GenreSeeder::class);
         $this->call(GameSeeder::class);
         $this->call(BannerSeeder::class);
+        $this->call(CoinSeeder::class);
+        $this->call(PaymentMethodSeeder::class);
+        $this->call(SystemSettingSeeder::class);
     }
 }

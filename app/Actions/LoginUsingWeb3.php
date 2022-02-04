@@ -24,8 +24,8 @@ class LoginUsingWeb3
         Auth::login(User::firstOrCreate(
             ['eth_address' => $request->address]
         ));
-
-        return Redirect::route('home.index');
+        return response()->json(['user' => Auth::user()]);
+        // return Redirect::route('home.index');
     }
 
     protected function authenticate(Request $request): bool

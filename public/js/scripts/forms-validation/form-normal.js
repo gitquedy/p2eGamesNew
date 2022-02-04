@@ -18,17 +18,20 @@ $(function() {
         success: function(result){
           console.log(result);
           if(result.success == true){
-          Swal.fire({
-            icon: 'success',
-            title: result.msg,
-            showConfirmButton: false,
-            timer: 1500,
-            showClass: {
-              popup: 'animate__animated animate__fadeIn'
-            },
-          });
-          $('.error').remove();
-          $('.form')[0].reset();
+            if(result.msg){
+                Swal.fire({
+                icon: 'success',
+                title: result.msg,
+                showConfirmButton: false,
+                timer: 1500,
+                showClass: {
+                  popup: 'animate__animated animate__fadeIn'
+                },
+              });
+                $('.error').remove();
+                $('.form')[0].reset();
+            }
+
           // $(".select").val(null).trigger("change");
           if(button == 'save_with_reload_table'){
             $('.form')[0].reset();

@@ -12,6 +12,11 @@ use App\Models\Game;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CoinController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ExchangeController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SystemSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +62,15 @@ Route::get('/game/{game:slug}', [GameController::class, 'show'])->name('game.sho
 Route::get('/blockchain/get/', [BlockChainController::class, 'get'])->name('blockchain.get');
 Route::get('/genre/get/', [GenreController::class, 'get'])->name('genre.get');
 
-Route::group(['middleware' => ['auth', 'admin']], function()
+
+
+Route::get('exchange', [ExchangeController::class, 'index'])->name('exchange.index');
+Route::post('exchange/saveCart', [ExchangeController::class, 'saveCart'])->name('exchange.saveCart');
+
+Route::get('exchange/checkout/', [ExchangeController::class, 'checkOut'])->name('exchange.checkOut');
+
+
+Route::group(['prefix' => 'admin','middleware' => ['auth', 'admin']], function()
 {
     Route::resource('/genre', GenreController::class);
     Route::get('/genre/delete/{genre}', [GenreController::class, 'delete'])->name('genre.delete');
@@ -70,12 +83,30 @@ Route::group(['middleware' => ['auth', 'admin']], function()
 
     Route::resource('/banner', BannerController::class);
     Route::get('/banner/delete/{banner}', [BannerController::class, 'delete'])->name('banner.delete');
+
+    Route::resource('/coin', CoinController::class);
+    Route::get('/coin/delete/{coin}', [CoinController::class, 'delete'])->name('coin.delete');
+
+    Route::resource('/paymentMethod', PaymentMethodController::class);
+    Route::get('/paymentMethod/delete/{paymentMethod}', [PaymentMethodController::class, 'delete'])->name('paymentMethod.delete');
+
+    Route::resource('/systemSetting', SystemSettingController::class);
+
 });
 
 Route::group(['middleware' => ['auth']], function()
 {
     Route::post('/review', [ReviewController::class ,'store'])->name('review.store');
     Route::get('profile/settings/', [UserController::class, 'settings'])->name('profile.settings');
+    Route::resource('/order', OrderController::class);
+    Route::get('order/paymentproof/{order}', [OrderController::class, 'getPaymentProof'])->name('order.getPaymentProof');
+    Route::post('order/confirmReceipt/{order}', [OrderController::class, 'confirmReceipt'])->name('order.confirmReceipt')->middleware('admin');
+    Route::post('order/cancel/{order}', [OrderController::class, 'cancel'])->name('order.cancel')->middleware('admin');
+
+
+
+
+
 });
 
 

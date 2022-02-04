@@ -34,7 +34,7 @@ class GenreController extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view('content.genre.index', [
+        return view('admin.genre.index', [
             'breadcrumbs' => $breadcrumbs,
         ]);
     }
@@ -99,7 +99,7 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-        return view('content.genre.edit', compact('genre'));
+        return view('admin.genre.edit', compact('genre'));
     }
 
     /**
@@ -166,6 +166,6 @@ class GenreController extends Controller
 
     public function get(){
         $genres = Genre::all();
-        return view('content.genre.get', compact('genres'));
+        return view('admin.genre.get', compact('genres'));
     }
 }

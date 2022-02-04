@@ -77,7 +77,7 @@
 .invoice-edit .invoice-total-wrapper,
 .invoice-add .invoice-total-wrapper {
   width: 100%;
-  max-width: 12rem;
+  max-width: 16rem;
 }
 .invoice-preview .invoice-total-wrapper .invoice-total-item,
 .invoice-edit .invoice-total-wrapper .invoice-total-item,

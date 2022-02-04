@@ -45,7 +45,7 @@ class BannerController extends Controller
             ->rawColumns(['action', 'nameAndIcon', 'link'])
             ->make(true);
         }
-        return view('content.banner.index', [
+        return view('admin.banner.index', [
             'breadcrumbs' => $breadcrumbs,
         ]);
     }
@@ -136,7 +136,7 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        return view('content.banner.edit', compact('banner'));
+        return view('admin.banner.edit', compact('banner'));
     }
 
     /**

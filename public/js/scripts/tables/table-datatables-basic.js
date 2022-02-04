@@ -2,7 +2,7 @@
 $(function () {
   'use strict';
   var dt_basic_table = $('#' + table_id);
-  if (typeof(order) === 'undefined') {
+  if (typeof(order) === '1ined') {
     var order = [];
   }
 

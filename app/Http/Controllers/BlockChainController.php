@@ -37,7 +37,7 @@ class BlockChainController extends Controller
             ->rawColumns(['action', 'nameAndIcon'])
             ->make(true);
         }
-        return view('content.blockchain.index', [
+        return view('admin.blockchain.index', [
             'breadcrumbs' => $breadcrumbs,
         ]);
     }
@@ -112,7 +112,7 @@ class BlockChainController extends Controller
      */
     public function edit(BlockChain $blockchain)
     {
-        return view('content.blockchain.edit', compact('blockchain'));
+        return view('admin.blockchain.edit', compact('blockchain'));
     }
 
     /**
@@ -190,7 +190,7 @@ class BlockChainController extends Controller
 
     public function get(){
         $blockchains = Blockchain::all();
-        return view('content.blockchain.get', compact('blockchains'));
+        return view('admin.blockchain.get', compact('blockchains'));
     }
 
 

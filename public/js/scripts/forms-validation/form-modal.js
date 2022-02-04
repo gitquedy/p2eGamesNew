@@ -18,7 +18,11 @@ $(".modal .form").submit(function(e) {
               popup: 'animate__animated animate__fadeIn'
             },
           });
-          $('.view_modal').modal('toggle');
+          if(typeof(modalToggle) === 'undefined'){
+            $('.view_modal').modal('toggle');
+          }else{
+            $('.' + modalToggle).modal('toggle');
+          }
           if (result.select_id) {
             $('#'+result.select_id).append('<option value="'+result.option_id+'">'+result.option_name+'</option>').val(result.option_id).trigger('change');
           }

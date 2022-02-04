@@ -20,8 +20,8 @@
               <div class="form-group">
                   <label for="delegation">Delegation</label>
                   <select class="form-control" name="delegation">
-                    <option value="1" {{ $banner->delegation == 1 ? 'active' : '' }}>Banner 1</option>
-                    <option value="2" {{ $banner->delegation == 2 ? 'active' : '' }}>Banner 2</option>
+                    <option value="1" {{ $banner->delegation == 1 ? 'selected' : '' }}>Banner 1</option>
+                    <option value="2" {{ $banner->delegation == 2 ? 'selected' : '' }}>Banner 2</option>
                   </select>
               </div>
             </div>
@@ -55,11 +55,14 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-6">
-             <div class="col-12">
-                  <input type="submit" name="save_with_reload_table" class="btn btn-primary mr-1 mb-1 btn_save" value="Save">
-                  <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset </button>
+          <div class="row mb-2">
+            <div class="col-4">
+              <div class="form-group">
+                  <label for="Active">Active</label>
+                  <select class="form-control" name="isActive">
+                    <option value="1" {{ $banner->isActive == 1 ? 'selected' : '' }}>Yes</option>
+                    <option value="0" {{ $banner->isActive == 0 ? 'selected' : '' }}>No</option>
+                  </select>
               </div>
             </div>
           </div>
