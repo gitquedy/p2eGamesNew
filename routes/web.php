@@ -37,7 +37,8 @@ use App\Http\Controllers\SystemSettingController;
 
 Route::get('/test', function(){
     $client = new CoinGeckoClient();
-    $coin = $client->coins()->getCoin('axie-infinity',['tickers' => 'false']);
+    $coin = $client->coins()->getMarketChart('binancecoin', 'php', "max");
+    // $coin = $client->coins()->getCoin('axie-infinity',['tickers' => 'false']);
     dd($coin);
 });
 // End test
@@ -58,6 +59,8 @@ Route::get('/game/redflag/', [GameController::class, 'redflag'])->name('game.red
 Route::get('/game/rugpull/', [GameController::class, 'rugpull'])->name('game.rugpull');
 Route::resource('/game', GameController::class)->except(['show']);
 Route::get('/game/{game:slug}', [GameController::class, 'show'])->name('game.show');
+Route::post('/game/getChart/{game}', [GameController::class, 'getChart'])->name('game.getChart');
+
 // Route::resource('/game', GameController::class)->parameters(['game' => 'game:slug']);
 Route::get('/blockchain/get/', [BlockChainController::class, 'get'])->name('blockchain.get');
 Route::get('/genre/get/', [GenreController::class, 'get'])->name('genre.get');

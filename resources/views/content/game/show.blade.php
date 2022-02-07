@@ -305,13 +305,10 @@
   </script>
 
 <script type="text/javascript">
-    @if($game->governance_token)
-    var governance_market_chart = @json($game->governance_market_chart['prices']);
-
-    var options = {
+  var options = {
         series: [{
-        name: '{{ $game->governance_token }}',
-        data: governance_market_chart
+        name: '',
+        data: {}
       }],
         chart: {
         type: 'area',
@@ -349,7 +346,8 @@
       yaxis: {
         labels: {
           formatter: function (val) {
-            return val.toFixed(0);
+            val = val.toFixed(2);
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           },
         },
         title: {
@@ -368,9 +366,54 @@
         }
       }
     };
+    @if($game->governance_token)
+    var governance_market_chart = @json($game->governance_market_chart['prices']);
+    options.series[0].name = '{{ $game->governance_token }}';
+    options.series[0].data = governance_market_chart;
 
     var governance_chart = new ApexCharts(document.querySelector("#governance_market_chart"), options);
     governance_chart.render();
+
+    function updateGovernanceChart(){
+      var checked = $('input[name="filterChart_governance_market_chart"]:checked');
+      var type = $('input[name="filterChartType_governance_market_chart"]:checked').val();
+      value = checked.val();
+      chart = checked.data('chart');
+      $.ajax({
+          url: "{{ route('game.getChart', $game) }}",
+          data: {
+            value: value,
+            chart: chart,
+            type: type,
+          },
+          method: "POST",
+          success:function(result)
+          {
+            governance_chart.updateOptions({
+            series: [{
+              data: result
+            }],
+            yaxis: {
+              labels: {
+                formatter: function (val) {
+                  val = val.toFixed(2);
+                  return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                },
+              },
+              title: {
+                text: type
+              },
+            },
+          })
+          }
+      });
+    }
+    $('input[name="filterChart_governance_market_chart"]').on('change', function(){
+      updateGovernanceChart();
+    });
+    $('input[name="filterChartType_governance_market_chart"]').on('change', function(){
+      updateGovernanceChart();
+    });
     @endif
 
     @if($game->rewards_token)
@@ -380,6 +423,46 @@
 
       var rewards_chart = new ApexCharts(document.querySelector("#rewards_market_chart"), options);
       rewards_chart.render();
+      function updateRewardsChart(){
+        var checked = $('input[name="filterChart_rewards_market_chart"]:checked');
+        var type = $('input[name="filterChartType_rewards_market_chart"]:checked').val();
+        value = checked.val();
+        chart = checked.data('chart');
+        $.ajax({
+            url: "{{ route('game.getChart', $game) }}",
+            data: {
+              value: value,
+              chart: chart,
+              type: type,
+            },
+            method: "POST",
+            success:function(result)
+            {
+            rewards_chart.updateOptions({
+              series: [{
+                data: result
+              }],
+              yaxis: {
+                labels: {
+                  formatter: function (val) {
+                    val = val.toFixed(2);
+                    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                  },
+                },
+                title: {
+                  text: type
+                },
+              },
+            })
+            }
+        });
+      }
+      $('input[name="filterChart_rewards_market_chart"]').on('change', function(){
+        updateRewardsChart();
+      });
+      $('input[name="filterChartType_rewards_market_chart"]').on('change', function(){
+        updateRewardsChart();
+      });
     @endif
 
     function copyToClipboard(string, target){

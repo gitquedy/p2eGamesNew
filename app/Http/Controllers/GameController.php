@@ -478,4 +478,21 @@ class GameController extends Controller
         ];
         return view('content.game.filters.redflag', compact('breadcrumbs'));
     }
+
+    public function getChart(Request $request,Game $game){
+        $chart = '';
+        $client = new CoinGeckoClient();
+
+        if($request->chart == 'governance_market_chart'){
+            $coin = $client->coins()->getMarketChart($game->governance_token, 'php', $request->value);
+            $chart = $coin[$request->type];
+        }
+
+        if($request->chart == 'rewards_market_chart'){
+            $coin = $client->coins()->getMarketChart($game->rewards_token, 'php', $request->value);
+            $chart = $coin[$request->type];
+        }
+
+        return response()->json($chart);
+    }
 }
