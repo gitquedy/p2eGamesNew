@@ -37,8 +37,8 @@ use App\Http\Controllers\SystemSettingController;
 
 Route::get('/test', function(){
     $client = new CoinGeckoClient();
-    $coin = $client->coins()->getMarketChart('binancecoin', 'php', "max");
-    // $coin = $client->coins()->getCoin('axie-infinity',['tickers' => 'false']);
+    // $coin = $client->coins()->getMarketChart('binancecoin', 'php', "max");
+    $coin = $client->coins()->getCoin('axie-infinity',['tickers' => 'false']);
     dd($coin);
 });
 // End test

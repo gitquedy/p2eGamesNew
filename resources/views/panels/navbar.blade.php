@@ -34,7 +34,7 @@
 
           <span class="fw-bolder">
             @if (Auth::check())
-               {{ \Illuminate\Support\Str::limit(Auth::user()->eth_address, 6, $end='...') }}
+               <span data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->eth_address }}">{{ \Illuminate\Support\Str::limit(Auth::user()->eth_address, 6, $end='...') }}</span>
             @else
             <!-- Eth address here -->
             @endif
@@ -44,12 +44,12 @@
       </a>
       <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
         @if (Auth::check())
-           <h6 class="dropdown-header">Manage Profile</h6>
+           <!-- <h6 class="dropdown-header">Manage Profile</h6> -->
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item"
+       <!--      <a class="dropdown-item"
               href="{{ route('profile.settings') }}">
               <i class="me-50" data-feather="settings"></i> Settings
-            </a>
+            </a> -->
         @endif
         @if (Auth::check() && Laravel\Jetstream\Jetstream::hasApiFeatures())
           <a class="dropdown-item" href="{{ route('api-tokens.index') }}">

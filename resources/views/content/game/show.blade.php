@@ -35,20 +35,16 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-3 p-1">
-          <img class="img-fluid rounded-circle" src="{{ $game->imageUrl() }}" alt="banner" style="height:250px" />
+        <div class="col-sm-2 p-1">
+          <img class="img-fluid rounded-circle" src="{{ $game->imageUrl() }}" alt="banner" style="height:250px; max-width: 235px" />
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-10 ps-3">
           <div class="row">
             <div class="col-lg-8 col-sm-6">
               <h4>{{ $game->name }} </h4>
             </div>
-            <div class="col-lg-4 col-sm-6 align-items-end text-end d-flex flex-row-reverse p-0">
-              <a class="btn btn-info btn-sm" data-size="large"
-                href="https://twitter.com/intent/tweet?text=Check this awesome NFT play-to-earn Game!&url={{ route('game.show', $game) }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="f-icon" data-feather="twitter"></i> Tweet</a>
-              <div class="fb-share-button " data-href="{{ route('game.show', $game) }}" data-layout="button" data-size="large">
-                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('game.show', $game) }};src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
-              </div>
+            <div class="col-lg-4 col-sm-6 align-items-end text-end d-flex justify-content-end p-0">
+              {!! $game->get3rdPartyDisplay() !!}
             </div>
           </div>
           <div class="ecommerce-details-price d-flex flex-wrap mt-1">
@@ -76,19 +72,23 @@
                       <th>Genre:</th>
                       <td>
                         @foreach($game->genres() as $genre)
-                          <a href="#">{{ $genre->name }}</a>
+                          <a href="#">{{ $genre->name }}{{ $loop->last ? '' : ',' }} </a>
                         @endforeach
                       </td>
                     </tr>
                     <tr>
                       <th>Platforms:</th>
-                      <td><a href="#">{{ $game->device }}</a></td>
+                      <td>
+                        @foreach(explode(',', $game->device) as $devices)
+                          <a href="#">{{ $devices }}{{ $loop->last ? '' : ',' }} </a>
+                        @endforeach
+                      </td>
                     </tr>
                     <tr>
                       <th>Blockchains:</th>
                       <td>
                         @foreach($game->blockchains() as $blockchain)
-                          <a href="#">{{ $blockchain->name }}</a>
+                          <a href="#">{{ $blockchain->name }}{{ $loop->last ? '' : ',' }} </a>
                         @endforeach</td>
                     </tr>
                     <tr>
@@ -133,10 +133,18 @@
                   </tbody>
                 </table>
               </div>
+              <div class="d-flex justify-content-left align-items-center">
+                <div class="fb-share-button pe-1" data-href="{{ route('game.show', $game) }}" data-layout="button" data-size="large">
+                  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('game.show', $game) }};src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+                </div>
+                  <a class="btn btn-info btn-sm" data-size="large"
+                href="https://twitter.com/intent/tweet?text=Check this awesome NFT play-to-earn Game!&url={{ route('game.show', $game) }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="f-icon" data-feather="twitter"></i> Tweet</a>
+              </div>
 
             </div>
             <div class="col-sm-5">
-              <img class="img-fluid" src="{{ asset('placeholder/420x550.png') }}">
+              <!-- <img class="img-fluid mb-2" src="https://via.placeholder.com/300x250"> -->
+              <img class="img-fluid" src="https://via.placeholder.com/300x250">
             </div>
           </div>
         </div>

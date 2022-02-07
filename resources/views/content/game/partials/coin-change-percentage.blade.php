@@ -12,6 +12,7 @@
         <tbody>
           <tr>
             <td>
+         <!--      <span class="badge text-{{ $coin['market_data']['price_change_percentage_24h'] < 0 ? 'danger' : 'success'}}">{{ number_format($coin['market_data']['price_change_percentage_24h_in_currency']['php'],2) }}</span> -->
               <span class="badge badge-light-{{ $coin['market_data']['price_change_percentage_24h'] < 0 ? 'danger' : 'success'}}">
               <i class="text-{{ $coin['market_data']['price_change_percentage_24h'] < 0 ? 'danger' : 'success'}} font-small-3" data-feather="arrow-{{ $coin['market_data']['price_change_percentage_24h'] < 0 ? 'down' : 'up'}}"></i>
               <span class="align-middle">{{ number_format($coin['market_data']['price_change_percentage_24h'], 2) }}%</span>
