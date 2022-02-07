@@ -419,6 +419,9 @@ class GameController extends Controller
     public function screenshots(Review $review){
         return view('content.game.partials.review-screenshots', compact('review'));
     }
+    public function gameScreenshot(Game $game){
+        return view('content.game.partials.screenshots', compact('game'));
+    }
 
     public function reviews(Request $request,Game $game){
         $reviews = $game->reviews()->orderBy('created_at', 'desc');

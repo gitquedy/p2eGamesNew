@@ -46,7 +46,7 @@
 
                                 <div class="row mb-2 align-items-center justify-content-center">
                                     <div class="col-sm-3">
-                                        <label>Pay Method</label>
+                                        <label>Payment Method</label>
                                         <select class="form-control select2" name="paymentmethod_id">
                                             @foreach($paymentMethods as $paymentMethod)
                                                 <option value="{{ $paymentMethod->id }}" data-image="{{ $paymentMethod->imageUrl() }}" data-price="1" {{ $paymentMethod->isDefault ? 'selected' : '' }}>{{ $paymentMethod->provider }}</option>

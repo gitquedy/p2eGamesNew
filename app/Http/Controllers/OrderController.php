@@ -252,7 +252,26 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $order->delete();
+            DB::commit();
+            $output = ['success' => 1,
+                        'msg' => 'Order successfully deleted!'
+                    ];
+        } catch (\Exception $e) {
+            \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
+            $output = ['success' => 0,
+                        'msg' => env('APP_DEBUG') ? $e->getMessage() : 'Sorry something went wrong, please try again later.'
+                    ];
+             DB::rollBack();
+        }
+        return response()->json($output);
+    }
+    public function delete(Order $order){
+        $action = route('order.destroy', $order->id);
+        $title = 'order #' . $order->id;
+        return view('layouts.delete', compact('action' , 'title'));
     }
 
     public function getPaymentProof(Order $order){
@@ -268,6 +287,27 @@ class OrderController extends Controller
             DB::commit();
             $output = ['success' => 1,
                         'msg' => 'Receipt confirmed!',
+                        'reload' => true
+                    ];
+        } catch (\Exception $e) {
+            \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
+            $output = ['success' => 0,
+                        'msg' => env('APP_DEBUG') ? $e->getMessage() : 'Sorry something went wrong, please try again later.'
+                    ];
+             DB::rollBack();
+        }
+        return response()->json($output);
+    }
+
+
+    public function cancel(Order $order){
+        try {
+            DB::beginTransaction();
+            $data['status'] = 5;
+            $order = $order->update($data);
+            DB::commit();
+            $output = ['success' => 1,
+                        'msg' => 'Order successfully cancelled!',
                         'reload' => true
                     ];
         } catch (\Exception $e) {

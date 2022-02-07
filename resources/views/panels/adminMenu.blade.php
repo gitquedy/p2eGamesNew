@@ -23,6 +23,13 @@
           <span>BlockChain</span>
         </a>
       </li>
+
+      <li class="{{ $request->segment(1) == 'admin' && $request->segment(2) == 'review' ? 'active' : '' }}">
+        <a href="{{ route('review.index') }}" class="dropdown-item d-flex align-items-center" target="_self">
+          <i data-feather="book-open"></i>
+          <span>Reviews</span>
+        </a>
+      </li>
     </ul>
 </li>
 

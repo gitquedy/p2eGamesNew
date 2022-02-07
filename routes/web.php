@@ -50,6 +50,7 @@ Route::post('login-web3', \App\Actions\LoginUsingWeb3::class);
 
 
 Route::get('/game/screenshots/{review}', [GameController::class, 'screenshots'])->name('game.review.screenshots');
+Route::get('/game/screenshot/{game}', [GameController::class, 'gameScreenshot'])->name('game.screenshots');
 Route::get('/game/reviews/{game}', [GameController::class, 'reviews'])->name('game.reviews');
 Route::get('/game/recent/', [GameController::class, 'recent'])->name('game.recent');
 Route::get('/game/top/', [GameController::class, 'top'])->name('game.top');
@@ -96,6 +97,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'admin']], function()
     Route::post('/paymentMethod/default/{paymentMethod}', [PaymentMethodController::class, 'default'])->name('paymentMethod.default');
 
     Route::resource('/systemSetting', SystemSettingController::class);
+    Route::get('/review', [ReviewController::class ,'index'])->name('review.index');
 
 });
 
@@ -107,6 +109,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('order/paymentproof/{order}', [OrderController::class, 'getPaymentProof'])->name('order.getPaymentProof');
     Route::post('order/confirmReceipt/{order}', [OrderController::class, 'confirmReceipt'])->name('order.confirmReceipt')->middleware('admin');
     Route::post('order/cancel/{order}', [OrderController::class, 'cancel'])->name('order.cancel')->middleware('admin');
+    Route::get('/order/delete/{order}', [OrderController::class, 'delete'])->name('order.delete')->middleware('admin');
 
 
 

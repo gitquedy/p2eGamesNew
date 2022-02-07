@@ -68,6 +68,9 @@ class Order extends Model
     public function getDropDown(){
         $html = '<div class="d-flex align-items-center col-actions">';
         $html .= '<a target="_blank" class="me-1" href="'. route('order.show', $this) .'" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i data-feather="eye"></i></a>';
+        $html .=' <a class="me-1 modal_button" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-action="'. route('order.delete', $this) . '">
+                          <i data-feather="trash" class="me-50"></i>
+                       </a>';
         $html .= '</div>';
         return $html;
     }

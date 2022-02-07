@@ -33,49 +33,24 @@
 <!-- app e-commerce details start -->
 <section class="app-ecommerce-details">
   <div class="card">
-    <!-- Product Details starts -->
     <div class="card-body">
-      <div class="row my-2">
-        <div class="col-12 col-md-5 d-flex align-items-center justify-content-center mb-2 mb-md-0">
-            <div class="swiper-autoplay swiper-container">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <img class="img-fluid" src="{{ $game->imageUrl() }}" alt="banner" />
-                </div>
-                @isset($game->screenshots)
-                  @foreach(explode(',', $game->screenshots) as $screenshot)
-                    <div class="swiper-slide">
-                      <img class="img-fluid" src="{{ $game->screenshotUrl($screenshot) }}" alt="banner" />
-                    </div>
-                  @endforeach
-                @endisset
-              </div>
-              <div class="swiper-pagination"></div>
-              <div class="swiper-button-next"></div>
-              <div class="swiper-button-prev"></div>
-            </div>
-          <!-- </div> -->
+      <div class="row">
+        <div class="col-sm-3 p-1">
+          <img class="img-fluid rounded-circle" src="{{ $game->imageUrl() }}" alt="banner" style="height:250px" />
         </div>
-        <div class="col-12 col-md-7">
+        <div class="col-sm-9">
           <div class="row">
             <div class="col-lg-8 col-sm-6">
               <h4>{{ $game->name }} </h4>
             </div>
-            <div class="col-lg-4 col-sm-6 align-items-end text-end d-flex flex-row-reverse">
-              <a class="btn btn-info btn-sm " data-size="large"
+            <div class="col-lg-4 col-sm-6 align-items-end text-end d-flex flex-row-reverse p-0">
+              <a class="btn btn-info btn-sm" data-size="large"
                 href="https://twitter.com/intent/tweet?text=Check this awesome NFT play-to-earn Game!&url={{ route('game.show', $game) }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="f-icon" data-feather="twitter"></i> Tweet</a>
               <div class="fb-share-button " data-href="{{ route('game.show', $game) }}" data-layout="button" data-size="large">
                 <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('game.show', $game) }};src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
               </div>
             </div>
           </div>
-
-       <!--    <div class="align-items-end text-end">
-
-          </div> -->
-
-
-<!--           <span class="card-text item-company">{{ $game->short_description }}</span> -->
           <div class="ecommerce-details-price d-flex flex-wrap mt-1">
             <h4 class="item-price me-1">{!! $game->getStatusDisplay() !!}</h4>
             <div class="read-only-ratings rating" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
@@ -84,40 +59,90 @@
           <p class="card-text">
             {{ $game->description }}
           </p>
-          <hr />
-          <div>
-            {!! $game->getBlockChainDisplay() !!}
-          </div><br>
-          <ul class="product-features list-unstyled">
-            <li></li>
-            <li><i data-feather="list"></i> Genres: <span>
-              @foreach($game->genres() as $genre)
-                {{ $genre->name }}
+          @isset($game->screenshots)
+            <div class="col-12 p-1 mb-2 modal_button" data-action="{{ route('game.screenshots', $game) }}" style="cursor:pointer;">
+              @foreach(explode(',', $game->screenshots) as $screenshot)
+                <img class="img-thumbnail px-1" src="{{ $game->screenshotUrl($screenshot) }}" alt="Game Screenshot" / style="height:120px; width:190px">
               @endforeach
-            </span></li>
-            <li><i data-feather="smartphone"></i> Devices: <span>
-              @foreach(explode(',', $game->device) as $device)
-                {{ $device }}
-              @endforeach
-            </span></li>
-            <li><i data-feather="dollar-sign"></i> Minimum Investment: <span>
-              {{ $game->minimum_investment ? '₱ ' . number_format($game->minimum_investment, 2) : '--' }}
-            </span></li>
-            <br>
-            <li>
-              <span>{!! $game->getF2pDisplay() !!}</span>
-            </li>
-          </ul>
-          <hr />
-
-          <div class="d-flex justify-content-left align-items-center">
-              {!! $game->get3rdPartyDisplay() !!}
             </div>
+          @endif
+          <div class="row">
+            <div class="col-sm-7">
+              <h4>Game Info</h4>
+              <div class="table-responsive mb-2">
+                <table class="table align-items-start text-start table-bordered">
+                  <tbody>
+                    <tr>
+                      <th>Genre:</th>
+                      <td>
+                        @foreach($game->genres() as $genre)
+                          <a href="#">{{ $genre->name }}</a>
+                        @endforeach
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Platforms:</th>
+                      <td><a href="#">{{ $game->device }}</a></td>
+                    </tr>
+                    <tr>
+                      <th>Blockchains:</th>
+                      <td>
+                        @foreach($game->blockchains() as $blockchain)
+                          <a href="#">{{ $blockchain->name }}</a>
+                        @endforeach</td>
+                    </tr>
+                    <tr>
+                      <th>Token:</th>
+                      <td>@if($game->governance_token)${{ strtoupper($governance_coin['symbol']) }}@endif</td>
+                    </tr>
+                    <tr>
+                      <th>Developer:</th>
+                      <td>Axie Infinity</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <h4>Upcoming Events</h4>
+              <div class="table-responsive mb-2">
+                <table class="table align-items-start text-start table-bordered">
+                  <tbody>
+                    <tr>
+                      <th>February 19, 2022</th>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th>All day</th>
+                      <td>Event Title</td>
+                    </tr>
+                    <tr>
+                      <th>February 20, 2022</th>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th>All day</th>
+                      <td>Event Title</td>
+                    </tr>
+                    <tr>
+                      <th>February 20, 2022</th>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th>All day</th>
+                      <td>Event Title</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+            <div class="col-sm-5">
+              <img class="img-fluid" src="{{ asset('placeholder/420x550.png') }}">
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-   <!-- Product Details ends -->
 
   <!-- Governance Token -->
     @if($game->governance_token)
@@ -283,7 +308,9 @@
       });
     });
 
-    $('.rating').rateYo();
+    $('.rating').rateYo({
+      starWidth: "28px",
+    });
 
     var mySwiper10 = new Swiper('.swiper-autoplay', {
     spaceBetween: 30,
@@ -486,7 +513,6 @@
           }
         });
     }
-    // $('#reviewsCard');
       $(document).ready(function(){
         $('input[type=radio][name=ratings_filter]').change(function() {
           getRatings();
