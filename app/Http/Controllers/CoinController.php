@@ -23,13 +23,13 @@ class CoinController extends Controller
     public function index()
     {
         $breadcrumbs = [
-            ['link'=>"/",'name'=>"Home"],['link'=> route('coin.index'), 'name'=>"Coin"], ['name'=>"list of Coin"]
+            ['link'=>"/",'name'=>"Home"],['link'=> route('coin.index'), 'name'=>"Coin"], ['name'=>"List of Coin"]
         ];
         if (request()->ajax()) {
             $coin = Coin::orderBy('updated_at', 'desc');
             return Datatables::eloquent($coin)
             ->addColumn('action', function(Coin $coin) {
-                            $html = Utilities::actionDropdown([['route' => route('coin.edit', $coin->id), 'name' => 'Edit'], ['route' => route('coin.delete', $coin->id), 'name' => 'Delete']]);
+                            $html = Utilities::actionDropdown([['route' => route('coin.edit', $coin->id), 'name' => 'Edit'], ['route' => route('coin.default', $coin->id), 'name' => 'Default', 'type' => 'confirmation', 'title' => 'Are you sure to default ' . $coin->name . '?'], ['route' => route('coin.delete', $coin->id), 'name' => 'Delete']]);
                             return $html;
                         })
             ->addColumn('nameAndIcon', function(Coin $coin) {
@@ -75,6 +75,8 @@ class CoinController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'unique:coins,name'],
             'short_name' => ['required'],
+            'default' => ['required', 'regex:/^\d*(\.\d{1,2})?$/'],
+            'step' => ['required', 'regex:/^\d*(\.\d{1,2})?$/'],
             'icon' => ['required', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'minimum_price' => ['required', 'regex:/^[0-9]+(\.[0-9][0-9]?)?$/'],
             'markup_price' => ['required', 'integer', 'between:1,100'],
@@ -146,6 +148,8 @@ class CoinController extends Controller
             'minimum_price' => ['required', 'regex:/^[0-9]+(\.[0-9][0-9]?)?$/'],
             'markup_price' => ['required', 'integer', 'between:1,100'],
             'coingecko_id' => ['required','string', new ValidApiId],
+            'default' => ['required', 'regex:/^\d*(\.\d{1,2})?$/'],
+            'step' => ['required', 'regex:/^\d*(\.\d{1,2})?$/'],
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()]);
@@ -162,7 +166,7 @@ class CoinController extends Controller
             $coin = $coin->update($data);
             DB::commit();
             $output = ['success' => 1,
-                        'msg' => 'BlockChain updated successfully!'
+                        'msg' => 'Coin updated successfully!'
                     ];
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
@@ -198,6 +202,29 @@ class CoinController extends Controller
         }
         return response()->json($output);
     }
+
+    public function default(Coin $coin)
+    {
+        try {
+            DB::beginTransaction();
+            Coin::where('id', '!=', $coin->id)->update(['isDefault' => false]);
+            $coin->update(['isDefault' => true]);
+            DB::commit();
+            $output = ['success' => 1,
+                        'msg' => 'Coin successfully updated!',
+                        'table' => 'coin_table'
+                    ];
+        } catch (\Exception $e) {
+            \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
+            $output = ['success' => 0,
+                        'msg' => env('APP_DEBUG') ? $e->getMessage() : 'Sorry something went wrong, please try again later.'
+                    ];
+             DB::rollBack();
+        }
+        return response()->json($output);
+    }
+
+
 
     public function delete(Coin $coin){
         $action = route('coin.destroy', $coin->id);

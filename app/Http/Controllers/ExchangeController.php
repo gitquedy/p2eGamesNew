@@ -13,17 +13,20 @@ use Illuminate\Support\Facades\Session;
 class ExchangeController extends Controller
 {
     public function index(){
+        $breadcrumbs = [
+            ['link'=>"/",'name'=>"Home"], ['name'=>"P2E Exchange"]
+        ];
         $coins = Coin::where('isActive', true)->get();
         $exchangeFixPrice = SystemSetting::first()->exchange_fix_price;
         $paymentMethods = PaymentMethod::where('isActive', true)->get();
-        return view('content.exchange.index', compact('coins', 'paymentMethods', 'exchangeFixPrice'));
+        return view('content.exchange.index', compact('coins', 'paymentMethods', 'exchangeFixPrice', 'breadcrumbs'));
     }
 
     public function saveCart(Request $request){
         $validator = Validator::make($request->all(), [
             'coin_id' => ['required', 'exists:coins,id'],
             'paymentmethod_id' => ['required', 'exists:payment_methods,id'],
-            'qty' => 'required'
+            'qty' => ['required', 'regex:/^\d*(\.\d{1,2})?$/']
           ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()]);

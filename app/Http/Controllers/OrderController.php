@@ -22,7 +22,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $breadcrumbs = [
-            ['link'=>"/",'name'=>"Home"],['link'=> route('order.index'), 'name'=>"order"], ['name'=>"list of Orders"]
+            ['link'=>"/",'name'=>"Home"],['link'=> route('order.index'), 'name'=>"order"], ['name'=>"List of Orders"]
         ];
         if (request()->ajax()) {
             if($request->user()->isAdmin()){
@@ -177,7 +177,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $breadcrumbs = [
-            ['link'=>"/",'name'=>"Home"],['link'=> route('order.index'), 'name'=>"order"], ['name'=>"Order Details"]
+            ['link'=>"/",'name'=>"Home"],['link'=> route('order.index'), 'name'=>"Order List"], ['name'=>"Order Details"]
         ];
         return view('content.order.show', compact('order', 'breadcrumbs'));
     }

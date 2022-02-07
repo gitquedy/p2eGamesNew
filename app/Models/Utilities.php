@@ -17,6 +17,7 @@ class Utilities extends Model
             'Edit' => 'edit-2',
             'Delete' => 'trash',
             'Approve' => 'check',
+            'Default' => 'thumbs-up',
             // 'Web' => 'user',
             // 'Android' => 'te',
             // 'IOS' => 'te',
@@ -43,15 +44,17 @@ class Utilities extends Model
         ];
     }
 
-    public function actionDropdown($actions){
+    public function actionDropdown($dropdowns){
         $html = '<div class="dropdown">
                   <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
                     <i data-feather="more-vertical"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end">';
         $icons = static::getFeatherIcons();
-        foreach($actions as $action){
-            $html .=' <a class="dropdown-item modal_button" href="#" data-action="'. $action['route'] . '">
+        foreach($dropdowns as $action){
+            $type =   array_key_exists('type', $action) ? $action['type'] : 'modal_button';
+            $title =   array_key_exists('title', $action) ? $action['title'] : '';
+            $html .=' <a class="dropdown-item '. $type .'" href="#" data-title="'. $title .'" data-action="'. $action['route'] . '">
                           <i data-feather="'. $icons[$action['name']] .'" class="me-50"></i>
                           <span>'. $action['name'] .'</span>
                        </a>';

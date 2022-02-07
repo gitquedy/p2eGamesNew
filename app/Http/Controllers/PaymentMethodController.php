@@ -27,7 +27,7 @@ class PaymentMethodController extends Controller
             $paymentMethod = PaymentMethod::orderBy('updated_at', 'desc');
             return Datatables::eloquent($paymentMethod)
             ->addColumn('action', function(PaymentMethod $paymentMethod) {
-                            $html = Utilities::actionDropdown([['route' => route('paymentMethod.edit', $paymentMethod->id), 'name' => 'Edit'], ['route' => route('paymentMethod.delete', $paymentMethod->id), 'name' => 'Delete']]);
+                            $html = Utilities::actionDropdown([['route' => route('paymentMethod.edit', $paymentMethod->id), 'name' => 'Edit'], ['route' => route('paymentMethod.default', $paymentMethod->id), 'name' => 'Default', 'type' => 'confirmation', 'title' => 'Are you sure to default ' . $paymentMethod->provider . '?'], ['route' => route('paymentMethod.delete', $paymentMethod->id), 'name' => 'Delete']]);
                             return $html;
                         })
             ->addColumn('providerAndIcon', function(PaymentMethod $paymentMethod) {
@@ -189,5 +189,26 @@ class PaymentMethodController extends Controller
         $action = route('paymentMethod.destroy', $paymentMethod->id);
         $title = 'paymentMethod ' . $paymentMethod->name;
         return view('layouts.delete', compact('action' , 'title'));
+    }
+
+    public function default(PaymentMethod $paymentMethod)
+    {
+        try {
+            DB::beginTransaction();
+            PaymentMethod::where('id', '!=', $paymentMethod->id)->update(['isDefault' => false]);
+            $paymentMethod->update(['isDefault' => true]);
+            DB::commit();
+            $output = ['success' => 1,
+                        'msg' => 'PaymentMethod successfully updated!',
+                        'table' => 'paymentmethod_table'
+                    ];
+        } catch (\Exception $e) {
+            \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
+            $output = ['success' => 0,
+                        'msg' => env('APP_DEBUG') ? $e->getMessage() : 'Sorry something went wrong, please try again later.'
+                    ];
+             DB::rollBack();
+        }
+        return response()->json($output);
     }
 }

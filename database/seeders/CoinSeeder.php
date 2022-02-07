@@ -21,7 +21,9 @@ class CoinSeeder extends Seeder
             'minimum_price' => '19748.48',
             'markup_price' => '5',
             'icon' => 'bnb.png',
-            'isActive' => true
+            'isActive' => true,
+            'step' => 0.1,
+            'default' => 0.1
         ]);
 
         Coin::create([
@@ -31,7 +33,9 @@ class CoinSeeder extends Seeder
             'minimum_price' => '122663',
             'markup_price' => '5',
             'icon' => 'eth.png',
-            'isActive' => true
+            'isActive' => true,
+            'step' => 0.01,
+            'default' => 0.1
         ]);
 
         Coin::create([
@@ -41,7 +45,9 @@ class CoinSeeder extends Seeder
             'minimum_price' => '82.93',
             'markup_price' => '5',
             'icon' => 'matic.png',
-            'isActive' => true
+            'isActive' => true,
+            'step' => 1,
+            'default' => 1
         ]);
     }
 }

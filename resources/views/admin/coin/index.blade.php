@@ -88,6 +88,18 @@
                           </select>
                       </div>
                     </div>
+                  <div class="col-4">
+                      <div class="form-group">
+                          <label for="name">Default Qty</label>
+                          <input type="nubmber" class="form-control" name="default" placeholder="1">
+                      </div>
+                  </div>
+                  <div class="col-4">
+                      <div class="form-group">
+                          <label for="name">Step</label>
+                          <input type="nubmber" class="form-control" name="step" placeholder="Step e.g. 0.01 or 0.1">
+                      </div>
+                  </div>
                   </div>
                   <div class="row">
                     <div class="col-6">
@@ -119,6 +131,7 @@
               <th>Minimum Price</th>
               <th>Markup Price</th>
               <th>Active</th>
+              <th>Default</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -166,6 +179,7 @@
             { data: 'minimum_price', name: 'minimum_price'},
             { data: 'markup_price', name: 'markup_price'},
             { data: 'isActive', name: 'isActive'},
+            { data: 'isDefault', name: 'isDefault'},
             { data: 'action', name: 'action', 'orderable' : false}
         ];
 
@@ -178,4 +192,5 @@
   </script>
   <script src="{{ asset('js/scripts/tables/table-datatables-basic.js') }}"></script>
   <script src="{{ asset('js/scripts/forms-validation/form-normal.js') }}"></script>
+  <script src="{{ asset('js/scripts/forms-validation/form-confirmation.js') }}"></script>
 @endsection

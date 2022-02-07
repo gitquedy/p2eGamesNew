@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="loginWeb3" >Connect Metamask</button>
+            <button class="btn btn-primary" type="button" @click="loginWeb3" ><slot></slot></button>
         </div>
     </div>
 </template>

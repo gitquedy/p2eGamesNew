@@ -49,7 +49,7 @@
               </div>
             </div>
             <div class="row mb-2">
-              <div class="col-sm-3">
+              <div class="col-sm-4">
                 <div class="form-group">
                   <label for="Active">Active</label>
                   <select class="form-control" name="isActive">
@@ -58,6 +58,18 @@
                   </select>
                   </div>
                 </div>
+                <div class="col-4">
+                      <div class="form-group">
+                          <label for="name">Default Qty</label>
+                          <input type="nubmber" class="form-control" name="default" placeholder="1" value="{{ $coin->default }}">
+                      </div>
+                  </div>
+                  <div class="col-4">
+                      <div class="form-group">
+                          <label for="name">Step</label>
+                          <input type="nubmber" class="form-control" name="step" placeholder="Step e.g. 0.01 or 0.1" value="{{ $coin->step }}">
+                      </div>
+                  </div>
             </div>
         </div>
         <div class="modal-footer">

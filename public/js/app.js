@@ -3435,7 +3435,8 @@ var render = function () {
           attrs: { type: "button" },
           on: { click: _vm.loginWeb3 },
         },
-        [_vm._v("Connect Metamask")]
+        [_vm._t("default")],
+        2
       ),
     ]),
   ])

@@ -22,6 +22,9 @@ class CreateCoinsTable extends Migration
             $table->double('minimum_price', 10,4);
             $table->double('markup_price',10,2);
             $table->boolean('isActive')->default(0);
+            $table->boolean('isDefault')->default(0);
+            $table->double('default', 10,2)->default(1);
+            $table->double('step', 10,2)->default(0.1);
             $table->timestamps();
         });
     }

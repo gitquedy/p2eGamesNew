@@ -22,8 +22,7 @@
           <div class="d-flex justify-content-between flex-md-row flex-column invoice-spacing mt-0">
             <div>
               <div class="logo-wrapper">
-                <img src="{{ asset('images/logo/logo.png') }}" style="background-color: #0d1520;">
-                <!-- <h3 class="text-primary invoice-logo"></h3> -->
+
               </div>
               @if($order->status == 1)
               <p class="card-text mb-25">Please pay within 1 hour or else your order will be automatically cancelled.</p>
@@ -36,7 +35,7 @@
             </div>
             <div class="mt-md-0 mt-2">
               <h4 class="invoice-title">
-                Invoice
+                Order
                 <span class="invoice-number">#{{ $order->id }}</span>
               </h4>
               <div class="invoice-date-wrapper">
@@ -62,35 +61,36 @@
         <div class="card-body invoice-padding pt-0">
           <div class="row invoice-spacing">
             <div class="col-xl-8 p-0">
-              <h6 class="mb-2">Invoice To:</h6>
+              <h6 class="mb-2 badge badge-glow bg-danger">Send Payments To:</h6>
+              <table>
+                <tbody>
+                  <tr>
+                    <td class="pe-1">Total Due:</td>
+                    <td><span class="fw-bold badge bg-danger">{{ number_format($order->total, 2) }}</span></td>
+                  </tr>
+                  <tr>
+                    <td class="pe-1">Provider:</td>
+                    <td class="badge bg-danger">{{ $order->paymentMethod->provider }}</td>
+                  </tr>
+                  <tr>
+                    <td class="pe-1">Account Name:</td>
+                    <td class="badge bg-danger">{{ $order->paymentMethod->account_name }}</td>
+                  </tr>
+                  <tr>
+                    <td class="pe-1">Account Number:</td>
+                    <td class="badge bg-danger">{{ $order->paymentMethod->account_number }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-xl-4 p-0 mt-xl-0 mt-2">
+              <h6 class="mb-2">Order To:</h6>
               <h6 class="mb-25">{{ $order->user->name }}</h6>
               <h6 class="mb-25">{{ $order->user->eth_address }}</h6>
               <p class="card-text mb-25">{{ $order->user->phone_number }}</p>
               <p class="card-text mb-25">{{ $order->user->email }}</p>
             </div>
-            <div class="col-xl-4 p-0 mt-xl-0 mt-2">
-              <h6 class="mb-2">Payment Details:</h6>
-              <table>
-                <tbody>
-                  <tr>
-                    <td class="pe-1">Total Due:</td>
-                    <td><span class="fw-bold">{{ number_format($order->total, 2) }}</span></td>
-                  </tr>
-                  <tr>
-                    <td class="pe-1">Provider:</td>
-                    <td>{{ $order->paymentMethod->provider }}</td>
-                  </tr>
-                  <tr>
-                    <td class="pe-1">Account Name:</td>
-                    <td>{{ $order->paymentMethod->account_name }}</td>
-                  </tr>
-                  <tr>
-                    <td class="pe-1">Account Number:</td>
-                    <td>{{ $order->paymentMethod->account_number }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+
           </div>
         </div>
         <!-- Address and Contact ends -->

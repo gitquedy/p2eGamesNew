@@ -25,6 +25,9 @@ $(document).on('click', '.confirmation', function(){
             if(result.reload) {
                 location.reload();
             }
+            if(result.table){
+              $('#' + result.table).DataTable().ajax.reload();
+            }
             }else{
               if(result.msg){
                 Swal.fire({

@@ -98,6 +98,7 @@
               <th>Account Number</th>
               <th>Provider</th>
               <th>Active</th>
+              <th>Default</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -143,6 +144,7 @@
             { data: 'account_number', name: 'account_number'},
             { data: 'providerAndIcon', name: 'provider'},
             { data: 'isActive', name: 'isActive'},
+            { data: 'isDefault', name: 'isDefault'},
             { data: 'action', name: 'action', 'orderable' : false}
         ];
 
@@ -155,4 +157,5 @@
   </script>
   <script src="{{ asset('js/scripts/tables/table-datatables-basic.js') }}"></script>
   <script src="{{ asset('js/scripts/forms-validation/form-normal.js') }}"></script>
+  <script src="{{ asset('js/scripts/forms-validation/form-confirmation.js') }}"></script>
 @endsection

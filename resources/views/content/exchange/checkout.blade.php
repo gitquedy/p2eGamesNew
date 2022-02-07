@@ -27,7 +27,9 @@
               <div class="col-md-12 col-sm-12">
                 <div class="input-group mb-2">
                   <input type="text" class="form-control" name="eth_address" placeholder="Metamask Address (0x)" value="{{ $request->user() ? $request->user()->eth_address : '' }}" readonly>
-                  <show-metamask />
+                  <show-metamask>
+                      {{ $request->user() ? 'Switch Account' : 'Connect Metamask' }}
+                  </show-metamask>
                 </div>
 
               </div>

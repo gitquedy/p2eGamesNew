@@ -37,7 +37,7 @@ use App\Http\Controllers\SystemSettingController;
 
 Route::get('/test', function(){
     $client = new CoinGeckoClient();
-    $coin = $client->coins()->getCoin('smooth-love-potion',['tickers' => 'false']);
+    $coin = $client->coins()->getCoin('axie-infinity',['tickers' => 'false']);
     dd($coin);
 });
 // End test
@@ -86,9 +86,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'admin']], function()
 
     Route::resource('/coin', CoinController::class);
     Route::get('/coin/delete/{coin}', [CoinController::class, 'delete'])->name('coin.delete');
+    Route::post('/coin/default/{coin}', [CoinController::class, 'default'])->name('coin.default');
 
     Route::resource('/paymentMethod', PaymentMethodController::class);
     Route::get('/paymentMethod/delete/{paymentMethod}', [PaymentMethodController::class, 'delete'])->name('paymentMethod.delete');
+    Route::post('/paymentMethod/default/{paymentMethod}', [PaymentMethodController::class, 'default'])->name('paymentMethod.default');
 
     Route::resource('/systemSetting', SystemSettingController::class);
 

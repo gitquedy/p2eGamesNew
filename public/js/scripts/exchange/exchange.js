@@ -64,7 +64,29 @@ $(document).ready(function(){
         applyPrices("coin");
     });
     $('#coin').on('change', function(){
-        $('#coin_amount').val(1);
+        $('#coin_amount').val($('#coin').find(":selected").data('value'));
+        $('#coin_amount').prop("step", $('#coin').find(":selected").data('step'));
         applyPrices("total");
     });
+
+    $('#minus').on('click', function(){
+        var step = $('#coin').find(":selected").data('step');
+        var value = $('#coin_amount').val();
+
+        value =  parseFloat(value) - parseFloat(step);
+        if(value > 0){
+            $('#coin_amount').val(parseFloat(value.toFixed(4)));
+            applyPrices("total");
+        }
+    });
+
+    $('#plus').on('click', function(){
+        var step = $('#coin').find(":selected").data('step');
+        var value = $('#coin_amount').val();
+
+        value =  parseFloat(value) + parseFloat(step);
+        $('#coin_amount').val(parseFloat(value.toFixed(4)));
+        applyPrices("total");
+    });
+    $('#coin').trigger('change');
 });

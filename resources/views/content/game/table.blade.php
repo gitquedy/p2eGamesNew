@@ -111,7 +111,7 @@
         <table class="datatables-basic table" id="game_table">
           <thead>
             <tr>
-              <th>Rank</th>
+              <th class="px-1">Rank</th>
               <th>Name</th>
               <th>Genre</th>
               <th>Blockchains</th>

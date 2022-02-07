@@ -20,6 +20,7 @@ class CreatePaymentMethodsTable extends Migration
             $table->string('provider');
             $table->string('icon');
             $table->boolean('isActive')->default(0);
+            $table->boolean('isDefault')->default(0);
             $table->timestamps();
         });
     }

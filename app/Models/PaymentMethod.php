@@ -11,7 +11,7 @@ class PaymentMethod extends Model
 
     protected $table = 'payment_methods';
 
-    protected $fillable = ['account_name', 'account_number', 'provider', 'isActive', 'icon'];
+    protected $fillable = ['account_name', 'account_number', 'provider', 'isActive', 'icon', 'isDefault'];
 
     public function getProviderNameDisplay(){
          return '<div class="d-flex justify-content-left align-items-center">

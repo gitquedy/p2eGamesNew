@@ -11,11 +11,11 @@ class Coin extends Model
 {
     use HasFactory;
 
-    protected $appends = ['coingecko'];
+    // protected $appends = ['coingecko'];
 
     protected $table = 'coins';
 
-    protected $fillable = ['name', 'short_name','coingecko_id','minimum_price','markup_price','icon', 'isActive'];
+    protected $fillable = ['name', 'short_name','coingecko_id','minimum_price','markup_price','icon', 'isActive', 'isDefault', 'default', 'step'];
 
     public function getNameAndIconDisplay(){
          return '<div class="d-flex justify-content-left align-items-center">
