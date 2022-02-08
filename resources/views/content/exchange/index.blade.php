@@ -26,7 +26,7 @@
                                 <div class="row mb-2 align-items-center justify-content-center">
 
                                     <div class="col-sm-3">
-                                        <label>Buy</label>
+                                        <label>Buy Crypto</label>
 
                                         <select class="form-control select2" name="coin_id" id="coin">
                                             @foreach($coins as $coin)

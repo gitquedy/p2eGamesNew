@@ -11,7 +11,17 @@
                 <div class="swiper-autoplay swiper-container modal-swiper">
                   <div class="swiper-wrapper">
                     @if($game->screenshots)
+                      @if($default)
+                        <div class="swiper-slide">
+                          <img class="img-fluid" src="{{ $game->screenshotUrl($default) }}" alt="banner" />
+                        </div>
+                      @endif
                       @foreach(explode(',', $game->screenshots) as $screenshot)
+                        @if($default)
+                          @if($screenshot == $default)
+                            @continue
+                          @endif
+                        @endif
                         <div class="swiper-slide">
                           <img class="img-fluid" src="{{ $game->screenshotUrl($screenshot) }}" alt="banner" />
                         </div>

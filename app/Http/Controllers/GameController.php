@@ -419,8 +419,9 @@ class GameController extends Controller
     public function screenshots(Review $review){
         return view('content.game.partials.review-screenshots', compact('review'));
     }
-    public function gameScreenshot(Game $game){
-        return view('content.game.partials.screenshots', compact('game'));
+    public function gameScreenshot(Request $request,Game $game){
+        $default = $request->input('default');
+        return view('content.game.partials.screenshots', compact('game', 'default'));
     }
 
     public function reviews(Request $request,Game $game){

@@ -36,7 +36,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-sm-2 p-1">
-          <img class="img-fluid rounded-circle" src="{{ $game->imageUrl() }}" alt="banner" style="height:250px; max-width: 235px" />
+          <img class="img-fluid" src="{{ $game->imageUrl() }}" alt="banner" style="height:250px; max-width: 235px" />
         </div>
         <div class="col-sm-10 ps-3">
           <div class="row">
@@ -56,9 +56,9 @@
             {{ $game->description }}
           </p>
           @isset($game->screenshots)
-            <div class="col-12 p-1 mb-2 modal_button" data-action="{{ route('game.screenshots', $game) }}" style="cursor:pointer;">
+            <div class="col-12 p-1 mb-2" style="cursor:pointer;">
               @foreach(explode(',', $game->screenshots) as $screenshot)
-                <img class="img-thumbnail px-1" src="{{ $game->screenshotUrl($screenshot) }}" alt="Game Screenshot" / style="height:120px; width:190px">
+                <img class="img-thumbnail px-1 modal_button" data-action="{{ route('game.screenshots', ['game' => $game, 'default' => $screenshot]) }}" src="{{ $game->screenshotUrl($screenshot) }}" alt="Game Screenshot" / style="height:120px; width:190px">
               @endforeach
             </div>
           @endif
@@ -102,7 +102,7 @@
                   </tbody>
                 </table>
               </div>
-              <h4>Upcoming Events</h4>
+            <!--   <h4>Upcoming Events</h4>
               <div class="table-responsive mb-2">
                 <table class="table align-items-start text-start table-bordered">
                   <tbody>
@@ -132,7 +132,7 @@
                     </tr>
                   </tbody>
                 </table>
-              </div>
+              </div> -->
               <div class="d-flex justify-content-left align-items-center">
                 <div class="fb-share-button pe-1" data-href="{{ route('game.show', $game) }}" data-layout="button" data-size="large">
                   <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('game.show', $game) }};src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
