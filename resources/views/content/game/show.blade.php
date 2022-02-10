@@ -35,22 +35,22 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-2 p-1">
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 py-1 px-0 text-center">
           <img class="img-fluid" src="{{ $game->imageUrl() }}" alt="banner" style="height:250px; max-width: 235px" />
         </div>
-        <div class="col-sm-10 ps-3">
+        <div class="col-sm-12 col-md-8 col-lg-8 col-xl-9">
           <div class="row">
-            <div class="col-lg-8 col-sm-6">
+            <div class="col-lg-8 col-sm-6 text-center text-sm-start">
               <h4>{{ $game->name }} </h4>
             </div>
-            <div class="col-lg-4 col-sm-6 align-items-end text-end d-flex justify-content-end p-0">
+            <div class="col-lg-4 col-sm-6 align-items-end text-end d-flex justify-content-center justify-content-sm-end p-0">
               {!! $game->get3rdPartyDisplay() !!}
             </div>
           </div>
-          <div class="ecommerce-details-price d-flex flex-wrap mt-1">
+          <div class="ecommerce-details-price d-flex flex-wrap mt-1 justify-content-center justify-content-sm-end">
             <h4 class="item-price me-1">{!! $game->getStatusDisplay() !!}</h4>
             <div class="read-only-ratings rating" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
-            <h4>&nbsp; {{ $game->avgRating }}/5</h4><small> &nbsp; out of {{ $game->reviews()->count() }} reviews</small>
+            <h4>&nbsp; {{ $game->avgRating }}/5</h4><small class="d-none d-sm-block" > &nbsp; out of {{ $game->reviews()->count() }} reviews</small>
           </div>
           <p class="card-text">
             {{ $game->description }}
@@ -58,7 +58,7 @@
           @isset($game->screenshots)
             <div class="col-12 p-1 mb-2" style="cursor:pointer;">
               @foreach(explode(',', $game->screenshots) as $screenshot)
-                <img class="img-thumbnail px-1 modal_button" data-action="{{ route('game.screenshots', ['game' => $game, 'default' => $screenshot]) }}" src="{{ $game->screenshotUrl($screenshot) }}" alt="Game Screenshot" / style="height:120px; width:190px">
+                <img class="img-thumbnail px-1 modal_button" data-action="{{ route('game.screenshots', ['game' => $game, 'default' => $screenshot]) }}" src="{{ $game->screenshotUrl($screenshot) }}" alt="Game Screenshot"  style="height:120px; width:190px">
               @endforeach
             </div>
           @endif
@@ -142,7 +142,7 @@
               </div>
 
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-5 pt-1 text-center">
               <!-- <img class="img-fluid mb-2" src="https://via.placeholder.com/300x250"> -->
               <img class="img-fluid" src="https://via.placeholder.com/300x250">
             </div>

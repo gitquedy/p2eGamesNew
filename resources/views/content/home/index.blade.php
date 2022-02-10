@@ -5,8 +5,8 @@
 @section('page-style')
     <style>
       .f-tr {
-        min-width: 10px !important;
-        width: 10px !important;
+        min-width: 0!important;
+        width: 0!important;
       }
     </style>
 @endsection
@@ -42,8 +42,8 @@
             </tr>
             @foreach($gainers as $gainer)
               <tr>
-                <td class="f-tr px-1">{{ $loop->iteration }}</td>
-                <td class="text-start">
+                <td class="f-tr text-center px-1">{{ $loop->iteration }}</td>
+                <td class="text-start ps-0">
                   <a href="{{ route('game.show', $gainer) }}">
                     <div class="d-flex justify-content-left align-items-center">
                       <div class="bg-light-red me-1">
@@ -71,13 +71,13 @@
           <tbody>
             <tr>
               <td class="f-tr px-1"><i data-feather="trending-down"></i></td>
-              <td class="text-start">Losers</td>
+              <td class="text-start pl-0">Losers</td>
               <td class="text-end" > <a href="{{ route('game.loser') }}">More <i data-feather="chevron-right"></i></a></td>
             </tr>
             @foreach($losers as $loser)
               <tr>
-                <td class="f-tr px-1">{{ $loop->iteration }}</td>
-                <td class="text-start">
+                <td class="f-tr text-center px-1">{{ $loop->iteration }}</td>
+                <td class="text-start ps-0">
                   <a href="{{ route('game.show', $loser) }}">
                     <div class="d-flex justify-content-left align-items-center">
                       <div class="bg-light-red me-1">

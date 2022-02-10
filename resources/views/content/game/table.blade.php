@@ -189,8 +189,8 @@
       @endif
     @endif
     var columnns = [
-              { data: 'rank', name: 'rank', orderable: false, searchable: false },
-              { data: 'nameAndImgDisplay', name: 'name', 'orderable' : false},
+              { data: 'rank', name: 'rank', orderable: false, searchable: false, className: 'px-1 text-center'},
+              { data: 'nameAndImgDisplay', name: 'name', 'orderable' : false, className: 'ps-0'},
               { data: 'genres', name: 'genres', 'orderable' : false},
               { data: 'blockchains', name: 'blockchains', 'orderable' : false},
               { data: 'devices', name: 'devices', 'orderable' : false},
@@ -202,8 +202,8 @@
     @if(Auth::check())
       @if($request->user()->isAdmin())
         var columnns = [
-              { data: 'rank', name: 'rank', orderable: false, searchable: false },
-              { data: 'nameAndImgDisplay', name: 'name', 'orderable' : false},
+              { data: 'rank', name: 'rank', orderable: false, searchable: false, class: 'px-1 text-center'},
+              { data: 'nameAndImgDisplay', name: 'name', 'orderable' : false, class: 'ps-0'},
               { data: 'genres', name: 'genres', 'orderable' : false},
               { data: 'blockchains', name: 'blockchains', 'orderable' : false},
               { data: 'devices', name: 'devices', 'orderable' : false},
