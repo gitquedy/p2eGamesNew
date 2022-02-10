@@ -5,7 +5,7 @@
         <h4 class="card-title mb-25">{!! $game->getCoinDisplay($coin) !!} {{ $coin['name'] }} ({{ strtoupper($coin['symbol']) }}) </h4>
         <span class="card-subtitle">
           <button class="btn btn-sm btn-outline-primary" data-toggle="tooltip" title="{{ $coin['contract_address'] }}">
-            <a href="{{ $coin['links']['blockchain_site'][0] }}" target="_blank">View CA: {{ \Illuminate\Support\Str::limit($coin['contract_address'], 4, $end='..') }} </a>
+            <a href="{{ $coin['links']['blockchain_site'][0] }}" target="_blank">View CA</a>
           </button>
           <button class="btn btn-sm btn-outline-success" id="btn-copy" onclick="copyToClipboard('{{ $coin['contract_address'] }}', '#btn-copy')">Copy CA <i class="ficon" data-feather="copy"></i></button>
           @if($coin['asset_platform_id'] == 'binance-smart-chain')

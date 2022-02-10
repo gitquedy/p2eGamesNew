@@ -47,7 +47,7 @@
               {!! $game->get3rdPartyDisplay() !!}
             </div>
           </div>
-          <div class="ecommerce-details-price d-flex flex-wrap mt-1 justify-content-center justify-content-sm-end">
+          <div class="ecommerce-details-price d-flex flex-wrap mt-1 justify-content-center justify-content-sm-start">
             <h4 class="item-price me-1">{!! $game->getStatusDisplay() !!}</h4>
             <div class="read-only-ratings rating" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
             <h4>&nbsp; {{ $game->avgRating }}/5</h4><small class="d-none d-sm-block" > &nbsp; out of {{ $game->reviews()->count() }} reviews</small>

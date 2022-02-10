@@ -70,6 +70,7 @@
   margin-right: 0;
   font-size: inherit;
 }
+.navbar-container .bookmark-wrapper .navbar-brand .brand-logo img,
 .horizontal-menu .header-navbar.navbar-brand-center .navbar-header .navbar-brand .brand-logo img {
   max-width: 200px;
 }
@@ -401,7 +402,7 @@
     display: none;
   }
   .horizontal-layout .header-navbar {
-    background: #f8f8f8;
+    background: #0d1520;
   }
   .horizontal-layout .app-content {
     padding: calc(4.45rem + calc(2rem - 0.8rem)) calc(2rem - 0.8rem) 0 calc(2rem - 0.8rem) !important;
