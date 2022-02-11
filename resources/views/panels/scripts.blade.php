@@ -39,6 +39,7 @@
               success:function(result)
               {
                   $('#view_modal').html(result).modal('toggle');
+                  $('#show_modal').modal('hide');
               }
           });
       });
