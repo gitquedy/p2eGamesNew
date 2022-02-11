@@ -162,6 +162,7 @@ class BannerController extends Controller
         }
         try {
             DB::beginTransaction();
+            $data = $request->all();
             if($request->hasFile('full')){
               $photo = $data['full'];
               $new_name = 'full_'  . sha1(time()) . '.' . $photo->getClientOriginalExtension();
