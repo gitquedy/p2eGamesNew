@@ -102,6 +102,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'admin']], function()
 
     Route::resource('/systemSetting', SystemSettingController::class);
     Route::get('/review', [ReviewController::class ,'index'])->name('review.index');
+    Route::get('/review/{review}', [ReviewController::class ,'show'])->name('review.show');
+    Route::post('/review/approve/{review}', [ReviewController::class ,'approve'])->name('review.approve');
+    Route::delete('/review/{review}', [ReviewController::class ,'destroy'])->name('review.destroy');
+    Route::get('/review/delete/{review}', [ReviewController::class ,'delete'])->name('review.delete');
 
 });
 

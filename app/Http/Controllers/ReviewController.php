@@ -19,9 +19,48 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if (request()->ajax()) {
+            $review = Review::with(['game'])->orderBy('updated_at', 'desc');
+
+            if($request->status != "all"){
+                $review->where('status', $request->status);
+            }
+
+            if($request->game != "all"){
+                $review->where('game_id', $request->game);
+            }
+
+            if($request->rating != "all"){
+                $review->where('rating', $request->rating);
+            }
+
+
+
+
+
+
+            return Datatables::eloquent($review)
+            ->addColumn('game', function(Review $review) {
+                            return $review->game->name;
+                        })
+            ->addColumn('action', function(Review $review) {
+                            return $review->getDropdown();
+                        })
+            ->addColumn('ratingFormatted', function(Review $review) {
+                            return '<p class="card-text"><small><div class="read-only-ratings review-detail-rating" data-rateyo-rating="'. $review->rating .'" data-rateyo-read-only="true"></div></small></p>';
+                        })
+
+
+            ->rawColumns(['action', 'ratingFormatted'])
+            ->make(true);
+        }
+        $breadcrumbs = [
+            ['link'=>"/",'name'=>"Home"],['link'=> route('review.index'), 'name'=>"Reviews"], ['name'=>"List of Reviews"]
+        ];
+        $games = Game::all();
+        return view('admin.review.index', compact('games', 'breadcrumbs'));
     }
 
     /**
@@ -91,7 +130,7 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        //
+       return view('admin.review.show', compact('review'));
     }
 
     /**
@@ -117,14 +156,45 @@ class ReviewController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Review  $review
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Review $review)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $review->delete();
+            DB::commit();
+            $output = ['success' => 1,
+                        'msg' => 'Review successfully deleted!'
+                    ];
+        } catch (\Exception $e) {
+            \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
+            $output = ['success' => 0,
+                        'msg' => env('APP_DEBUG') ? $e->getMessage() : 'Sorry something went wrong, please try again later.'
+                    ];
+             DB::rollBack();
+        }
+        return response()->json($output);
+    }
+    public function delete(Review $review){
+        $action = route('review.destroy', $review->id);
+        $title = 'review #' . $review->id;
+        return view('layouts.delete', compact('action' , 'title'));
+    }
+
+    public function approve(Review $review){
+        try {
+            DB::beginTransaction();
+            $review->update(['status' => true]);
+            DB::commit();
+            $output = ['success' => 1,
+                        'msg' => 'Review successfully updated!'
+                    ];
+        } catch (\Exception $e) {
+            \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
+            $output = ['success' => 0,
+                        'msg' => env('APP_DEBUG') ? $e->getMessage() : 'Sorry something went wrong, please try again later.'
+                    ];
+             DB::rollBack();
+        }
+        return response()->json($output);
     }
 }

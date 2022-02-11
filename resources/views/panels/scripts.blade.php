@@ -38,7 +38,18 @@
               method: "GET",
               success:function(result)
               {
-                  $('.view_modal').html(result).modal('toggle');
+                  $('#view_modal').html(result).modal('toggle');
+              }
+          });
+      });
+
+      $(document).on('click', '.show_modal', function() {
+          $.ajax({
+              url: $(this).data('action'),
+              method: "GET",
+              success:function(result)
+              {
+                  $('#show_modal').html(result).modal('toggle');
               }
           });
       });

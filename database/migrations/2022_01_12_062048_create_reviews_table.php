@@ -21,6 +21,7 @@ class CreateReviewsTable extends Migration
             $table->text('description');
             $table->float('rating', 10, 2);
             $table->string('screenshots')->nullable();
+            $table->boolean('status')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')
