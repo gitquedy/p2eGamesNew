@@ -73,12 +73,16 @@
                     <td class="badge bg-danger">{{ $order->paymentMethod->provider }}</td>
                   </tr>
                   <tr>
-                    <td class="pe-1">Account Name:</td>
+                    <td class="pe-1">Name:</td>
                     <td class="badge bg-danger">{{ $order->paymentMethod->account_name }}</td>
                   </tr>
                   <tr>
-                    <td class="pe-1">Account Number:</td>
+                    <td class="pe-1">Number:</td>
                     <td class="badge bg-danger">{{ $order->paymentMethod->account_number }}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>After sending the payment, please attach proof of payment (screenshot) by clicking the <a href="#" data-bs-toggle="modal" data-bs-target="#add-payment-sidebar">"ADD PAYMENT"</a> button.</td>
                   </tr>
                 </tbody>
               </table>
