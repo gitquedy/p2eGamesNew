@@ -69,4 +69,12 @@ class User extends Authenticatable
     public function profileUrl(){
         return asset('images/user/profile/' . $this->profile_photo_path);
     }
+
+    public function useful(){
+        return $this->hasMany(Useful::class, 'user_id');
+    }
+
+    public function reviews(){
+        return $this->hasMany(Review::class, 'user_id');
+    }
 }

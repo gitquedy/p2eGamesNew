@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Foundation\Application;
@@ -17,6 +18,7 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SystemSettingController;
+use App\Http\Controllers\UsefulController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +75,8 @@ Route::post('xchange/saveCart', [ExchangeController::class, 'saveCart'])->name('
 
 Route::get('xchange/checkout/', [ExchangeController::class, 'checkOut'])->name('exchange.checkOut');
 
+Route::get('profile/{user:eth_address}/', [UserController::class, 'profile'])->name('user.profile');
+
 
 Route::group(['prefix' => 'admin','middleware' => ['auth', 'admin']], function()
 {
@@ -110,7 +114,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::post('order/confirmReceipt/{order}', [OrderController::class, 'confirmReceipt'])->name('order.confirmReceipt')->middleware('admin');
     Route::post('order/cancel/{order}', [OrderController::class, 'cancel'])->name('order.cancel')->middleware('admin');
     Route::get('/order/delete/{order}', [OrderController::class, 'delete'])->name('order.delete')->middleware('admin');
-
+    Route::post('/useful/{review}', [UsefulController::class, 'useful'])->name('useful.useful');
 
 
 

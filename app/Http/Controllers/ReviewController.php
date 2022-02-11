@@ -70,7 +70,7 @@ class ReviewController extends Controller
             Game::syncRank();
             DB::commit();
             $output = ['success' => 1,
-                        'msg' => 'Review added successfully!',
+                        'msg' => 'Review submitted successfully! Please wait for admin approval.',
                         'redirect' => route('game.show', $data['game_slug'])
                     ];
         } catch (\Exception $e) {

@@ -1,3 +1,4 @@
+@inject('request', 'Illuminate\Http\Request')
 @extends('layouts/contentLayoutMaster')
 
 @section('title', $game->name)
@@ -138,7 +139,7 @@
                   <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('game.show', $game) }};src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
                 </div>
                   <a class="btn btn-info btn-sm" data-size="large"
-                href="https://twitter.com/intent/tweet?text=Check this awesome NFT play-to-earn Game!&url={{ route('game.show', $game) }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="f-icon" data-feather="twitter"></i> Tweet</a>
+                href="https://twitter.com/intent/tweet?text=Check this awesome NFT play-to-earn Game!&url={{ route('game.show', $game) }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="f-icon" data-e="twitter"></i> Tweet</a>
               </div>
 
             </div>
@@ -165,7 +166,7 @@
     <!-- Rewards token -->
     @if($game->reviews()->count() > 0)
 
-    <!-- reviews -->
+    <!-- x -->
     <div class="col-12 mt-1" id="blogComment">
         <h6 class="section-label mt-25">Reviews</h6>
         <div class="card">
@@ -224,6 +225,13 @@
                   </span>
                 </label>
               </div>
+              @if(Auth::user())
+                @if($game->reviews()->where('user_id', Auth::user()->id)->count() < 1)
+                  <div class="col-md-2">
+                    <a href="#wreview"><button class="btn btn-info btn-lg">Write a Review</button></a>
+                  </div>
+                @endif
+              @endif
             </div>
           </div>
           <hr/>
@@ -232,12 +240,32 @@
           </div>
         </div>
       </div>
+
+      @else
+
+      <div class="col-12 mt-1">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 align-items-center justify-content-center">
+                <div class="d-flex align-items-center justify-content-center flex-column">
+                  <h4>Yay! Be the first to review this game</h4>
+                  @if(! $request->user())
+                  <button class="btn btn-success" onclick="$('#metamaskLogin').click()">Connect Metamask to Login.</button>
+                  @endif
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     @endif
     <!-- reviews -->
 
     @if(Auth::user())
       @if($game->reviews()->where('user_id', Auth::user()->id)->count() < 1)
-      <div class="col-12 mt-1">
+      <div class="col-12 mt-1" id="wreview">
         <h6 class="section-label mt-25">Leave a Review</h6>
         <div class="card">
           <div class="card-body">
@@ -346,11 +374,15 @@
         $('[name="rating"]').val(rating);
         $(this).parent().find('.counter').text(rating);
       });
-    });
+      $('.review-detail-rating').rateYo({
+        starWidth: "14px",
+      });
 
     $('.rating').rateYo({
       starWidth: "28px",
     });
+
+
 
     var mySwiper10 = new Swiper('.swiper-autoplay', {
     spaceBetween: 30,
@@ -368,6 +400,7 @@
       prevEl: '.swiper-button-prev'
     }
   });
+});
 
 </script>
 
