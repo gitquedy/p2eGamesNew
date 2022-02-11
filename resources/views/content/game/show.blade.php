@@ -345,17 +345,7 @@
             }
         }
       });
-<<<<<<< Updated upstream
 
-=======
-
-<<<<<<< HEAD
-
-  <script type="text/javascript">
-    $(document).ready(function(){
-=======
->>>>>>> 84a44e5e34fcf9d53397e6c8ba84666d5f6ec1c0
->>>>>>> Stashed changes
       $('.onChange-event-ratings')
       .rateYo()
       .on('rateyo.change', function (e, data) {
@@ -366,11 +356,11 @@
       $('.review-detail-rating').rateYo({
         starWidth: "14px",
       });
-    });
 
     $('.rating').rateYo({
       starWidth: "28px",
     });
+
 
 
     var mySwiper10 = new Swiper('.swiper-autoplay', {
@@ -389,6 +379,7 @@
       prevEl: '.swiper-button-prev'
     }
   });
+});
 
 </script>
 
