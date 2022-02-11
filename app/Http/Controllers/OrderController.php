@@ -174,8 +174,12 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(Request $request,Order $order)
     {
+        // dd($request->useR());
+        if($request->user()->id != $order->user_id && $request->user()->isAdmin() == false){
+            abort(403, 'Unauthorized action.');
+        }
         $breadcrumbs = [
             ['link'=>"/",'name'=>"Home"],['link'=> route('order.index'), 'name'=>"Order List"], ['name'=>"Order Details"]
         ];
@@ -202,6 +206,12 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
+        if($request->user()->id != $order->user_id && $request->user()->isAdmin() == false){
+            $output = ['success' => 0,
+                        'msg' => '403: Unauthorized',
+                    ];
+            return response()->json($output);
+        }
         $data = $request->all();
         if($request->updateMethod == 'payment'){
             $validator = Validator::make($data, [

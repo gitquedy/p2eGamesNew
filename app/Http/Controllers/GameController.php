@@ -425,7 +425,8 @@ class GameController extends Controller
     }
 
     public function reviews(Request $request,Game $game){
-        $reviews = $game->reviews()->orderBy('created_at', 'desc');
+
+        $reviews = $game->reviews()->withCount('useful')->orderBy('useful_count', 'desc');
         if($request->rating != "all"){
             $reviews->where('rating', $request->rating);
         }

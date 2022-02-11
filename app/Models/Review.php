@@ -22,4 +22,8 @@ class Review extends Model
     public function screenshotUrl($screenshot){
         return asset('images/game/screenshots/'. $screenshot);
     }
+
+    public function useful(){
+        return $this->hasMany(Useful::class, 'review_id');
+    }
 }

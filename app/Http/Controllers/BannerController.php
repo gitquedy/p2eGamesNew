@@ -184,7 +184,7 @@ class BannerController extends Controller
             $banner->update($data);
             DB::commit();
             $output = ['success' => 1,
-                        'msg' => 'Banner added successfully!',
+                        'msg' => 'Banner updated successfully!',
                         // 'redirect' => action('CategoryController@index')
                     ];
         } catch (\Exception $e) {
