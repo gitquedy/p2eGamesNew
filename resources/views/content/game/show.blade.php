@@ -1,3 +1,4 @@
+@inject('request', 'Illuminate\Http\Request')
 @extends('layouts/contentLayoutMaster')
 
 @section('title', $game->name)
@@ -239,6 +240,26 @@
           </div>
         </div>
       </div>
+
+      @else
+
+      <div class="col-12 mt-1">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 align-items-center justify-content-center">
+                <div class="d-flex align-items-center justify-content-center flex-column">
+                  <h4>Yay! Be the first to review this game</h4>
+                  @if(! $request->user())
+                  <button class="btn btn-success" onclick="$('#metamaskLogin').click()">Connect Metamask to Login.</button>
+                  @endif
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     @endif
     <!-- reviews -->
 

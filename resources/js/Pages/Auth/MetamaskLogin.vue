@@ -1,5 +1,5 @@
 <template>
-    <div @click="loginWeb3">
+    <div @click="loginWeb3" id="metamaskLogin">
        <i class="me-50" data-feather="log-in"></i> Login with MetaMask
     </div>
 </template>
