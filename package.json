@@ -9,6 +9,7 @@
     },
     "dependencies": {
         "bootstrap": "~5.1.0",
+        "owl.carousel": "^2.3.4",
         "web3": "^1.6.1"
     },
     "devDependencies": {

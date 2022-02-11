@@ -56,9 +56,9 @@
             {{ $game->description }}
           </p>
           @isset($game->screenshots)
-            <div class="col-12 p-1 mb-2" style="cursor:pointer;">
+            <div class="owl-carousel owl-theme" style="cursor:pointer;">
               @foreach(explode(',', $game->screenshots) as $screenshot)
-                <img class="img-thumbnail px-1 modal_button" data-action="{{ route('game.screenshots', ['game' => $game, 'default' => $screenshot]) }}" src="{{ $game->screenshotUrl($screenshot) }}" alt="Game Screenshot"  style="height:120px; width:190px">
+                <img class="img-thumbnail modal_button" src="{{ $game->screenshotUrl($screenshot) }}" data-action="{{ route('game.screenshots', ['game' => $game, 'default' => $screenshot]) }}" alt="Game Screenshot">
               @endforeach
             </div>
           @endif
@@ -300,13 +300,45 @@
 @endsection
 
 @section('page-script')
-  {{-- Page js files --}}
-  <script src="{{ asset('js/scripts/pages/app-ecommerce-details.js') }}"></script>
-  <script src="{{ asset('js/scripts/forms/form-number-input.js') }}"></script>
-  <script src="{{ asset('js/scripts/forms-validation/form-normal.js') }}"></script>
+{{-- Page js files --}}
+<script src="{{ asset('js/scripts/pages/app-ecommerce-details.js') }}"></script>
+<script src="{{ asset('js/scripts/forms/form-number-input.js') }}"></script>
+<script src="{{ asset('js/scripts/forms-validation/form-normal.js') }}"></script>
 
-  <script type="text/javascript">
-    $(document).ready(function(){
+<script type="text/javascript">
+  $(document).ready(function(){
+      $(".owl-carousel").owlCarousel({
+        lazyLoad:true,
+        loop:true,
+        margin:5,
+        nav:true,
+        dots:false,
+        autoplay:false,
+        autoplayTimeout:5000,
+        smartSpeed:2000,
+        autoHeight:true,
+        autoplayHoverPause: true,
+        responsiveClass:false,
+        responsive:{
+            0:{
+                nav:true,
+                items:1
+            },
+            768:{
+                nav:true,
+                items:2
+            },
+            900:{
+                nav:true,
+                items:3
+            },
+            1280:{
+                nav:true,
+                items:4
+            }
+        }
+      });
+
       $('.onChange-event-ratings')
       .rateYo()
       .on('rateyo.change', function (e, data) {
@@ -337,7 +369,7 @@
     }
   });
 
-  </script>
+</script>
 
 <script type="text/javascript">
   var options = {

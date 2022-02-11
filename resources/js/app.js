@@ -9,7 +9,8 @@
 window.Vue = require('vue').default;
 import axios from 'axios'
 window.axios = axios;
-
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel';
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
