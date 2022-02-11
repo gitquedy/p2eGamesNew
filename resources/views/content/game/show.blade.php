@@ -27,6 +27,23 @@
     .game-links{
       padding-right:  10px;
     }
+
+    .owl-carousel .owl-stage {
+      display: flex;
+    }
+
+    .owl-carousel .owl-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden
+    }
+
+   .owl-carousel .owl-item img {
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 100%
+    }
   </style>
 @endsection
 
@@ -339,7 +356,7 @@
         lazyLoad:true,
         loop:true,
         margin:5,
-        nav:true,
+        nav:false,
         dots:false,
         autoplay:false,
         autoplayTimeout:5000,
@@ -349,19 +366,19 @@
         responsiveClass:false,
         responsive:{
             0:{
-                nav:true,
+                nav:false,
                 items:1
             },
             768:{
-                nav:true,
+                nav:false,
                 items:2
             },
             900:{
-                nav:true,
+                nav:false,
                 items:3
             },
             1280:{
-                nav:true,
+                nav:false,
                 items:4
             }
         }
