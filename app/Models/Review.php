@@ -30,7 +30,7 @@ class Review extends Model
     public function getDropdown(){
         $html = '<div class="d-flex align-items-center col-actions">';
 
-        $html .= '<a href="#" class="me-1 show_modal" data-action="'. route('review.show', $this) .'" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i data-feather="eye"></i></a>';
+        $html .= '<a href="#" class="me-1 get_modal" data-action="'. route('review.show', $this) .'" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i data-feather="eye"></i></a>';
         if($this->status == 0){
             $html .= '<a href="#" class="me-1 confirmation" data-title="Are you sure to approve review #'. $this->id .'" data-action="'. route('review.approve', $this) .'" data-bs-toggle="tooltip" data-bs-placement="top" title="Approve"><i data-feather="check"></i></a>';
         }

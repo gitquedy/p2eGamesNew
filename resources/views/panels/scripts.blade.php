@@ -43,7 +43,7 @@
           });
       });
 
-      $(document).on('click', '.show_modal', function() {
+      $(document).on('click', '.get_modal', function() {
           $.ajax({
               url: $(this).data('action'),
               method: "GET",

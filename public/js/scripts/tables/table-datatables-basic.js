@@ -38,6 +38,10 @@ $(function () {
         dt_basic.ajax.reload();
   });
 
+  $('.show_modal').on('hidden.bs.modal', function () {
+        dt_basic.ajax.reload();
+  });
+
   $(document).on('change', '.selectFilter', function() {
         dt_basic.ajax.reload();
       });
