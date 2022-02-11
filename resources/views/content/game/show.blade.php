@@ -51,7 +51,7 @@
           <div class="ecommerce-details-price d-flex flex-wrap mt-1 justify-content-center justify-content-sm-start">
             <h4 class="item-price me-1">{!! $game->getStatusDisplay() !!}</h4>
             <div class="read-only-ratings rating" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
-            <h4>&nbsp; {{ $game->avgRating }}/5</h4><small class="d-none d-sm-block" > &nbsp; out of {{ $game->reviews()->count() }} reviews</small>
+            <h4>&nbsp; {{ $game->avgRating }}/5</h4><small class="d-none d-sm-block" > &nbsp; out of {{ $game->reviews()->where('status', 1)->count() }} reviews</small>
           </div>
           <p class="card-text">
             {{ $game->description }}
@@ -164,7 +164,7 @@
       @include('content.game.partials.coin-chart', ['game' => $game, 'coin' => $rewards_coin, 'chart_name' => 'rewards_market_chart'])
     @endif
     <!-- Rewards token -->
-    @if($game->reviews()->count() > 0)
+    @if($game->reviews()->where('status', 1)->count() > 0)
 
     <!-- x -->
     <div class="col-12 mt-1" id="blogComment">
@@ -175,7 +175,7 @@
               <div class="col-md-4">
                 <h3 class="text-primary">{{ $game->avgRating }} out of 5</h3>
                 <div class="read-only-ratings rating" style="margin-left: auto;margin-right:auto;" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
-                <small> &nbsp; out of {{ $game->reviews()->count() }} reviews</small>
+                <small> &nbsp; out of {{ $game->reviews()->where('status', 1)->count() }} reviews</small>
               </div>
               <div class="col-md-1">
                 <input class="custom-option-item-check" type="radio" name="ratings_filter" id="allStar" value="all" checked="true"/>
@@ -189,7 +189,7 @@
                 <input class="custom-option-item-check" type="radio" name="ratings_filter" id="5star" value="5"/>
                 <label class="custom-option-item p-1" for="5star">
                   <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">5 Star ({{ $game->reviews()->where('rating', 5)->count() }})</span>
+                    <span class="fw-bolder">5 Star ({{ $game->reviews()->where('status', 1)->where('rating', 5)->count() }})</span>
                   </span>
                 </label>
               </div>
@@ -197,7 +197,7 @@
                 <input class="custom-option-item-check" type="radio" name="ratings_filter" id="4star" value="4"/>
                 <label class="custom-option-item p-1" for="4star">
                   <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">4 Star ({{ $game->reviews()->where('rating', 4)->count() }})</span>
+                    <span class="fw-bolder">4 Star ({{ $game->reviews()->where('status', 1)->where('rating', 4)->count() }})</span>
                   </span>
                 </label>
               </div>
@@ -205,7 +205,7 @@
                 <input class="custom-option-item-check" type="radio" name="ratings_filter" id="3star" value="3"/>
                 <label class="custom-option-item p-1" for="3star">
                   <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">3 Star ({{ $game->reviews()->where('rating', 3)->count() }})</span>
+                    <span class="fw-bolder">3 Star ({{ $game->reviews()->where('status', 1)->where('rating', 3)->count() }})</span>
                   </span>
                 </label>
               </div>
@@ -213,7 +213,7 @@
                 <input class="custom-option-item-check" type="radio" name="ratings_filter" id="2star" value="2"/>
                 <label class="custom-option-item p-1" for="2star">
                   <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">2 Star ({{ $game->reviews()->where('rating', 2)->count() }})</span>
+                    <span class="fw-bolder">2 Star ({{ $game->reviews()->where('status', 1)->where('rating', 2)->count() }})</span>
                   </span>
                 </label>
               </div>
@@ -221,7 +221,7 @@
                 <input class="custom-option-item-check" type="radio" name="ratings_filter" id="1star" value="1"/>
                 <label class="custom-option-item p-1" for="1star">
                   <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">1 Star ({{ $game->reviews()->where('rating', 1)->count() }})</span>
+                    <span class="fw-bolder">1 Star ({{ $game->reviews()->where('status', 1)->where('rating', 1)->count() }})</span>
                   </span>
                 </label>
               </div>
@@ -571,7 +571,7 @@
       $(target).prop("title", "Copied!");
     }
 
-    @if($game->reviews()->count() > 0)
+    @if($game->reviews()->where('status', 1)->count() > 0)
 
     function getRatings(){
       $.ajax({
