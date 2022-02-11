@@ -166,22 +166,21 @@ class BannerController extends Controller
             if($request->hasFile('full')){
               $photo = $data['full'];
               $new_name = 'full_'  . sha1(time()) . '.' . $photo->getClientOriginalExtension();
-              $photo->move(public_path('images/home/banner/full') , $new_name);
+              $photo->move(public_path('images/home/banner') , $new_name);
               $data['full'] = $new_name;
             }
             if($request->hasFile('mobile')){
               $photo = $data['mobile'];
               $new_name = 'mobile_'  . sha1(time()) . '.' . $photo->getClientOriginalExtension();
-              $photo->move(public_path('images/home/banner/mobile') , $new_name);
+              $photo->move(public_path('images/home/banner') , $new_name);
               $data['mobile'] = $new_name;
             }
             if($request->hasFile('tablet')){
               $photo = $data['tablet'];
               $new_name = 'tablet_'  . sha1(time()) . '.' . $photo->getClientOriginalExtension();
-              $photo->move(public_path('images/home/banner/tablet') , $new_name);
+              $photo->move(public_path('images/home/banner') , $new_name);
               $data['tablet'] = $new_name;
             }
-            $data = $request->all();
             $banner->update($data);
             DB::commit();
             $output = ['success' => 1,

@@ -35,12 +35,6 @@ class ReviewController extends Controller
             if($request->rating != "all"){
                 $review->where('rating', $request->rating);
             }
-
-
-
-
-
-
             return Datatables::eloquent($review)
             ->addColumn('game', function(Review $review) {
                             return $review->game->name;
@@ -161,9 +155,10 @@ class ReviewController extends Controller
         try {
             DB::beginTransaction();
             $review->delete();
+            Game::syncRank();
             DB::commit();
             $output = ['success' => 1,
-                        'msg' => 'Review successfully deleted!'
+                        'msg' => 'Review successfully deleted!',
                     ];
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
@@ -184,9 +179,11 @@ class ReviewController extends Controller
         try {
             DB::beginTransaction();
             $review->update(['status' => true]);
+            Game::syncRank();
             DB::commit();
             $output = ['success' => 1,
-                        'msg' => 'Review successfully updated!'
+                        'msg' => 'Review successfully updated!',
+                        'table' => 'review_table'
                     ];
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());

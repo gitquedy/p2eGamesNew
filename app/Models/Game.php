@@ -33,6 +33,10 @@ class Game extends Model
     }
 
     public function reviews() {
+        return $this->hasMany(Review::class, 'game_id', 'id')->where('status', 1);
+    }
+
+    public function allReviews(){
         return $this->hasMany(Review::class, 'game_id', 'id');
     }
 
@@ -46,6 +50,7 @@ class Game extends Model
 
     public function avgRating(){
         return $this->reviews()
+          ->where('status', 1)
           ->selectRaw('avg(rating) as aggregate, game_id')
           ->groupBy('game_id');
     }
