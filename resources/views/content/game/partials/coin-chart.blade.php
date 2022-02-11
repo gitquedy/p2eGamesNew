@@ -48,11 +48,11 @@
           <input type="radio" class="btn-check" name="filterChart_{{ $chart_name }}" data-chart="{{ $chart_name }}" value="30" id="30d_{{ $chart_name }}" autocomplete="off"/>
           <label class="btn btn-sm btn-outline-primary" for="30d_{{ $chart_name }}">30d</label>
           <input type="radio" class="btn-check" name="filterChart_{{ $chart_name }}" data-chart="{{ $chart_name }}" value="90" id="90d_{{ $chart_name }}" autocomplete="off"/>
-          <label class="btn btn-sm btn-outline-primary rounded-end d-sm-none" for="90d_{{ $chart_name }}">90d</label>
           <label class="btn btn-sm btn-outline-primary d-none d-sm-block" for="90d_{{ $chart_name }}">90d</label>
           <input type="radio" class="btn-check" name="filterChart_{{ $chart_name }}" data-chart="{{ $chart_name }}" value="100" id="180d_{{ $chart_name }}" autocomplete="off"/>
           <label class="btn btn-sm btn-outline-primary d-none d-sm-block" for="180d_{{ $chart_name }}">180d</label>
           <input type="radio" class="btn-check" name="filterChart_{{ $chart_name }}" data-chart="{{ $chart_name }}" value="365" id="1y_{{ $chart_name }}" autocomplete="off"/>
+          <label class="btn btn-sm btn-outline-primary rounded-end d-sm-none" for="1y_{{ $chart_name }}">1y</label>
           <label class="btn btn-sm btn-outline-primary d-none d-sm-block" for="1y_{{ $chart_name }}">1y</label>
           <input type="radio" class="btn-check" name="filterChart_{{ $chart_name }}" data-chart="{{ $chart_name }}" value="max" id="max_{{ $chart_name }}" autocomplete="off"/>
           <label class="btn btn-sm btn-outline-primary d-none d-sm-block" for="max_{{ $chart_name }}">Max</label>
