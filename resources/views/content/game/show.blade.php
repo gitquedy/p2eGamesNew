@@ -75,7 +75,7 @@
             {{ $game->description }}
           </p>
           @isset($game->screenshots)
-            <div class="owl-carousel owl-theme mb-1" style="cursor:pointer;">
+            <div class="owl-carousel owl-cgame owl-theme mb-1" style="cursor:pointer;">
               @foreach(explode(',', $game->screenshots) as $screenshot)
                 <img class="img-thumbnail modal_button" src="{{ $game->screenshotUrl($screenshot) }}" data-action="{{ route('game.screenshots', ['game' => $game, 'default' => $screenshot]) }}" alt="Game Screenshot">
               @endforeach
@@ -190,58 +190,61 @@
         <div class="card">
           <div class="card-body">
             <div class="row mb-1 custom-options-checkable g-1 text-center pt-3">
-              <div class="col-md-4">
+              <div class="col-lg-2">
                 <h3 class="text-primary">{{ $game->avgRating }} out of 5</h3>
                 <div class="read-only-ratings rating" style="margin-left: auto;margin-right:auto;" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
                 <small> &nbsp; out of {{ $game->reviews()->count() }} reviews</small>
               </div>
-              <div class="col-md-1">
-                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="allStar" value="all" checked="true"/>
-                <label class="custom-option-item p-1" for="allStar">
-                  <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">All Ratings</span>
-                  </span>
-                </label>
-              </div>
-              <div class="col-md-1">
-                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="5star" value="5"/>
-                <label class="custom-option-item p-1" for="5star">
-                  <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">5 Star ({{ $game->reviews()->where('rating', 5)->count() }})</span>
-                  </span>
-                </label>
-              </div>
-              <div class="col-md-1">
-                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="4star" value="4"/>
-                <label class="custom-option-item p-1" for="4star">
-                  <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">4 Star ({{ $game->reviews()->where('rating', 4)->count() }})</span>
-                  </span>
-                </label>
-              </div>
-              <div class="col-md-1">
-                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="3star" value="3"/>
-                <label class="custom-option-item p-1" for="3star">
-                  <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">3 Star ({{ $game->reviews()->where('rating', 3)->count() }})</span>
-                  </span>
-                </label>
-              </div>
-              <div class="col-md-1">
-                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="2star" value="2"/>
-                <label class="custom-option-item p-1" for="2star">
-                  <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">2 Star ({{ $game->reviews()->where('rating', 2)->count() }})</span>
-                  </span>
-                </label>
-              </div>
-              <div class="col-md-1">
-                <input class="custom-option-item-check" type="radio" name="ratings_filter" id="1star" value="1"/>
-                <label class="custom-option-item p-1" for="1star">
-                  <span class="d-flex justify-content-between flex-wrap mb-50">
-                    <span class="fw-bolder">1 Star ({{ $game->reviews()->where('rating', 1)->count() }})</span>
-                  </span>
-                </label>
+              <div class="row col-lg-10">
+                <div class="col-md-2">
+                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="allStar" value="all" checked="true"/>
+                  <label class="custom-option-item p-1" for="allStar">
+                    <span class="d-flex justify-content-between flex-wrap mb-50">
+                      <span class="fw-bolder text-nowrap">All Ratings</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="5star" value="5"/>
+                  <label class="custom-option-item p-1" for="5star">
+                    <span class="d-flex justify-content-between flex-wrap mb-50">
+                      <span class="fw-bolder text-nowrap">5 Star ({{ $game->reviews()->where('rating', 5)->count() }})</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="4star" value="4"/>
+                  <label class="custom-option-item p-1" for="4star">
+                    <span class="d-flex justify-content-between flex-wrap mb-50">
+                      <span class="fw-bolder text-nowrap">4 Star ({{ $game->reviews()->where('rating', 4)->count() }})</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="3star" value="3"/>
+                  <label class="custom-option-item p-1" for="3star">
+                    <span class="d-flex justify-content-between flex-wrap mb-50">
+                      <span class="fw-bolder text-nowrap">3 Star ({{ $game->reviews()->where('rating', 3)->count() }})</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="2star" value="2"/>
+                  <label class="custom-option-item p-1" for="2star">
+                    <span class="d-flex justify-content-between flex-wrap mb-50">
+                      <span class="fw-bolder text-nowrap">2 Star ({{ $game->reviews()->where('rating', 2)->count() }})</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="1star" value="1"/>
+                  <label class="custom-option-item p-1" for="1star">
+                    <span class="d-flex justify-content-between flex-wrap mb-50">
+                      <span class="fw-bolder text-nowrap">1 Star ({{ $game->reviews()->where('rating', 1)->count() }})</span>
+                    </span>
+                  </label>
+                </div>
+                
               </div>
               @if(Auth::user())
                 @if($game->reviews()->where('user_id', Auth::user()->id)->count() < 1)
@@ -267,7 +270,7 @@
             <div class="row">
               <div class="col-12 align-items-center justify-content-center">
                 <div class="d-flex align-items-center justify-content-center flex-column">
-                  <h4>Yay! Be the first to review this game</h4>
+                  <h4 class="text-center">Yay! Be the first to review this game</h4>
                   @if(! $request->user())
                   <button class="btn btn-success" onclick="$('#metamaskLogin').click()">Connect Metamask to Login.</button>
                   @endif
@@ -353,7 +356,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-      $(".owl-carousel").owlCarousel({
+      $(".owl-carousel.owl-cgame").owlCarousel({
         lazyLoad:true,
         loop:true,
         margin:5,

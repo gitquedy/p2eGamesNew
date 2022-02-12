@@ -57,33 +57,35 @@
 
   <div class="col-xs-12 col-lg-6 ">
     <div class="card">
-      <table class="table">
-        <tbody>
-          <tr class="bg-danger text-white">
-            <td class="f-tr"><i data-feather="trending-down"></i></td>
-            <td class="text-start">Losers</td>
-            <td class="text-end" > % (24)</td>
-          </tr>
-          @foreach($losers as $loser)
-            <tr>
-              <td class="f-tr">{{ $loop->iteration }}</td>
-              <td class="text-start">
-                <a href="{{ route('game.show', $loser) }}">
-                  <div class="d-flex justify-content-left align-items-center">
-                    <div class="bg-light-red me-1">
-                      <img src="{{ $loser->imageUrl() }}" alt="{{ $loser->name }}" width="30" height="30">
-                    </div>
-                    <div class="d-flex flex-column" >
-                      <span class="emp_name text-truncate fw-bold">{{ $loser->name }}</span>
-                    </div>
-                  </div>
-                </a>
-              </td>
-              <td class="text-end"><span class="text-danger">{{ $loser->governance_price_change_percentage_24h }}%</span></td>
+      <div class="table-responsive">
+        <table class="table">
+          <tbody>
+            <tr class="bg-danger text-white">
+              <td class="f-tr"><i data-feather="trending-down"></i></td>
+              <td class="text-start">Losers</td>
+              <td class="text-end" > % (24)</td>
             </tr>
-          @endforeach
-        </tbody>
-      </table>
+            @foreach($losers as $loser)
+              <tr>
+                <td class="f-tr">{{ $loop->iteration }}</td>
+                <td class="text-start">
+                  <a href="{{ route('game.show', $loser) }}">
+                    <div class="d-flex justify-content-left align-items-center">
+                      <div class="bg-light-red me-1">
+                        <img src="{{ $loser->imageUrl() }}" alt="{{ $loser->name }}" width="30" height="30">
+                      </div>
+                      <div class="d-flex flex-column" >
+                        <span class="emp_name text-truncate fw-bold">{{ $loser->name }}</span>
+                      </div>
+                    </div>
+                  </a>
+                </td>
+                <td class="text-end"><span class="text-danger">{{ $loser->governance_price_change_percentage_24h }}%</span></td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

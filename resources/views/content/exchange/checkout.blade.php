@@ -25,11 +25,15 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12 col-sm-12">
-                <div class="input-group mb-2">
-                  <input type="text" class="form-control" name="eth_address" placeholder="Metamask Address (0x)" value="{{ $request->user() ? $request->user()->eth_address : '' }}" readonly>
-                  <show-metamask>
-                      {{ $request->user() ? 'Switch Account' : 'Connect Metamask' }}
-                  </show-metamask>
+                <div class="row mb-2"> {{-- input-group --}}
+                  <div class="col-sm-8 mt-1 text-center">
+                    <input type="text" class="form-control" name="eth_address" placeholder="Metamask Address (0x)" value="{{ $request->user() ? $request->user()->eth_address : '' }}" readonly>
+                  </div>
+                  <div class="col-sm-4 mt-1 text-center">
+                    <show-metamask>
+                        {{ $request->user() ? 'Switch Account' : 'Connect Metamask' }}
+                    </show-metamask>
+                  </div>
                 </div>
 
               </div>

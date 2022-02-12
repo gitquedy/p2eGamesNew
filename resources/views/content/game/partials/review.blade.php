@@ -1,12 +1,32 @@
+{{-- <style>
+    .owl-carousel .owl-stage {
+      display: flex;
+      height: 300px;
+    }
+
+    .owl-carousel .owl-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden
+    }
+
+   .owl-carousel .owl-item img {
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
+</style> --}}
 <div class="row my-2">
   <div class="col-12">
-    <div class="d-flex align-items-start">
+    <div class="d-flex align-items-start overflow-hidden">
       <a href="{{ route('user.profile', $review->user) }}">
         <div class="avatar me-75">
           <img src="{{ $review->user->profileUrl() }}" width="38" height="38" alt="Avatar" />
         </div>
       </a>
-      <div class="author-info">
+      <div class="author-info w-100">
         <a href="{{ route('user.profile', $review->user) }}">
           <h6 class="fw-bolder mb-25" data-toggle="tooltip" title="{{ $review->user->eth_address }}">
             {{ App\Models\Utilities::limitString($review->user->eth_address, 12) }}
@@ -21,9 +41,9 @@
         </span>
 
         @if($review->screenshots)
-          <div class="col-12 py-1 modal_button" data-action="{{ route('game.review.screenshots', $review) }}" style="cursor:pointer;">
+          <div class="w-100 py-1 owl-carousel owl-cgamereview modal_button" data-action="{{ route('game.review.screenshots', $review) }}" style="cursor:pointer;">
             @foreach(explode(',', $review->screenshots) as $reviewScreenshot)
-              <img class="img-thumbnail px-2" src="{{ $review->screenshotUrl($reviewScreenshot) }}" alt="Review Screenshot" / style="height:100px">
+              <img class="img-thumbnail" src="{{ $review->screenshotUrl($reviewScreenshot) }}" alt="Review Screenshot">
             @endforeach
           </div>
         @endif
@@ -45,3 +65,39 @@
 </div>
 
 
+<script>
+  $(document).ready(function(){
+      $(".owl-carousel.owl-cgamereview").owlCarousel({
+        lazyLoad:true,
+        loop:false,
+        margin:5,
+        nav:false,
+        dots:false,
+        autoplay:false,
+        smartSpeed:2000,
+        responsiveClass:false,
+        responsive:{
+            0:{
+                nav:false,
+                items:1
+            },
+            400:{
+                nav:false,
+                items:2
+            },
+            600:{
+                nav:false,
+                items:3
+            },
+            900:{
+                nav:false,
+                items:5
+            },
+            1280:{
+                nav:false,
+                items:7
+            }
+        }
+      });
+  });
+</script>
