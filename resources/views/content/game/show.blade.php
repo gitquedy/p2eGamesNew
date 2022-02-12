@@ -42,7 +42,8 @@
    .owl-carousel .owl-item img {
       flex-shrink: 0;
       min-width: 100%;
-      min-height: 100%
+      min-height: 100%;
+      object-fit: cover;
     }
   </style>
 @endsection
@@ -74,7 +75,7 @@
             {{ $game->description }}
           </p>
           @isset($game->screenshots)
-            <div class="owl-carousel owl-theme" style="cursor:pointer;">
+            <div class="owl-carousel owl-theme mb-1" style="cursor:pointer;">
               @foreach(explode(',', $game->screenshots) as $screenshot)
                 <img class="img-thumbnail modal_button" src="{{ $game->screenshotUrl($screenshot) }}" data-action="{{ route('game.screenshots', ['game' => $game, 'default' => $screenshot]) }}" alt="Game Screenshot">
               @endforeach

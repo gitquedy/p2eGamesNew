@@ -1,6 +1,6 @@
 <div class="col-12">
   <div class="card">
-    <div class="card-header d-flex flex-sm-row flex-column justify-content-sm-between align-items-center align-items-sm-start  justify-content-center justify-content-sm-start ">
+    <div class="card-header pb-0 pt-1 d-flex flex-sm-row flex-column justify-content-sm-between align-items-center align-items-sm-start  justify-content-center justify-content-sm-start ">
       <div class="d-flex d-sm-block flex-sm-row flex-column justify-content-sm-between align-items-center align-items-sm-start  justify-content-center justify-content-sm-start">
         <h4 class="card-title mb-25">{!! $game->getCoinDisplay($coin) !!} {{ $coin['name'] }} ({{ strtoupper($coin['symbol']) }}) </h4>
         <span class="card-subtitle mt-0 text-center">
@@ -25,9 +25,7 @@
     </div>
 
 
-    <div class="card-header d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-between p-1 p-sm-2">
-      
-
+    <div class="card-header py-0 px-2 d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-between">
       <div class="btn-group pt-1 py-0 py-sm-1" role="group">
         <input type="radio" class="btn-check" name="filterChartType_{{ $chart_name }}" value="prices" id="prices_{{ $chart_name }}" autocomplete="off" checked/>
         <label class="btn btn-sm btn-outline-primary" for="prices_{{ $chart_name }}">Prices</label>
