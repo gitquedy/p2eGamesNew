@@ -81,7 +81,7 @@
                 nav:false,
                 items:1
             },
-            400:{
+            300:{
                 nav:false,
                 items:2
             },
