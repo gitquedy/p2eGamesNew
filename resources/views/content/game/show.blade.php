@@ -190,61 +190,26 @@
         <div class="card">
           <div class="card-body">
             <div class="row mb-1 custom-options-checkable g-1 text-center pt-3">
-              <div class="col-lg-2">
+              <div class="col-md-4">
                 <h3 class="text-primary">{{ $game->avgRating }} out of 5</h3>
                 <div class="read-only-ratings rating" style="margin-left: auto;margin-right:auto;" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
                 <small> &nbsp; out of {{ $game->reviews()->count() }} reviews</small>
               </div>
-              <div class="row col-lg-10">
-                <div class="col-md-2">
-                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="allStar" value="all" checked="true"/>
-                  <label class="custom-option-item p-1" for="allStar">
-                    <span class="d-flex justify-content-between flex-wrap mb-50">
-                      <span class="fw-bolder text-nowrap">All Ratings</span>
-                    </span>
-                  </label>
+              <div class="col-md-6">
+                <div class="btn-group btn-group-sm flex-column flex-sm-row pt-1 py-0 py-sm-1" role="group">
+                  <input type="radio" class="btn-check" name="ratings_filter" id="allStar" value="all" checked/>
+                  <label class="btn btn-outline-primary" for="allStar">All Ratings</label>
+                  <input type="radio" class="btn-check" name="ratings_filter" id="5star" value="5"/>
+                  <label class="btn btn-outline-primary" for="5star">5 Star ({{ $game->reviews()->where('rating', 5)->count() }})</label>
+                  <input type="radio" class="btn-check" name="ratings_filter" id="4star" value="4"/>
+                  <label class="btn btn-outline-primary" for="4star">4 Star ({{ $game->reviews()->where('rating', 4)->count() }})</label>
+                  <input type="radio" class="btn-check" name="ratings_filter" id="3star" value="3"/>
+                  <label class="btn btn-outline-primary" for="3star">3 Star ({{ $game->reviews()->where('rating', 3)->count() }})</label>
+                  <input type="radio" class="btn-check" name="ratings_filter" id="2star" value="2"/>
+                  <label class="btn btn-outline-primary" for="2star">2 Star ({{ $game->reviews()->where('rating', 2)->count() }})</label>
+                  <input type="radio" class="btn-check" name="ratings_filter" id="1star" value="1"/>
+                  <label class="btn btn-outline-primary" for="1star">1 Star ({{ $game->reviews()->where('rating', 1)->count() }})</label>
                 </div>
-                <div class="col-md-2">
-                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="5star" value="5"/>
-                  <label class="custom-option-item p-1" for="5star">
-                    <span class="d-flex justify-content-between flex-wrap mb-50">
-                      <span class="fw-bolder text-nowrap">5 Star ({{ $game->reviews()->where('rating', 5)->count() }})</span>
-                    </span>
-                  </label>
-                </div>
-                <div class="col-md-2">
-                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="4star" value="4"/>
-                  <label class="custom-option-item p-1" for="4star">
-                    <span class="d-flex justify-content-between flex-wrap mb-50">
-                      <span class="fw-bolder text-nowrap">4 Star ({{ $game->reviews()->where('rating', 4)->count() }})</span>
-                    </span>
-                  </label>
-                </div>
-                <div class="col-md-2">
-                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="3star" value="3"/>
-                  <label class="custom-option-item p-1" for="3star">
-                    <span class="d-flex justify-content-between flex-wrap mb-50">
-                      <span class="fw-bolder text-nowrap">3 Star ({{ $game->reviews()->where('rating', 3)->count() }})</span>
-                    </span>
-                  </label>
-                </div>
-                <div class="col-md-2">
-                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="2star" value="2"/>
-                  <label class="custom-option-item p-1" for="2star">
-                    <span class="d-flex justify-content-between flex-wrap mb-50">
-                      <span class="fw-bolder text-nowrap">2 Star ({{ $game->reviews()->where('rating', 2)->count() }})</span>
-                    </span>
-                  </label>
-                </div>
-                <div class="col-md-2">
-                  <input class="custom-option-item-check" type="radio" name="ratings_filter" id="1star" value="1"/>
-                  <label class="custom-option-item p-1" for="1star">
-                    <span class="d-flex justify-content-between flex-wrap mb-50">
-                      <span class="fw-bolder text-nowrap">1 Star ({{ $game->reviews()->where('rating', 1)->count() }})</span>
-                    </span>
-                  </label>
-                </div>
-                
               </div>
               @if(Auth::user())
                 @if($game->reviews()->where('user_id', Auth::user()->id)->count() < 1)
