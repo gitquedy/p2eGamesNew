@@ -266,7 +266,8 @@ class GameController extends Controller
         ];
         $rewards_coin = $game->rewards_coin;
         $governance_coin = $game->governance_coin;
-        return view('content.game.show', compact('game', 'breadcrumbs', 'rewards_coin', 'governance_coin'));
+        $banner = Banner::where('delegation', '2')->where('isActive', true)->inRandomOrder()->limit(1)->get()->first();
+        return view('content.game.show', compact('game', 'breadcrumbs', 'rewards_coin', 'governance_coin', 'banner'));
     }
 
     /**

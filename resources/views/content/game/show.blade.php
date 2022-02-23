@@ -162,8 +162,8 @@
 
             </div>
             <div class="col-sm-5 pt-1 text-center">
-              <!-- <img class="img-fluid mb-2" src="https://via.placeholder.com/300x250"> -->
-              <img class="img-fluid" src="https://via.placeholder.com/300x250">
+              <img class="img-fluid mb-2" src="https://via.placeholder.com/300x250">
+              {{-- <img class="img-fluid" src="{{asset('images/upload/temporary/banner.jpg')}}"> --}}
             </div>
           </div>
         </div>
@@ -190,12 +190,12 @@
         <div class="card">
           <div class="card-body">
             <div class="row mb-1 custom-options-checkable g-1 text-center pt-3">
-              <div class="col-md-4">
+              <div class="col-md-3 col-lg-2 col-xl-3">
                 <h3 class="text-primary">{{ $game->avgRating }} out of 5</h3>
                 <div class="read-only-ratings rating" style="margin-left: auto;margin-right:auto;" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
                 <small> &nbsp; out of {{ $game->reviews()->count() }} reviews</small>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-9 col-lg-6">
                 <div class="btn-group btn-group-sm flex-column flex-sm-row pt-1 py-0 py-sm-1" role="group">
                   <input type="radio" class="btn-check" name="ratings_filter" id="allStar" value="all" checked/>
                   <label class="btn btn-outline-primary" for="allStar">All Ratings</label>
@@ -213,10 +213,14 @@
               </div>
               @if(Auth::user())
                 @if($game->reviews()->where('user_id', Auth::user()->id)->count() < 1)
-                  <div class="col-md-2">
+                  <div class="col-md-12 col-lg-4 col-xl3">
                     <a href="#wreview"><button class="btn btn-info btn-lg">Write a Review</button></a>
                   </div>
                 @endif
+                @else
+                  <div class="col-md-12 col-lg-4 col-xl-3">
+                    <button class="btn btn-success" onclick="$('#metamaskLogin').click()">Please login to write a review.</button>
+                  </div>
               @endif
             </div>
           </div>
