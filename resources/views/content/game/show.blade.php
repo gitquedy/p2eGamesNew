@@ -162,8 +162,8 @@
 
             </div>
             <div class="col-sm-5 pt-1 text-center">
-              <img class="img-fluid mb-2" src="https://via.placeholder.com/300x250">
-              {{-- <img class="img-fluid" src="{{asset('images/upload/temporary/banner.jpg')}}"> --}}
+              {{-- <img class="img-fluid mb-2" src="https://via.placeholder.com/300x250"> --}}
+              <img class="img-fluid" src="{{asset('images/home/banner/full_dd809e130df04b45bfbc13ad2b5534d1260645ec.png')}}">
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@
               </div>
               @if(Auth::user())
                 @if($game->reviews()->where('user_id', Auth::user()->id)->count() < 1)
-                  <div class="col-md-12 col-lg-4 col-xl3">
+                  <div class="col-md-12 col-lg-4 col-xl-3">
                     <a href="#wreview"><button class="btn btn-info btn-lg">Write a Review</button></a>
                   </div>
                 @endif
