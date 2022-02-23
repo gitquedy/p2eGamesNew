@@ -159,7 +159,6 @@
                   <a class="btn btn-info btn-sm" data-size="large"
                 href="https://twitter.com/intent/tweet?text=Check this awesome NFT play-to-earn Game!&url={{ route('game.show', $game) }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="f-icon" data-e="twitter"></i> Tweet</a>
               </div>
-
             </div>
             <div class="col-sm-5 pt-1 text-center">
               {{-- <img class="img-fluid mb-2" src="https://via.placeholder.com/300x250"> --}}
@@ -213,13 +212,17 @@
               </div>
               @if(Auth::user())
                 @if($game->reviews()->where('user_id', Auth::user()->id)->count() < 1)
-                  <div class="col-md-12 col-lg-4 col-xl-3">
-                    <a href="#wreview"><button class="btn btn-info btn-lg">Write a Review</button></a>
+                  <div class="col-md-12 col-lg-4 col-xl-3 d-flex">
+                    <div class="pt-1 pt-1 py-0 py-sm-1 m-auto my-0">
+                      <a href="#wreview"><button class="btn btn-info btn-block">Write a Review</button></a>
+                    </div>
                   </div>
                 @endif
                 @else
-                  <div class="col-md-12 col-lg-4 col-xl-3">
-                    <button class="btn btn-success" onclick="$('#metamaskLogin').click()">Please login to write a review.</button>
+                  <div class="col-md-12 col-lg-4 col-xl-3 d-flex">
+                    <div class="pt-1 pt-1 py-0 py-sm-1 m-auto my-0">
+                      <button class="btn btn-success btn-block" onclick="$('#metamaskLogin').click()">Please login to write a review.</button>
+                    </div>
                   </div>
               @endif
             </div>

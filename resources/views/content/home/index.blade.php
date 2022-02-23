@@ -8,6 +8,12 @@
         min-width: 0!important;
         width: 0!important;
       }
+
+      .auto-banner {
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+      }
     </style>
 @endsection
 
@@ -101,7 +107,9 @@
   <div class="col-xs-12 col-lg-4">
     <a href="{{ $banner2->link }}" target="_blank">
       <div class="card">
-        <img src="{{ $banner2->imageUrl($banner2->full) }}" class="img-fluid" style="height:193.85px">
+        <img src="{{ $banner2->imageUrl($banner2->full) }}" class="img-fluid d-none d-lg-block" style="height:193.85px">
+        <img src="{{ $banner2->imageUrl($banner2->mobile) }}" class="img-fluid auto-banner d-lg-none h-100" style="height:293.85px">
+        {{-- <img src="{{ $banner2->imageUrl($banner2->mobile) }}" class="img-fluid auto-banner d-md-none" style="height:193.85px"> --}}
       </div>
     </a>
   </div>
