@@ -221,7 +221,8 @@
                 @else
                   <div class="col-md-12 col-lg-4 col-xl-3 d-flex">
                     <div class="pt-1 pt-1 py-0 py-sm-1 m-auto my-0">
-                      <button class="btn btn-success btn-block" onclick="$('#metamaskLogin').click()">Please login to write a review.</button>
+                      <h4>Please login to write a review.</h4>
+                      <button class="btn btn-success btn-block" onclick="$('#metamaskLogin').click()">Connect Metamask to Login.</button>
                     </div>
                   </div>
               @endif
