@@ -331,7 +331,7 @@
   $(document).ready(function(){
       $(".owl-carousel.owl-cgame").owlCarousel({
         lazyLoad:true,
-        loop:true,
+        loop:false,
         margin:5,
         nav:false,
         dots:false,
