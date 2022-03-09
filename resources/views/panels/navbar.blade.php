@@ -111,10 +111,12 @@
               @csrf
             </form>
           @else
+            {{-- <a href="{{route('login')}}" class="dropdown-item">
+              <i class="ficon" data-feather="user"></i> Login
+            </a> --}}
             <a class="dropdown-item">
               <metamask-login />
             </a>
-
           @endif
 
         </div>

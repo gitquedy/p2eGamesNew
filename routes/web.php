@@ -37,6 +37,8 @@ use App\Http\Controllers\UsefulController;
 //     dd($coin);
 // });
 
+Auth::routes();
+
 Route::get('/test', function(){
     $client = new CoinGeckoClient();
     // $coin = $client->coins()->getMarketChart('binancecoin', 'php', "max");

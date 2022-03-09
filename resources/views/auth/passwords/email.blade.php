@@ -1,47 +1,44 @@
-@extends('layouts.app')
-
+@extends('layouts.authLayout')
+@section('title', 'Forgot Password')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<div class="d-flex bg-white  align-items-center auth-bg px-2 p-lg-5 col-lg-4">
+    <div class="px-xl-2 mx-auto col-sm-8 col-md-6 col-lg-12">
+        <h4 class="card-title mb-1">
+          Forgot Password? 🔒
+        </h4>
+        <p class="card-text mb-2">
+          Enter your email and we'll send you instructions to reset your password
+        </p>
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
             </div>
-        </div>
+        @endif
+        <span>
+            <form class="auth-login-form mt-2" method="POST" action="{{ route('password.email') }}">
+                @csrf
+                
+                <div role="group" class="form-group my-1">
+                    <label for="email" class="d-block">{{ __('E-Mail Address') }}</label>
+                    <div>
+                        <span>
+                            <input id="email" name="email" type="text" placeholder="Email Address" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            @error('email')
+                                <small class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </small>
+                            @enderror
+                        </span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">{{ __('Send Password Reset Link') }}</button>
+            </form>
+        </span> 
+        <p class="text-center mt-2">
+            <a href="{{ route('login') }}" class="" target="_self">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg> Back to login
+          </a>
+        </p>
     </div>
 </div>
 @endsection

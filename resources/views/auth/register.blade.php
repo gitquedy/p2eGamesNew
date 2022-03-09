@@ -1,76 +1,95 @@
-@extends('layouts.app')
-
+@extends('layouts.authLayout')
+@section('title', 'Register')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<div class="d-flex bg-white  align-items-center auth-bg px-2 p-lg-5 col-lg-4">
+    <div class="px-xl-2 mx-auto col-sm-8 col-md-6 col-lg-12">
+        <h4 class="card-title mb-1">
+          Adventure starts here 🚀
+        </h4>
+        <p class="card-text mb-2">
+          Make your app management easy and fun!
+        </p>
+        <span>
+            <form class="auth-login-form mt-2">
+                @csrf
+                <div role="group" class="form-group my-1">
+                    <label for="email" class="d-block">{{ __('Name') }}</label>
+                    <div>
+                        <span>
+                            <input id="name" name="name" type="text" placeholder="Name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            @error('name')
+                                <small class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </small>
+                            @enderror
+                        </span>
+                    </div>
                 </div>
+                <div role="group" class="form-group my-1">
+                    <label for="email" class="d-block">{{ __('E-Mail Address') }}</label>
+                    <div>
+                        <span>
+                            <input id="email" name="email" type="text" placeholder="Email Address" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            @error('email')
+                                <small class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </small>
+                            @enderror
+                        </span>
+                    </div>
+                </div>
+                <div role="group" class="form-group my-1">
+                    <label for="login-password">{{ __('Password') }}</label>
+                    <div> 
+                        <span>
+                            <input id="password" name="password" required type="password" placeholder="************" class="form-control-merge form-control @error('password') is-invalid @enderror">
+                            @error('password')
+                                <small class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </small>
+                            @enderror
+                        </span>
+                    </div>
+                </div> 
+                <div role="group" class="form-group my-1">
+                    <label for="login-password">{{ __('Confirm Password') }}</label>
+                    <div> 
+                        <span>
+                            <input id="password" name="password_confirmation" required type="password" placeholder="************" class="form-control-merge form-control @error('password') is-invalid @enderror">
+                            @error('password_confirmation')
+                                <small class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </small>
+                            @enderror
+                        </span>
+                    </div>
+                </div> 
+                <div role="group" class="form-group my-1">
+                    <div class="custom-control custom-checkbox">
+                        <input id="register-privacy-policy" type="checkbox" name="checkbox-1" class="custom-control-input" value="true">
+                        <label for="register-privacy-policy" class="custom-control-label">
+                            I agree to <a href="#" target="_self" class="">privacy policy &amp; terms</a>
+                        </label>
+                    </div>
+                </div> 
+                <button type="submit" class="btn btn-primary w-100">{{ __('Register') }}</button>
+            </form>
+        </span> 
+        <p class="text-center mt-2">
+            <span>Already have an account?</span>
+            <a href="{{route('login')}}" class="" target="_self">
+                <span>&nbsp;Sign in instead</span>
+            </a>
+        </p>
+        <div class="divider my-2">
+            <div class="divider-text">
+            or
             </div>
+        </div>
+        <div class="auth-footer-btn d-flex justify-content-center">
+            <button class="btn btn-secondary w-100">
+                <metamask-login />
+            </button>
         </div>
     </div>
 </div>
