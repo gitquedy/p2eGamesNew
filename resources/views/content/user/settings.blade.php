@@ -145,20 +145,22 @@
               <div class="card-body py-2 my-25">
                 <form class="auth-login-form mt-2" method="POST" action="{{ route('profile.update', 'password') }}" >
                   @csrf
-                  <div role="group" class="form-group my-1">
-                      <label for="login-password">{{ __('Old Password') }}</label>
-                      <div> 
-                          <span>
-                              <input id="old_password" name="old_password" required type="password" placeholder="************" class="form-control-merge form-control @error('old_password') is-invalid @enderror">
-                              @error('old_password')
-                                  <small class="text-danger">
-                                      <strong>{{ $message }}</strong>
-                                  </small>
-                              @enderror
-                          </span>
-                      </div>
-                  </div> 
-                  <hr>
+                  @if (Auth::user()->hasPassword)
+                    <div role="group" class="form-group my-1">
+                        <label for="login-password">{{ __('Old Password') }}</label>
+                        <div> 
+                            <span>
+                                <input id="old_password" name="old_password" required type="password" placeholder="************" class="form-control-merge form-control @error('old_password') is-invalid @enderror">
+                                @error('old_password')
+                                    <small class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </small>
+                                @enderror
+                            </span>
+                        </div>
+                    </div> 
+                    <hr>
+                  @endif
                   <div role="group" class="form-group my-1">
                       <label for="login-password">{{ __('Password') }}</label>
                       <div> 

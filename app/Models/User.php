@@ -61,6 +61,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'has_password',
     ];
 
     public function isAdmin(){
@@ -86,5 +87,11 @@ class User extends Authenticatable
 
     public function reviews(){
         return $this->hasMany(Review::class, 'user_id')->where('status', 1);
+    }
+
+
+    public function getHasPasswordAttribute()
+    {
+        return ! empty($this->attributes['password']);
     }
 }

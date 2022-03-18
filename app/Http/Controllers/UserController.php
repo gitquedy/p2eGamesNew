@@ -14,6 +14,7 @@ class UserController extends Controller
 {
     public function settings(Request $request){
         $user = $request->user();
+        // print json_encode($user);die();
         return view('content.user.settings', compact('user'));
     }
 
@@ -46,10 +47,17 @@ class UserController extends Controller
             $user->update();
         }
         else if($type == "password") {
-            request()->validate([
-                'old_password' => ['required', new MatchOldPassword],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ]);
+            if (Auth::user()->hasPassword) {
+                request()->validate([
+                    'old_password' => ['required', new MatchOldPassword],
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                ]);
+            }
+            else {
+                request()->validate([
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                ]);   
+            }
 
             $user->password = Hash::make($request->new_password);
             $user->update();
@@ -59,6 +67,6 @@ class UserController extends Controller
     }
 
 
-    
+
 
 }
