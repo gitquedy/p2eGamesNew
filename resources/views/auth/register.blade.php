@@ -10,7 +10,7 @@
           Make your app management easy and fun!
         </p>
         <span>
-            <form class="auth-login-form mt-2">
+            <form class="auth-login-form mt-2" method="POST" action="{{ route('register') }}" >
                 @csrf
                 <div role="group" class="form-group my-1">
                     <label for="email" class="d-block">{{ __('Name') }}</label>
@@ -55,7 +55,7 @@
                     <label for="login-password">{{ __('Confirm Password') }}</label>
                     <div> 
                         <span>
-                            <input id="password" name="password_confirmation" required type="password" placeholder="************" class="form-control-merge form-control @error('password') is-invalid @enderror">
+                            <input id="password_confirmation" name="password_confirmation" required type="password" placeholder="************" class="form-control-merge form-control @error('password') is-invalid @enderror">
                             @error('password_confirmation')
                                 <small class="text-danger">
                                     <strong>{{ $message }}</strong>
@@ -66,13 +66,13 @@
                 </div> 
                 <div role="group" class="form-group my-1">
                     <div class="custom-control custom-checkbox">
-                        <input id="register-privacy-policy" type="checkbox" name="checkbox-1" class="custom-control-input" value="true">
+                        <input id="register-privacy-policy" type="checkbox" name="agree" class="custom-control-input" value="true" required>
                         <label for="register-privacy-policy" class="custom-control-label">
                             I agree to <a href="#" target="_self" class="">privacy policy &amp; terms</a>
                         </label>
                     </div>
                 </div> 
-                <button type="submit" class="btn btn-primary w-100">{{ __('Register') }}</button>
+                <button id="register_btn" type="submit" class="btn btn-primary w-100" disabled>{{ __('Register') }}</button>
             </form>
         </span> 
         <p class="text-center mt-2">
@@ -93,4 +93,16 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).on('click', "#register-privacy-policy", function() {
+        $("#register_btn").attr('disabled', true);
+        console.log($(this).is(':checked'));
+        if($(this).is(':checked') == true) {
+            $("#register_btn").attr('disabled', false);
+        }
+    });
+</script>
 @endsection

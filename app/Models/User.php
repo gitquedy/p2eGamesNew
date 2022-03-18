@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -64,6 +65,15 @@ class User extends Authenticatable
 
     public function isAdmin(){
         return in_array($this->eth_address, config('app.admins'));
+    }
+
+    public function displayName() {
+        if ($this->name != null) {
+            return $this->name;
+        }
+        else if($this->eth_address != null){
+            return Str::limit($this->eth_address, 6, $end='...');
+        }
     }
 
     public function profileUrl(){

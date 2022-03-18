@@ -48,7 +48,7 @@
 
             <span class="fw-bolder">
               @if (Auth::check())
-                 <span data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->eth_address }}">{{ \Illuminate\Support\Str::limit(Auth::user()->eth_address, 6, $end='...') }}</span>
+                <span data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->displayName() }}">{{ Auth::user()->displayName()}}</span>
               @else
               <!-- Eth address here -->
               @endif
@@ -60,19 +60,19 @@
           @if (Auth::check())
              <!-- <h6 class="dropdown-header">Manage Profile</h6> -->
               <div class="dropdown-divider"></div>
-         <!--      <a class="dropdown-item"
+              <a class="dropdown-item"
                 href="{{ route('profile.settings') }}">
                 <i class="me-50" data-feather="settings"></i> Settings
-              </a> -->
+              </a>
           @endif
           @if (Auth::check() && Laravel\Jetstream\Jetstream::hasApiFeatures())
             <a class="dropdown-item" href="{{ route('api-tokens.index') }}">
               <i class="me-50" data-feather="key"></i> API Tokens
             </a>
           @endif
-      <!--       <a class="dropdown-item" href="#">
+      {{--       <a class="dropdown-item" href="#">
             <i class="me-50" data-feather="settings"></i> Settings
-          </a> -->
+          </a> --}}
 
           @if (Auth::User() && Laravel\Jetstream\Jetstream::hasTeamFeatures())
             <div class="dropdown-divider"></div>
@@ -105,18 +105,18 @@
           @if (Auth::check())
             <a class="dropdown-item" href="{{ route('logout') }}"
               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <i class="me-50" data-feather="power"></i> Disconnect
+              <i class="me-50" data-feather="power"></i> Logout
             </a>
             <form method="POST" id="logout-form" action="{{ route('logout') }}">
               @csrf
             </form>
           @else
-            {{-- <a href="{{route('login')}}" class="dropdown-item">
+            <a href="{{route('login')}}" class="dropdown-item">
               <i class="ficon" data-feather="user"></i> Login
-            </a> --}}
-            <a class="dropdown-item">
-              <metamask-login />
             </a>
+            {{-- <a class="dropdown-item">
+              <metamask-login />
+            </a> --}}
           @endif
 
         </div>

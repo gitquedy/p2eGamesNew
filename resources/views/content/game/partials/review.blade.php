@@ -29,7 +29,7 @@
       <div class="author-info w-100">
         <a href="{{ route('user.profile', $review->user) }}">
           <h6 class="fw-bolder mb-25" data-toggle="tooltip" title="{{ $review->user->eth_address }}">
-            {{ App\Models\Utilities::limitString($review->user->eth_address, 12) }}
+            {{ $review->user->displayName() }}
           </h6>
           <p class="fw-bolder"><i class="far fa-edit"></i> {{ $review->user->reviews->count() }} reviews</p>
         </a>
