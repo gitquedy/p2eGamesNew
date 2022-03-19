@@ -36,8 +36,16 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
       .brand-logo {
           position: absolute;
           top: 2rem;
+          left: 2rem;
           z-index: 1;
       }
+
+      @media (max-width: 992px) {
+        .brand-logo {
+          display: none;
+        }        
+      }
+
   </style>
   @yield('style')
 </head>
@@ -46,9 +54,9 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
 <!-- BEGIN: Body-->
 <body style="background-color: #f8f8f8;">
 <div id="app" class="h-100">
-    <div class="container-fluid  h-100">
+    <div class="container-fluid text-center text-md-left h-100">
       <a href="{{ route('home.index') }}">
-        <span class="brand-logo p-1 bg-dark rounded">
+        <span class="brand-logo py-3 p-sm-1 bg-dark rounded">
           <!-- Image logo code -->
           <img src="{{ asset('images/logo/logo.png') }}" class="img-fluid" alt="Brand logo">
           <!--/ Image logo code -->
@@ -60,7 +68,14 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
                   <img src="{{asset('images/login/login.svg')}}" alt="Login" class="img-fluid">
               </div>
           </div>
-          @yield('content')
+          <span class="p-1 bg-dark d-lg-none position-absolute">
+            <!-- Image logo code -->
+            <img src="{{ asset('images/logo/logo.png') }}" class="img-fluid" alt="Brand logo">
+            <!--/ Image logo code -->
+          </span>
+          <div class="d-flex bg-white align-items-center auth-bg py-5 mt-5 mt-lg-0 px-2 p-lg-5 col-lg-4">
+            @yield('content')
+          </div>
       </div>
     </div>
 </div>
