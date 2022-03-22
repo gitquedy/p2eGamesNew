@@ -5,7 +5,7 @@
   Adventure starts here 🚀
 </h4>
 <p class="card-text mb-2">
-  Make your app management easy and fun!
+  Please sign-up and start the adventure
 </p>
 <span>
     <form class="auth-login-form mt-2" method="POST" action="{{ route('register') }}" >
@@ -85,7 +85,7 @@
     </div>
 </div>
 <div class="auth-footer-btn d-flex justify-content-center">
-    <button class="btn btn-secondary w-100">
+    <button class="btn bg-metamask text-white w-100">
         <metamask-login />
     </button>
 </div>

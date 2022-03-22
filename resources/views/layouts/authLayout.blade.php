@@ -128,18 +128,9 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
     .brand-logo {
       position:absolute;
       top:2rem;
-      z-index:1
-    }
- 
-    .auth-wrapper.auth-v2 
-    .brand-logo {
-      margin:0
-    }
-
-     
-    .auth-wrapper.auth-v2 
-    .brand-logo {
-      left:2rem
+      z-index:1;
+      margin:0;
+      left:2rem;
     }
 
     .auth-wrapper.auth-v1 
@@ -154,12 +145,9 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
       display:flex;
       -webkit-box-pack:center;
       -ms-flex-pack:center;
-      justify-content:center
-    }
- 
-    .auth-wrapper 
-    .brand-logo { 
-      margin:1rem 0 2rem
+      justify-content:center;
+      margin:1rem 0 2rem;
+      background-color: #0d1520;
     }
 
     .auth-wrapper 
@@ -203,6 +191,10 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
       height:28px;
       width:40.95px
     }
+
+    .bg-metamask {
+      background-color: #e17719;
+    }
   </style>
 
   @yield('style')
@@ -217,8 +209,8 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
           <div class="auth-inner py-2">
               <div class="card mb-0">
                   <div class="card-body">
-                    <a href="#" target="_self" class="brand-logo">
-                         <span class="brand-logo py-3 p-sm-1 bg-dark rounded">
+                    <a href="#" target="_self" class="">
+                         <span class="brand-logo py-3 p-sm-1 rounded">
                             <img src="{{ asset('images/logo/logo.png') }}" class="img-fluid" alt="Brand logo">
                         </span>
                     </a>

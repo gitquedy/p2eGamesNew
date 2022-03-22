@@ -1,3 +1,4 @@
+@inject('request', 'Illuminate\Http\Request')
 @extends('layouts/contentLayoutMaster')
 
 @section('title', 'Account')
@@ -33,12 +34,12 @@
         </button>
       </li>
       <!-- connection -->
-      {{-- <li class="nav-item" role="presentation">
+      <li class="nav-item" role="presentation">
         <button class="nav-link" id="pills-connections-tab" data-bs-toggle="pill" data-bs-target="#pills-connections" role="tab">
           <i data-feather="link" class="font-medium-3 me-50"></i>
           <span class="fw-bold">Connections</span>
         </button>
-      </li> --}}
+      </li>
     </ul>
 
 
@@ -199,9 +200,16 @@
                 <h4 class="card-title">Connections Details</h4>
               </div>
               <div class="card-body py-2 my-25">
-                <form class="auth-login-form mt-2" method="POST" action="{{ route('profile.update', 'connections') }}" >
-                  @csrf
-                </form>
+                  <div class="row mb-2"> {{-- input-group --}}
+                    <div class="col-sm-8 mt-1 text-center">
+                      <input type="text" class="form-control" name="eth_address" placeholder="Metamask Address (0x)" value="{{ $request->user() ? $request->user()->eth_address : '' }}" readonly>
+                    </div>
+                    <div class="col-sm-4 mt-1 text-center">
+                      <show-metamask>
+                          {{ $request->user() && $request->user()->eth_address ? 'Switch Account' : 'Connect Metamask' }}
+                      </show-metamask>
+                    </div>
+                  </div>
               </div>
             </div>
       </div>

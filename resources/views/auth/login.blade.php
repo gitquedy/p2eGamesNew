@@ -2,7 +2,7 @@
 @section('title', 'Login')
 @section('content')
 <h4 class="card-title mb-1">
-    Welcome to Vuexy! 👋
+    Welcome to P2E Gmaes PH! 👋
 </h4>
 <p class="card-text mb-2">
     Please sign-in to your account and start the adventure
@@ -65,7 +65,7 @@
     </div>
 </div>
 <div class="auth-footer-btn d-flex justify-content-center">
-    <button class="btn btn-secondary w-100">
+    <button class="btn bg-metamask text-light w-100">
         <metamask-login />
     </button>
 </div>

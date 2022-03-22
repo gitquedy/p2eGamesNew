@@ -20,10 +20,16 @@ class LoginUsingWeb3
                 'signature' => 'Invalid signature.'
             ]);
         }
-
-        Auth::login(User::firstOrCreate(
-            ['eth_address' => $request->address]
-        ));
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user->eth_address = $request->address;
+            $user->save();
+        }
+        else {
+            Auth::login(User::firstOrCreate(
+                ['eth_address' => $request->address]
+            ));
+        }
         return response()->json(['user' => Auth::user()]);
         // return Redirect::route('home.index');
     }

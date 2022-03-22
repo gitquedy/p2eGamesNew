@@ -30,8 +30,18 @@
                     <input type="text" class="form-control" name="eth_address" placeholder="Metamask Address (0x)" value="{{ $request->user() ? $request->user()->eth_address : '' }}" readonly>
                   </div>
                   <div class="col-sm-4 mt-1 text-center">
+                    @if (!Auth::check())
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quickLoginModal">
+                        Sign in
+                      </button>
+                      <div class="divider">
+                          <div class="divider-text">
+                          or
+                          </div>
+                      </div>
+                    @endif
                     <show-metamask>
-                        {{ $request->user() ? 'Switch Account' : 'Connect Metamask' }}
+                        {{ $request->user() && $request->user()->eth_address ? 'Switch Account' : 'Connect Metamask' }}
                     </show-metamask>
                   </div>
                 </div>
@@ -118,7 +128,64 @@
     </form>
 
 </section>
-
+<!-- Modal -->
+<div class="modal fade" id="quickLoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="quickLogin" class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
+            @csrf
+            <input type="hidden" name="redirect" value="back">
+            <div role="group" class="form-group my-1">
+                <label for="email" class="d-block">{{ __('E-Mail Address') }}</label>
+                <div>
+                    <span>
+                        <input id="email" name="email" type="text" placeholder="Email Address" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        @error('email')
+                            <small class="text-danger">
+                                <strong>{{ $message }}</strong>
+                            </small>
+                        @enderror
+                    </span>
+                </div>
+            </div>
+            <fieldset class="form-group my-1">
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <label for="login-password">{{ __('Password') }}</label>
+                        @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}" class="" target="_self">
+                            <small>{{ __('Forgot Your Password?') }}</small>
+                        </a>
+                        @endif
+                    </div> 
+                    <span>
+                        <div role="group" class="input-group input-group-merge">
+                            <input id="password" name="password" required autocomplete="current-password" type="password" placeholder="Password" class="form-control-merge form-control @error('password') is-invalid @enderror">
+                        </div> 
+                        @error('password')
+                            <small class="text-danger">
+                                <strong>{{ $message }}</strong>
+                            </small>
+                        @enderror
+                    </span>
+                </div>
+            </fieldset> 
+            <fieldset class="form-group my-1">
+                <div class="custom-control custom-checkbox">
+                    <input name="remember" id="remember" type="checkbox" class="custom-control-input"  {{ old('remember') ? 'checked' : '' }}>
+                    <label for="remember" class="custom-control-label">{{ __('Remember Me') }}</label>
+                </div>
+            </fieldset>
+            <div class="text-center">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">{{ __('Login') }}</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('vendor-script')
