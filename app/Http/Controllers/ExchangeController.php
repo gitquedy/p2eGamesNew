@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Coin;
-use App\Models\PaymentMethod;
 use App\Models\Order;
+use App\Models\PaymentMethod;
 use App\Models\SystemSetting;
-use Validator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Validator;
 
 class ExchangeController extends Controller
 {
@@ -40,10 +42,18 @@ class ExchangeController extends Controller
             ];
             Session::put('cart', $cart);
 
+            if (Auth::check()) {
             $output = ['success' => 1,
                         // 'msg' => 'Success',
                         'redirect' => route('exchange.checkOut'),
                     ];
+            }
+            else {
+                $output = ['success' => 1,
+                        'msg' => 'Please login to continue',
+                        'redirect' => route('login'),
+                    ];
+            }
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
             $output = ['success' => 0,

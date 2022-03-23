@@ -26,10 +26,11 @@
             <div class="row">
               <div class="col-md-12 col-sm-12">
                 <div class="row mb-2"> {{-- input-group --}}
-                  <div class="col-sm-8 mt-1 text-center">
-                    <input type="text" class="form-control" name="eth_address" placeholder="Metamask Address (0x)" value="{{ $request->user() ? $request->user()->eth_address : '' }}" readonly>
+                  <div class="col-12 mt-1 text-left">
+                    <label for="eth_address">Wallet Address</label>
+                    <input type="text" class="form-control" name="eth_address" placeholder="Metamask Address (0x)" value="{{ $request->user() ? $request->user()->eth_address : '' }}">
                   </div>
-                  <div class="col-sm-4 mt-1 text-center">
+                  {{-- <div class="col-sm-4 mt-1 text-center">
                     @if (!Auth::check())
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quickLoginModal">
                         Sign in
@@ -43,7 +44,7 @@
                     <show-metamask>
                         {{ $request->user() && $request->user()->eth_address ? 'Switch Account' : 'Connect Metamask' }}
                     </show-metamask>
-                  </div>
+                  </div> --}}
                 </div>
 
               </div>

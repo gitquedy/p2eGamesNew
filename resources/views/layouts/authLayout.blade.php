@@ -210,7 +210,7 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
               <div class="card mb-0">
                   <div class="card-body">
                     <a href="#" target="_self" class="">
-                         <span class="brand-logo py-3 p-sm-1 rounded">
+                         <span class="brand-logo p-1 rounded">
                             <img src="{{ asset('images/logo/logo.png') }}" class="img-fluid" alt="Brand logo">
                         </span>
                     </a>
