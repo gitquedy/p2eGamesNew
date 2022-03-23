@@ -50,7 +50,7 @@ class ExchangeController extends Controller
             }
             else {
                 $output = ['success' => 1,
-                        'msg' => 'Please login to continue',
+                        // 'msg' => 'Please login to continue',
                         'redirect' => route('login'),
                     ];
             }
