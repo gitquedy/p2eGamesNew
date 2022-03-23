@@ -74,6 +74,7 @@
     width: $menu-expanded-width;
     height: $navbar-height;
     position: relative;
+    background-color: $p2edarkblue;
     padding: 0.35rem 1rem 0.3rem 1.64rem;
     transition: 300ms ease all, background 0s;
     .navbar-brand {
@@ -82,7 +83,7 @@
       margin-top: 1.35rem;
       font-size: inherit;
       .brand-logo img {
-        max-width: 36px;
+        max-width: 189px;
       }
       .brand-text {
         color: $primary;
