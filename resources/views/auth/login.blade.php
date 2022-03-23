@@ -2,7 +2,7 @@
 @section('title', 'Login')
 @section('content')
 <h4 class="card-title mb-1">
-    Welcome to P2E Gmaes PH! 👋
+    Welcome to P2E Games PH! 👋
 </h4>
 <p class="card-text mb-2">
     Please sign-in to your account and start the adventure
