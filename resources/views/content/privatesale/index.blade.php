@@ -26,7 +26,7 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="mb-2">
                         <label class="form-label" cfor="checkout-apt-number">Full Name</label>
-                        <input type="text" class="form-control" placeholder="Full Name" value="{{ $request->user() ? $request->user()->name : '' }}" readonly>
+                        <input type="text" class="form-control" name="name" placeholder="Full Name" value="{{ $request->user() ? $request->user()->name : '' }}">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -66,7 +66,7 @@
                 <div class="col-md-6 col-sm-12">
                   <div class="mb-2">
                     <label class="form-label">What's your BSC wallet address?</label>
-                    <input type="text" name="bsc_wallet" class="form-control">
+                    <input type="text" name="bsc_wallet" class="form-control" value="{{ $request->user() ? $request->user()->eth_address : '' }}">
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -86,25 +86,24 @@
         <div class="card">
           <div class="card-body">
             <h3>PTE Private Sale</h3>
-
             <p><b>Pricing</b></p>
             <p>Private Sale</p>
             <p>1 BNB = 3,000 $PTE</p>
-
+            <br>
             <p>Public Sale</p>
             <p>1 BNB = 1,500 $PTE</p>
-
+            <br>
             <p><b>Eligibility</b></p>
             <p>You must have atleast 10 airdrop referrals</p>
-
+            <br>
             <p><b>Limit (Min-Max Buy)</b></p>
             <p>Private Sale</p>
             <p>1-20 BNB</p>
-
+            <br>
             <p>Public Sale</p>
             <p>0.10-2 BNB</p>
-
-            <p>For more details please visit ready our whitepaper</p>
+            <br>
+            <p>For more details please visit read our whitepaper</p>
             <p><a href="https://docs.p2egames.ph/" target="_new">https://docs.p2egames.ph/</a></p>
           </div>
         </div>

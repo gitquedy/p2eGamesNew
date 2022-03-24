@@ -69,6 +69,7 @@ class PrivateSaleController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'name' => ['required'],
             'email' => ['required', 'email'],
             'join_private_sale_round' => ['required'],
             'contribute' => ['required', 'numeric', 'min:1', 'max:20'],
@@ -80,8 +81,14 @@ class PrivateSaleController extends Controller
         }
         try {
             DB::beginTransaction();
+
+            $user = Auth::user();
+            $user->name = $request->name;
+            $user->eth_address = $request->bsc_wallet;
+            $user->save();
+
             PrivateSale::create([
-                'user_id' => Auth::user()->id,
+                'user_id' => $user->id,
                 'email' => $request->email,
                 'join_private_sale_round' => $request->join_private_sale_round,
                 'contribute' => $request->contribute,
@@ -91,7 +98,6 @@ class PrivateSaleController extends Controller
             DB::commit();
             $output = ['success' => 1,
                         'msg' => 'PTE Private Sale submitted successfully!',
-                        // 'redirect' => action('CategoryController@index')
                     ];
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
