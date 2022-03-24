@@ -72,4 +72,11 @@
     <span>My Orders</span>
   </a>
 </li>
+<li class="nav-item {{ $request->segment(1) == 'pte' ? 'active' : '' }}">
+  <a href="{{ route('privateSale.add') }}" class="nav-link d-flex align-items-center">
+    <i data-feather="briefcase"></i>
+    <span>PTE Private Sale</span>
+  </a>
+</li>
+
 @endif

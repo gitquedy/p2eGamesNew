@@ -17,7 +17,7 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-         if (Auth::user() &&  in_array(Auth::user()->eth_address, config('app.admins'))) {
+         if (Auth::user() &&  in_array(Auth::user()->id, config('app.admins'))) {
                 return $next($request);
          }
         return redirect('/');

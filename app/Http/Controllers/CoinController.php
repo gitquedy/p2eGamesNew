@@ -98,7 +98,7 @@ class CoinController extends Controller
             DB::commit();
             $output = ['success' => 1,
                         'msg' => 'Coin added successfully!',
-                        // 'redirect' => action('CategoryController@index')
+                        'redirect' => route('home')
                     ];
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());

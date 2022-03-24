@@ -84,3 +84,11 @@
       </li>
     </ul>
 </li>
+
+
+<li class="nav-item {{ $request->segment(1) == 'admin' && $request->segment(2) == 'privateSale' ? 'active' : '' }}">
+  <a href="{{ route('exchange.index') }}" class="nav-link d-flex align-items-center">
+    <i data-feather="briefcase"></i>
+    <span>PTE Private Sale</span>
+  </a>
+</li>

@@ -1,24 +1,26 @@
 
 <?php
 
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BlockChainController;
+use App\Http\Controllers\CoinController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExchangeController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\PrivateSaleController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SystemSettingController;
+use App\Http\Controllers\UsefulController;
+use App\Http\Controllers\UserController;
+use App\Models\Game;
+use Codenixsv\CoinGeckoApi\CoinGeckoClient;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\GenreController;
-use App\Http\Controllers\GameController;
-use App\Http\Controllers\BlockChainController;
-use Codenixsv\CoinGeckoApi\CoinGeckoClient;
-use App\Models\Game;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\CoinController;
-use App\Http\Controllers\PaymentMethodController;
-use App\Http\Controllers\ExchangeController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\SystemSettingController;
-use App\Http\Controllers\UsefulController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +82,10 @@ Route::get('xchange/checkout/', [ExchangeController::class, 'checkOut'])->name('
 
 Route::group(['prefix' => 'admin','middleware' => ['auth', 'admin']], function()
 {
+    Route::resource('/privateSale', PrivateSaleController::class);
+    Route::get('/privateSale/delete/{privateSale}', [PrivateSaleController::class, 'delete'])->name('privateSale.delete');
+    Route::post('/privateSale/default/{privateSale}', [PrivateSaleController::class, 'default'])->name('privateSale.default');
+
     Route::resource('/genre', GenreController::class);
     Route::get('/genre/delete/{genre}', [GenreController::class, 'delete'])->name('genre.delete');
     Route::resource('/blockchain', BlockChainController::class);
@@ -111,6 +117,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'admin']], function()
 
 Route::group(['middleware' => ['auth']], function()
 {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/review', [ReviewController::class ,'store'])->name('review.store');
     Route::get('profile/settings/', [UserController::class, 'settings'])->name('profile.settings');
     Route::post('profile/update/{type}', [UserController::class, 'update'])->name('profile.update');
@@ -120,6 +127,8 @@ Route::group(['middleware' => ['auth']], function()
     Route::post('order/cancel/{order}', [OrderController::class, 'cancel'])->name('order.cancel')->middleware('admin');
     Route::get('/order/delete/{order}', [OrderController::class, 'delete'])->name('order.delete')->middleware('admin');
     Route::post('/useful/{review}', [UsefulController::class, 'useful'])->name('useful.useful');
+    Route::get('/pte/', [PrivateSaleController::class, 'create'])->name('privateSale.add');
+    Route::post('/pte/', [PrivateSaleController::class, 'store'])->name('privateSale.submit');
 });
 Route::get('profile/{user:eth_address}/', [UserController::class, 'profile'])->name('user.profile');
 

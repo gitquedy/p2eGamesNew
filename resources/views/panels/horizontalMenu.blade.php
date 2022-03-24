@@ -38,14 +38,15 @@ $configData = Helper::applClasses();
             <span>Home</span>
           </a>
         </li>
+        {{-- {{Auth::user()->isAdmin()}} --}}
         @if(Auth::check())
-        @if(Auth::user()->isAdmin())
-          @include('panels.adminMenu')
+          @if(Auth::user()->isAdmin())
+            @include('panels.adminMenu')
+          @else
+            @include('panels.clientMenu')
+          @endif
         @else
           @include('panels.clientMenu')
-        @endif
-        @else
-        @include('panels.clientMenu')
         @endif
       </ul>
 

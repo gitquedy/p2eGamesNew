@@ -65,7 +65,7 @@ class User extends Authenticatable
     ];
 
     public function isAdmin(){
-        return in_array($this->eth_address, config('app.admins'));
+        return in_array($this->id, config('app.admins'));
     }
 
     public function displayName() {
