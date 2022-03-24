@@ -19,7 +19,7 @@
       <div class="col-md-8 col-sm-12">
         <div class="card">
           <div class="card-header flex-column align-items-start">
-            <h4 class="card-title">Billing Details</h4>
+            <h4 class="card-title">Private Sale Form</h4>
           </div>
           <div class="card-body">
             <div class="row">
@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                   <div class="mb-2">
-                    <label class="form-label">Would you like to join the $CBUD private sale round?</label>
+                    <label class="form-label">Would you like to join the $PTE private sale round?</label>
                     <div class="form-check m-1">
                       <input class="form-check-input" type="radio" name="join_private_sale_round" value="1" id="join_private_sale_round_yes">
                       <label class="form-check-label" for="join_private_sale_round_yes">
@@ -56,8 +56,9 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                   <div class="mb-2">
-                    <label class="form-label">How much will you contribute? Enter the amount in BNB (Min. 0.5, Max 1.0)</label>
-                    <input type="number" min="0.5" max="1" step="0.000000001" name="contribute" class="form-control">
+                    <label class="form-label">How much will you contribute? Enter the amount in BNB</label>
+                    <label class="form-label">(Min. 1 BNB, Max 20 BNB)</label>
+                    <input type="number" min="1" max="20" step="0.000000001" name="contribute" class="form-control">
                   </div>
                 </div>
             </div>

@@ -71,7 +71,7 @@ class PrivateSaleController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'email'],
             'join_private_sale_round' => ['required'],
-            'contribute' => ['required', 'numeric', 'min:0.5', 'max:1'],
+            'contribute' => ['required', 'numeric', 'min:1', 'max:20'],
             'bsc_wallet' => ['required'],
             'telegram' => ['required'],
         ]);

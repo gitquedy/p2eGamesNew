@@ -1,6 +1,6 @@
 @inject('request', 'Illuminate\Http\Request')
 @extends('layouts/contentLayoutMaster')
-@section('title', 'Reviews')
+@section('title', 'Private Sales')
 
 @section('vendor-style')
   {{-- vendor css files --}}
