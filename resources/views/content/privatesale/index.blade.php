@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <input type="submit" class="btn btn-primary place-order btn_save" value="Submit">
+                <input type="submit" name="save" class="btn btn-primary place-order btn_save" value="Submit">
             </div>
           </div>
         </div>

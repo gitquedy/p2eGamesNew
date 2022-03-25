@@ -98,6 +98,7 @@ class PrivateSaleController extends Controller
             DB::commit();
             $output = ['success' => 1,
                         'msg' => 'PTE Private Sale submitted successfully!',
+                        'redirect' => route('home')
                     ];
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
