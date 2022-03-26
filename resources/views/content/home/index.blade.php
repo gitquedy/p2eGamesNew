@@ -44,7 +44,7 @@
             <tr>
               <td class="f-tr px-1"><i data-feather="trending-up"></i></td>
               <td class="text-start">Gainers</td>
-              <td class="text-end" > <a href="{{ route('game.gainer') }}">More <i data-feather="chevron-right"></i></a></td>
+              <td class="text-end p-1" > <a href="{{ route('game.gainer') }}">More <i data-feather="chevron-right"></i></a></td>
             </tr>
             @foreach($gainers as $gainer)
               <tr>
@@ -78,7 +78,7 @@
             <tr>
               <td class="f-tr px-1"><i data-feather="trending-down"></i></td>
               <td class="text-start pl-0">Losers</td>
-              <td class="text-end" > <a href="{{ route('game.loser') }}">More <i data-feather="chevron-right"></i></a></td>
+              <td class="text-end p-1" > <a href="{{ route('game.loser') }}">More <i data-feather="chevron-right"></i></a></td>
             </tr>
             @foreach($losers as $loser)
               <tr>
