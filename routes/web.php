@@ -73,15 +73,16 @@ Route::get('/genre/get/', [GenreController::class, 'get'])->name('genre.get');
 
 
 
+
 Route::get('xchange', [ExchangeController::class, 'index'])->name('exchange.index');
 Route::post('xchange/saveCart', [ExchangeController::class, 'saveCart'])->name('exchange.saveCart');
-
-Route::get('xchange/checkout/', [ExchangeController::class, 'checkOut'])->name('exchange.checkOut');
-
-
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('xchange/checkout/', [ExchangeController::class, 'checkOut'])->name('exchange.checkOut');
+});
 
 Route::group(['prefix' => 'admin','middleware' => ['auth', 'admin']], function()
 {
+
     Route::resource('/privateSale', PrivateSaleController::class);
     Route::get('/privateSale/delete/{privateSale}', [PrivateSaleController::class, 'delete'])->name('privateSale.delete');
     Route::post('/privateSale/default/{privateSale}', [PrivateSaleController::class, 'default'])->name('privateSale.default');
@@ -129,6 +130,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::post('/useful/{review}', [UsefulController::class, 'useful'])->name('useful.useful');
     Route::get('/pte/', [PrivateSaleController::class, 'create'])->name('privateSale.add');
     Route::post('/pte/', [PrivateSaleController::class, 'store'])->name('privateSale.submit');
+    Route::get('game/show/{game}', [GameController::class, 'show'])->name('game.show.login');
 });
 Route::get('profile/{user:eth_address}/', [UserController::class, 'profile'])->name('user.profile');
 

@@ -29,7 +29,7 @@
                     message: message,
                 };
                     axios.post('/login-web3', params)
-                    .then(response => window.location.reload())
+                    .then(response => window.location.replace(response.data.redirect))
                     .catch(err => alert(err.response.data.message)
                         );
 

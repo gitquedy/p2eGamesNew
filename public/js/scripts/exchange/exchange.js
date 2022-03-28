@@ -32,11 +32,10 @@ function addCommas(nStr)
     return x1 + x2;
 }
 
-function applyPrices(type = "total"){
-    var coinAmount = $('#coin_amount');
-    var totalAmount = $('#totalAmount');
-
-    var selectedCoin = $('#coin').find(":selected");
+function applyPrices(type = "total", tab = "b"){
+    var coinAmount = $("#"+tab+"_coin_amount");
+    var totalAmount = $("#"+tab+"_totalAmount");
+    var selectedCoin = $("#"+tab+"_coin").find(":selected");
 
     var price = selectedCoin.data('price');
 
@@ -55,38 +54,45 @@ function applyPrices(type = "total"){
 }
 
 $(document).ready(function(){
-    applyPrices("total");
-    $("#coin_amount").on('keyup', function(){
-        applyPrices("total");
+    var tab = $('.nav-link.active').data('script-tag');
+    applyPrices("total", tab);
+
+    $('#myTab a').on('shown.bs.tab', function () {
+      tab = $('.nav-link.active').data('script-tag');
+      applyPrices("total", tab);
+    })
+
+    $(".trigger_coin_amount").on('keyup', function(){
+        applyPrices("total", tab);
     });
 
-    $("#totalAmount").on('keyup', function(){
-        applyPrices("coin");
+    $(".trigger_totalAmount").on('keyup', function(){
+        applyPrices("coin", tab);
     });
-    $('#coin').on('change', function(){
-        $('#coin_amount').val($('#coin').find(":selected").data('value'));
-        $('#coin_amount').prop("step", $('#coin').find(":selected").data('step'));
-        applyPrices("total");
+    $(".trigger_coin").on('change', function(){
+        $("#"+tab+"_coin_amount").val($("#"+tab+"_coin").find(":selected").data('value'));
+        $("#"+tab+"_coin_amount").prop("step", $("#"+tab+"_coin").find(":selected").data('step'));
+        applyPrices("total", tab);
     });
 
-    $('#minus').on('click', function(){
-        var step = $('#coin').find(":selected").data('step');
-        var value = $('#coin_amount').val();
+    $(".trigger_minus").on('click', function(){
+        var step = $("#"+tab+"_coin").find(":selected").data('step');
+        var value = $("#"+tab+"_coin_amount").val();
 
         value =  parseFloat(value) - parseFloat(step);
         if(value > 0){
-            $('#coin_amount').val(parseFloat(value.toFixed(4)));
-            applyPrices("total");
+            $("#"+tab+"_coin_amount").val(parseFloat(value.toFixed(4)));
+            applyPrices("total", tab);
         }
     });
 
-    $('#plus').on('click', function(){
-        var step = $('#coin').find(":selected").data('step');
-        var value = $('#coin_amount').val();
+    $(".trigger_plus").on('click', function(){
+        var step = $("#"+tab+"_coin").find(":selected").data('step');
+        var value = $("#"+tab+"_coin_amount").val();
 
         value =  parseFloat(value) + parseFloat(step);
-        $('#coin_amount').val(parseFloat(value.toFixed(4)));
-        applyPrices("total");
+        $("#"+tab+"_coin_amount").val(parseFloat(value.toFixed(4)));
+        applyPrices("total", tab);
     });
-    $('#coin').trigger('change');
+    $(".trigger_coin").trigger('change');
 });

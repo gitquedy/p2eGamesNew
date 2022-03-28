@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -39,9 +39,12 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectPath()
-    {
-        $cart = Session::get('cart');
-        return (isset($cart)) ? route('exchange.checkOut') : $this->redirectTo;
+    protected function redirectTo() {
+        return (Session::get('url.indended') != null) ? Session::get('url.indended') : RouteServiceProvider::HOME;
     }
+
+    // public function redirectPath()
+    // {
+    //     return $this->redirectTo;
+    // }
 }

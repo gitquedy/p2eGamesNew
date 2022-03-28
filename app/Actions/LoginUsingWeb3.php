@@ -3,10 +3,11 @@
 namespace App\Actions;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Elliptic\EC;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use kornrunner\Keccak;
@@ -30,7 +31,7 @@ class LoginUsingWeb3
                 ['eth_address' => $request->address]
             ));
         }
-        return response()->json(['user' => Auth::user()]);
+        return response()->json(['user' => Auth::user(), 'redirect' => Session::get('url.intended')]);
         // return Redirect::route('home.index');
     }
 

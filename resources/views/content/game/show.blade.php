@@ -223,9 +223,9 @@
                     <div class="pt-1 pt-1 py-0 py-sm-1 m-auto my-0">
                       <h4>Please login to write a review.</h4>
                       {{-- <button class="btn btn-success btn-block" onclick="$('#metamaskLogin').click()">Connect Metamask to Login.</button> --}}
-                      <a href="{{route('login')}}">
-                        <button class="btn btn-success">Click here to login.</button>
-                      </a>
+                      <a href="{{route('game.show.login', $game)}}">
+                          <button class="btn btn-success">Click here to login.</button>
+                        </a>
                     </div>
                   </div>
               @endif
@@ -248,7 +248,7 @@
                 <div class="d-flex align-items-center justify-content-center flex-column">
                   <h4 class="text-center">Yay! Be the first to review this game</h4>
                   @if(! $request->user())
-                  <a href="{{route('login')}}">
+                  <a href="{{route('game.show.login', $game)}}">
                     <button class="btn btn-success">Click here to login.</button>
                   </a>
                   @endif

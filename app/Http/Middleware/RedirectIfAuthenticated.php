@@ -24,8 +24,9 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                $cart = Session::get('cart');
-                return (isset($cart)) ? redirect(route('exchange.checkOut')) : redirect(RouteServiceProvider::HOME);
+                // $cart = Session::get('cart');
+                // return (isset($cart)) ? redirect(route('exchange.checkOut')) : redirect(RouteServiceProvider::HOME);
+                return redirect(RouteServiceProvider::HOME);
             }
         }
 
