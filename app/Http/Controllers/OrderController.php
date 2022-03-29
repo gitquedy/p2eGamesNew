@@ -153,6 +153,7 @@ class OrderController extends Controller
                 'user_id' => $request->user()->id,
                 'payment_method_id' => $request->payment_method_id,
                 'transaction' => $request->transaction,
+                'eth_address' => $request->eth_address,
                 'minimum_price' => $cart['coin']->minimum_price,
                 'markup_price' => $cart['coin']->markup_price,
                 'exchange_transaction_fee' => SystemSetting::first()->exchange_transaction_fee,
@@ -170,7 +171,8 @@ class OrderController extends Controller
             $request->user()->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'phone_number' => $request->phone_number
+                'phone_number' => $request->phone_number,
+                'eth_address' => $request->eth_address
             ]);
             $order = Order::create($data);
             DB::commit();

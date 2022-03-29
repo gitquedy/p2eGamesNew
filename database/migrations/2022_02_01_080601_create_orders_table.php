@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('payment_method_id');
             $table->enum('transaction', ['buy', 'sell']);
+            $table->string('eth_address');
             $table->double('minimum_price', 10,4);
             $table->double('markup_price',10,2);
             $table->integer('exchange_transaction_fee');

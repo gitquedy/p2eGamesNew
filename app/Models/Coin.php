@@ -44,6 +44,14 @@ class Coin extends Model
         return $totalAmountValue;
     }
 
+    public function getSellPriceAttribute() {
+        $coin = $this->coingecko;
+        $price = $coin['market_data']['current_price']['php'];
+        $usePrice = $price < $this->minimum_price ? $this->minimum_price : $price;
+        $totalAmountValue = $usePrice - ($usePrice * ($this->markup_price / 100));
+        return $totalAmountValue;
+    }
+
     public function computedPrice($qty = 1){
         return $this->usePrice * $qty;
     }

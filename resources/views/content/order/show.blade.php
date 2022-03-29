@@ -115,7 +115,7 @@
               @if ($order->transaction == "buy")
                 <h6 class="mb-2">Order To:</h6>
                 <h6 class="mb-25">{{ $order->user->name }}</h6>
-                <h6 class="mb-25">{{ $order->user->eth_address }}</h6>
+                <h6 class="mb-25"><span class="fw-bold badge bg-secondary">{{ $order->eth_address }}</span></h6>
                 <p class="card-text mb-25">{{ $order->user->phone_number }}</p>
                 <p class="card-text mb-25">{{ $order->user->email }}</p>
               @elseif ($order->transaction == "sell")

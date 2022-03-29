@@ -90,7 +90,7 @@
 
                                             <select class="form-control select2 trigger_coin" name="coin_id" id="s_coin">
                                                 @foreach($coins as $coin)
-                                                    <option value="{{ $coin->id }}" data-image="{{ $coin->imageUrl() }}" data-value="{{ $coin->default }}" data-step="{{ $coin->step }}" data-price="{{ $coin->usePrice }}" {{ $coin->isDefault ? 'selected' : '' }}>{{ $coin->name . ' ($'. $coin->short_name . ')' }}</option>
+                                                    <option value="{{ $coin->id }}" data-image="{{ $coin->imageUrl() }}" data-value="{{ $coin->default }}" data-step="{{ $coin->step }}" data-price="{{ $coin->sellPrice }}" {{ $coin->isDefault ? 'selected' : '' }}>{{ $coin->name . ' ($'. $coin->short_name . ')' }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
