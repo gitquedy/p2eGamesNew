@@ -28,7 +28,8 @@ class ExchangeController extends Controller
         $validator = Validator::make($request->all(), [
             'coin_id' => ['required', 'exists:coins,id'],
             'paymentmethod_id' => ['required', 'exists:payment_methods,id'],
-            'qty' => ['required', 'regex:/^\d*(\.\d{1,2})?$/']
+            'qty' => ['required', 'regex:/^\d*(\.\d{1,2})?$/'],
+            'transaction'=> ['required', 'in:buy,sell'],
           ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()]);
@@ -39,21 +40,14 @@ class ExchangeController extends Controller
                 'coin_id' => $request->coin_id,
                 'qty' => $request->qty,
                 'paymentmethod' => PaymentMethod::where('id', $request->paymentmethod_id)->first(),
+                'transaction' => $request->transaction,
             ];
             Session::put('cart', $cart);
 
-            if (Auth::check()) {
             $output = ['success' => 1,
                         // 'msg' => 'Success',
                         'redirect' => route('exchange.checkOut'),
                     ];
-            }
-            else {
-                $output = ['success' => 1,
-                        // 'msg' => 'Please login to continue',
-                        'redirect' => route('login'),
-                    ];
-            }
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). " Line:" . $e->getLine(). " Message:" . $e->getMessage());
             $output = ['success' => 0,
@@ -75,12 +69,22 @@ class ExchangeController extends Controller
             $cart['computedPrice'] = $cart['coin']->computedPrice($cart['qty']);
             $cart['transactionFee'] = $cart['coin']->getTransactionFee($cart['qty']);
 
-            if(isset($cart['total'])){
-                if($cart['total'] != $cart['exchangeFixPrice'] + $cart['computedPrice'] + $cart['transactionFee']){
-                    $request->session()->flash('message','Price has been updated, please check.');
+            if ($cart['transaction'] == "buy") {
+                if(isset($cart['total'])){
+                    if($cart['total'] != $cart['exchangeFixPrice'] + $cart['computedPrice'] + $cart['transactionFee']){
+                        $request->session()->flash('message','Price has been updated, please check.');
+                    }
                 }
+                $cart['total'] = $cart['exchangeFixPrice'] + $cart['computedPrice'] + $cart['transactionFee'];
             }
-            $cart['total'] = $cart['exchangeFixPrice'] + $cart['computedPrice'] + $cart['transactionFee'];
+            else if($cart['transaction'] == "sell") {
+                if(isset($cart['total'])){
+                    if($cart['total'] != $cart['computedPrice'] - ($cart['exchangeFixPrice'] + $cart['transactionFee'])){
+                        $request->session()->flash('message','Price has been updated, please check.');
+                    }
+                }
+                $cart['total'] = $cart['computedPrice'] - ($cart['exchangeFixPrice'] + $cart['transactionFee']);   
+            }
 
             Session::put('cart', $cart);
             return view('content.exchange.partials.totals', compact('cart'));

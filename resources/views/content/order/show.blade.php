@@ -61,38 +61,68 @@
         <div class="card-body invoice-padding pt-0">
           <div class="row invoice-spacing">
             <div class="col-xl-8 p-0">
-              <h6 class="mb-2 badge badge-glow bg-danger">Send Payments To:</h6>
-              <table>
-                <tbody>
-                  <tr>
-                    <td class="pe-1">Total Due:</td>
-                    <td><span class="fw-bold badge bg-danger">{{ number_format($order->total, 2) }}</span></td>
-                  </tr>
-                  <tr>
-                    <td class="pe-1">Provider:</td>
-                    <td class="badge bg-danger">{{ $order->paymentMethod->provider }}</td>
-                  </tr>
-                  <tr>
-                    <td class="pe-1">Name:</td>
-                    <td class="badge bg-danger">{{ $order->paymentMethod->account_name }}</td>
-                  </tr>
-                  <tr>
-                    <td class="pe-1">Number:</td>
-                    <td class="badge bg-danger">{{ $order->paymentMethod->account_number }}</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>After sending the payment, please attach proof of payment (screenshot) by clicking the <a href="#" data-bs-toggle="modal" data-bs-target="#add-payment-sidebar">"ADD PAYMENT"</a> button.</td>
-                  </tr>
-                </tbody>
-              </table>
+              @if ($order->transaction == "buy")
+                <h6 class="mb-2 badge badge-glow bg-danger">Send Payments To:</h6>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td class="pe-1">Total Due:</td>
+                      <td><span class="fw-bold badge bg-danger">{{ number_format($order->total, 2) }}</span></td>
+                    </tr>
+                    <tr>
+                      <td class="pe-1">Provider:</td>
+                      <td class="badge bg-danger">{{ $order->paymentMethod->provider }}</td>
+                    </tr>
+                    <tr>
+                      <td class="pe-1">Name:</td>
+                      <td class="badge bg-danger">{{ $order->paymentMethod->account_name }}</td>
+                    </tr>
+                    <tr>
+                      <td class="pe-1">Number:</td>
+                      <td class="badge bg-danger">{{ $order->paymentMethod->account_number }}</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>After sending the payment, please attach proof of payment (screenshot) by clicking the <a href="#" data-bs-toggle="modal" data-bs-target="#add-payment-sidebar">"ADD PAYMENT"</a> button.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              @elseif($order->transaction == "sell")
+                <h6 class="mb-2">Please send your token to the following address depending on the network</h6>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td class="pe-1">Binance Smartchain (BSC)</td>
+                      <td><span class="fw-bold badge bg-danger">0x92A8C7112430213984D8ed3c0bc9542F515D9B3d</span></td>
+                    </tr>
+                    <tr>
+                      <td class="pe-1">Polygon Network</td>
+                      <td><span class="fw-bold badge bg-danger">0x92A8C7112430213984D8ed3c0bc9542F515D9B3d</span></td>
+                    </tr>
+                    <tr>
+                      <td class="pe-1">Ronin Network</td>
+                      <td><span class="fw-bold badge bg-danger">ronin:81718f6fa762bc9c9aa541394e060990c78cb801</span></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>After sending the tokens, please click <a href="#" data-bs-toggle="modal" data-bs-target="#add-txid-sidebar">"ADD TRANSACTION ID"</a> and put your transaction hash key/id </td>
+                    </tr>
+                  </tbody>
+                </table>
+              @endif
             </div>
             <div class="col-xl-4 p-0 mt-xl-0 mt-2">
-              <h6 class="mb-2">Order To:</h6>
-              <h6 class="mb-25">{{ $order->user->name }}</h6>
-              <h6 class="mb-25">{{ $order->user->eth_address }}</h6>
-              <p class="card-text mb-25">{{ $order->user->phone_number }}</p>
-              <p class="card-text mb-25">{{ $order->user->email }}</p>
+              @if ($order->transaction == "buy")
+                <h6 class="mb-2">Order To:</h6>
+                <h6 class="mb-25">{{ $order->user->name }}</h6>
+                <h6 class="mb-25">{{ $order->user->eth_address }}</h6>
+                <p class="card-text mb-25">{{ $order->user->phone_number }}</p>
+                <p class="card-text mb-25">{{ $order->user->email }}</p>
+              @elseif ($order->transaction == "sell")
+                <h6 class="mb-2">Order To:</h6>
+                <h6 class="mb-25">{{ $order->user->name }}</h6>
+                <h6 class="mb-25">{{ $order->notes }}</h6>
+              @endif
             </div>
 
           </div>
@@ -213,9 +243,16 @@
           <a class="btn btn-outline-secondary w-100 mb-75" href="{{url('app/invoice/print')}}" target="_blank"> Print </a>
           <a class="btn btn-outline-secondary w-100 mb-75" href="{{url('app/invoice/edit')}}"> Edit </a> -->
           @if($order->status == 1)
-          <button class="btn btn-success w-100 mb-75" data-bs-toggle="modal" data-bs-target="#add-payment-sidebar">
-            Add Payment
-          </button>
+          @if ($order->transaction == "buy")
+            <button class="btn btn-success w-100 mb-75" data-bs-toggle="modal" data-bs-target="#add-payment-sidebar">
+              Add Payment
+            </button>
+          @elseif($order->transaction == "sell")
+            <button class="btn btn-success w-100 mb-75" data-bs-toggle="modal" data-bs-target="#add-txid-sidebar">
+              Add Transaction ID
+            </button>
+          @endif
+
           @endif
           @if(in_array($order->status, ['1', '2', '3']) && $request->user()->isAdmin())
           <button class="btn btn-danger w-100 confirmation mb-75" data-action="{{ route('order.cancel', $order) }}" data-title="Are you sure to cancel this order?">
@@ -227,8 +264,13 @@
             Confirm Receipt
           </button>
           @endif
-          @if($order->status == 3 && $request->user()->isAdmin())
+          @if(($order->status == 3 && $order->transaction == "buy") && $request->user()->isAdmin())
           <button class="btn btn-success w-100 mb-75" data-bs-toggle="modal" data-bs-target="#add-txid-sidebar">
+            Order Complete
+          </button>
+          @endif
+          @if(($order->status == 6 && $order->transaction == "sell") && $request->user()->isAdmin())
+          <button class="btn btn-success w-100 mb-75" data-bs-toggle="modal" data-bs-target="#add-payment-sidebar">
             Order Complete
           </button>
           @endif

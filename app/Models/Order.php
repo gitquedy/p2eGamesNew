@@ -12,7 +12,7 @@ class Order extends Model
 
     protected $table = 'orders';
 
-    protected $fillable = ['coin_id', 'user_id', 'payment_method_id', 'minimum_price', 'markup_price', 'exchange_transaction_fee', 'exchange_fix_price', 'price', 'usePrice', 'sub_total', 'transaction_fee', 'service_charge', 'total', 'status', 'notes', 'qty', 'payment_proof', 'txid'];
+    protected $fillable = ['coin_id', 'user_id', 'payment_method_id', 'transaction', 'minimum_price', 'markup_price', 'exchange_transaction_fee', 'exchange_fix_price', 'price', 'usePrice', 'sub_total', 'transaction_fee', 'service_charge', 'total', 'status', 'notes', 'qty', 'payment_proof', 'txid'];
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
@@ -52,6 +52,11 @@ class Order extends Model
         else if ($this->status == 5){
             $status['class'] = 'danger';
             $status['text'] = 'Cancelled';
+        }
+
+        else if ($this->status == 6) {
+            $status['class'] = 'primary';
+            $status['text'] = 'Waiting for Admin Transfer of Payment';
         }
 
         return $status;

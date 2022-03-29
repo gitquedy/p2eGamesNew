@@ -13,15 +13,28 @@
     </tr>
     <tr>
       <td class="text-start">Transaction Fee</td>
-      <th class="text-end">₱{{ number_format($cart['transactionFee'], 2) }}</th>
+      @if ($cart['transaction'] == "buy")
+        <th class="text-end">₱{{ number_format($cart['transactionFee'], 2) }}</th>
+      @elseif($cart['transaction'] == "sell")
+        <th class="text-end">(₱{{ number_format($cart['transactionFee'], 2) }})</th>
+      @endif
     </tr>
     <tr>
       <td class="text-start">Service Charge</td>
-      <th class="text-end">₱{{ number_format($cart['exchangeFixPrice'], 2) }}</th>
+      @if ($cart['transaction'] == "buy")
+        <th class="text-end">₱{{ number_format($cart['exchangeFixPrice'], 2) }}</th>
+      @elseif($cart['transaction'] == "sell")
+        <th class="text-end">(₱{{ number_format($cart['exchangeFixPrice'], 2) }})</th>
+      @endif
     </tr>
     <tr>
-      <td class="text-start">Total</td>
-      <th class="text-end">₱{{ number_format($cart['total'], 2) }}</th>
+      @if ($cart['transaction'] == "buy")
+        <td class="text-start">Total</td>
+        <th class="text-end">₱{{ number_format($cart['total'], 2) }}</th>
+      @elseif($cart['transaction'] == "sell")
+        <td class="text-start">Total Payout</td>
+        <th class="text-end">₱{{ number_format($cart['total'], 2) }}</th>
+      @endif
     </tr>
 </table>
 

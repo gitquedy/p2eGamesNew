@@ -2123,7 +2123,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   message: message
                 };
                 axios.post('/login-web3', params).then(function (response) {
-                  return window.location.replace(response.data.redirect);
+                  return response.data.redirect ? window.location.replace(response.data.redirect) : window.location.reload();
                 })["catch"](function (err) {
                   return alert(err.response.data.message);
                 });

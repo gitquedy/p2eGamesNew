@@ -15,7 +15,11 @@
         <div class="modal-body flex-grow-1">
           <form>
             <div class="mb-1">
-              <input id="balance" class="form-control" type="text" value="Total Due: ₱{{ number_format($order->total, 2) }}" disabled />
+              @if ($order->transaction == "buy")
+                <input id="balance" class="form-control" type="text" value="Total Due: ₱{{ number_format($order->total, 2) }}" disabled />
+              @elseif($order->transaction == "sell")
+                <input id="balance" class="form-control" type="text" value="Total Payout: ₱{{ number_format($order->total, 2) }}" disabled />
+              @endif
             </div>
             <div class="mb-2">
               <label class="form-label" for="amount">Upload Payment Screenshot</label>

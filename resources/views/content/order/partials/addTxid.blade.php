@@ -19,7 +19,11 @@
               <input  class="form-control" type="text" name="txid">
             </div>
             <div class="d-flex flex-wrap mb-0">
-              <button type="submit" class="btn btn-primary me-1 btn_save">Order Complete</button>
+              @if ($order->transaction == "buy")
+                <button type="submit" class="btn btn-primary me-1 btn_save">Order Complete</button>
+              @elseif($order->transaction =="sell")
+                <button type="submit" class="btn btn-primary me-1 btn_save">Submit</button>
+              @endif
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
           </form>

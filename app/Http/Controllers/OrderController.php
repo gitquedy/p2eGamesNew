@@ -106,6 +106,8 @@ class OrderController extends Controller
             'phone_number' => ['required'],
             'email' => ['required', 'unique:users,email,' . $request->user()->id],
             'name'=> ['required'],
+            'notes'=> ['required'],
+            'transaction'=> ['required', 'in:buy,sell'],
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()]);
@@ -119,20 +121,35 @@ class OrderController extends Controller
             $cart['computedPrice'] = $cart['coin']->computedPrice($cart['qty']);
             $cart['transactionFee'] = $cart['coin']->getTransactionFee($cart['qty']);
 
-            if(isset($cart['total'])){
-                if($cart['total'] != $cart['exchangeFixPrice'] + $cart['computedPrice'] + $cart['transactionFee']){
-                    $output = ['success' => 0,
-                        'msg' => 'Price has been updated, please check.',
-                    ];
-                    return response()->json($output);
+
+            if ($cart['transaction'] == "buy") {
+                if(isset($cart['total'])){
+                    if($cart['total'] != $cart['exchangeFixPrice'] + $cart['computedPrice'] + $cart['transactionFee']){
+                        $output = ['success' => 0,
+                            'msg' => 'Price has been updated, please check.',
+                        ];
+                        return response()->json($output);
+                    }
                 }
+                $cart['total'] = $cart['exchangeFixPrice'] + $cart['computedPrice'] + $cart['transactionFee'];
             }
-            $cart['total'] = $cart['exchangeFixPrice'] + $cart['computedPrice'] + $cart['transactionFee'];
+            else if($cart['transaction'] == "sell") {
+                if(isset($cart['total'])){
+                    if($cart['total'] != $cart['computedPrice'] - ($cart['exchangeFixPrice'] + $cart['transactionFee'])){
+                        $output = ['success' => 0,
+                            'msg' => 'Price has been updated, please check.',
+                        ];
+                        return response()->json($output);
+                    }
+                }
+                $cart['total'] = $cart['computedPrice'] - ($cart['exchangeFixPrice'] + $cart['transactionFee']);   
+            }
 
             $data = [
                 'coin_id' => $cart['coin_id'],
                 'user_id' => $request->user()->id,
                 'payment_method_id' => $request->payment_method_id,
+                'transaction' => $request->transaction,
                 'minimum_price' => $cart['coin']->minimum_price,
                 'markup_price' => $cart['coin']->markup_price,
                 'exchange_transaction_fee' => SystemSetting::first()->exchange_transaction_fee,
@@ -146,7 +163,7 @@ class OrderController extends Controller
                 'notes' => $request->notes,
                 'qty' => $cart['qty'],
             ];
-
+            
             $request->user()->update([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -155,7 +172,7 @@ class OrderController extends Controller
             $order = Order::create($data);
             DB::commit();
             $output = ['success' => 1,
-                        'msg' => 'Order added successfully! Please proceed with payment.',
+                        'msg' => 'Order added successfully! Please proceed to the next step.',
                         'redirect' => route('order.show', $order)
                     ];
         } catch (\Exception $e) {
@@ -213,19 +230,37 @@ class OrderController extends Controller
             return response()->json($output);
         }
         $data = $request->all();
-        if($request->updateMethod == 'payment'){
-            $validator = Validator::make($data, [
-                'payment_proof' => ['required', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            ]);
-            $msg = 'Payment added Successfully';
-            $data['status'] = '2';
+        if ($order->transaction == "buy") {
+            if($request->updateMethod == 'payment'){
+                $validator = Validator::make($data, [
+                    'payment_proof' => ['required', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+                ]);
+                $msg = 'Payment added Successfully';
+                $data['status'] = '2';
+            }
+            if($request->updateMethod == 'txid'){
+                $validator = Validator::make($data, [
+                    // 'txid' => ['required'],
+                ]);
+                $msg = 'Order completed Successfully';
+                $data['status'] = '4';
+            }
         }
-        if($request->updateMethod == 'txid'){
-            $validator = Validator::make($data, [
-                // 'txid' => ['required'],
-            ]);
-            $msg = 'Order completed Successfully';
-            $data['status'] = '4';
+        elseif ($order->transaction == "sell") {
+            if($request->updateMethod == 'txid'){
+                $validator = Validator::make($data, [
+                    'txid' => ['required'],
+                ]);
+                $msg = 'Transaction ID added Successfully';
+                $data['status'] = '2';
+            }
+            if($request->updateMethod == 'payment'){
+                $validator = Validator::make($data, [
+                    'payment_proof' => ['required', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+                ]);
+                $msg = 'Payment added Successfully';
+                $data['status'] = '4';
+            }
         }
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()]);
@@ -292,7 +327,12 @@ class OrderController extends Controller
     public function confirmReceipt(Order $order){
         try {
             DB::beginTransaction();
-            $data['status'] = 3;
+            if ($order->transaction == "buy") {
+                $data['status'] = 3;                
+            }
+            elseif($order->transaction == "sell"){
+                $data['status'] = 6;                
+            }
             $order = $order->update($data);
             DB::commit();
             $output = ['success' => 1,
