@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="row mb-2 align-items-center justify-content-center">
                                         <div class="col-sm-7">
-                                            <button type="submit" class="btn btn-primary w-100 btn_save" value="Save">Checkout</button>
+                                            <button type="submit" class="btn btn-success w-100 btn_save" value="Save">Buy Crypto</button>
                                         </div>
                                     </div>
                                 </form>
@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="row mb-2 align-items-center justify-content-center">
                                         <div class="col-sm-7">
-                                            <button type="submit" class="btn btn-primary w-100 btn_save" value="Save">Checkout</button>
+                                            <button type="submit" class="btn btn-danger w-100 btn_save" value="Save">Sell Crypto</button>
                                         </div>
                                     </div>
                                 </form>
