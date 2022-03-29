@@ -66,6 +66,15 @@ class Order extends Model
         return ($this->usePrice * ($this->markup_price / 100)) + $this->usePrice;
     }
 
+    public function getTransactionBadge() {
+        if ($this->transaction == "buy") {
+            return '<span class="badge bg-success">BUY</span>';
+        }
+        elseif($this->transaction == "sell") {
+            return '<span class="badge bg-danger">SELL</span>';
+        }
+    }
+
     public function paymentUrl(){
         return asset('images/orders/payment_proof/' .  $this->payment_proof);
     }

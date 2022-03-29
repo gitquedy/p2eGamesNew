@@ -43,6 +43,9 @@ class OrderController extends Controller
 
 
             return Datatables::eloquent($order)
+            ->editColumn('transaction', function(order $order) {
+                            return $order->getTransactionBadge();
+                        })
             ->addColumn('action', function(order $order) {
                             return $order->getDropDown();
                         })
@@ -69,7 +72,7 @@ class OrderController extends Controller
                             $paymentMethod = $order->paymentMethod;
                             return '<span data-bs-toggle="tooltip" data-bs-placement="top" title="'. $paymentMethod->account_name .'('. $paymentMethod->account_number .')">'. $paymentMethod->getProviderNameDisplay() .'</span>';
                         })
-            ->rawColumns(['action', 'idFormatted', 'paymentMethod', 'coin', 'status'])
+            ->rawColumns(['action', 'transaction', 'idFormatted', 'paymentMethod', 'coin', 'status'])
             ->make(true);
         }
         $coins = Coin::where('isActive', true)->get();
@@ -106,7 +109,7 @@ class OrderController extends Controller
             'phone_number' => ['required'],
             'email' => ['required', 'unique:users,email,' . $request->user()->id],
             'name'=> ['required'],
-            'notes'=> ['required'],
+            'notes'=> ['required_if:transaction,sell'],
             'transaction'=> ['required', 'in:buy,sell'],
         ]);
         if ($validator->fails()) {

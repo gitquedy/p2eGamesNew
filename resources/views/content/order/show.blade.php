@@ -35,7 +35,7 @@
             </div>
             <div class="mt-md-0 mt-2">
               <h4 class="invoice-title">
-                Order
+                {!! $order->getTransactionBadge() !!} Order
                 <span class="invoice-number">#{{ $order->id }}</span>
               </h4>
               <div class="invoice-date-wrapper">

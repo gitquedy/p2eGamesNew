@@ -81,6 +81,7 @@
               <th>Created At</th>
               <!-- <th>Customer</th> -->
               <th>Coin</th>
+              <th>Transaction</th>
               <th>Qty</th>
               <th>Payment Method</th>
               <th>Total</th>
@@ -132,6 +133,7 @@
             { data: 'createdAtFormatted', name: 'created_at'},
             // { data: 'name', name: 'name'},
             { data: 'coin', name: 'coin'},
+            { data: 'transaction', name: 'transaction'},
             { data: 'qty', name: 'qty'},
             { data: 'paymentMethod', name: 'paymentMethod'},
             { data: 'totalFormatted', name: 'total'},
