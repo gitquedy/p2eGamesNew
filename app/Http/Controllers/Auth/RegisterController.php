@@ -74,6 +74,6 @@ class RegisterController extends Controller
     }
 
     protected function redirectTo() {
-        return (Session::get('url.indended') != null) ? Session::get('url.indended') : RouteServiceProvider::HOME;
+        return (Session::get('url.intended') != null) ? Session::get('url.intended') : RouteServiceProvider::HOME;
     }
 }
