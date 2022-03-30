@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
@@ -12,7 +13,7 @@ class Order extends Model
 
     protected $table = 'orders';
 
-    protected $fillable = ['coin_id', 'user_id', 'payment_method_id', 'transaction', 'minimum_price', 'markup_price', 'exchange_transaction_fee', 'exchange_fix_price', 'price', 'usePrice', 'sub_total', 'transaction_fee', 'service_charge', 'total', 'status', 'notes', 'qty', 'payment_proof', 'txid'];
+    protected $fillable = ['coin_id', 'user_id', 'payment_method_id', 'transaction', 'eth_address', 'minimum_price', 'markup_price', 'exchange_transaction_fee', 'exchange_fix_price', 'price', 'usePrice', 'sub_total', 'transaction_fee', 'service_charge', 'total', 'status', 'notes', 'qty', 'payment_proof', 'txid'];
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
@@ -82,9 +83,11 @@ class Order extends Model
     public function getDropDown(){
         $html = '<div class="d-flex align-items-center col-actions">';
         $html .= '<a target="_blank" class="me-1" href="'. route('order.show', $this) .'" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i data-feather="eye"></i></a>';
-        $html .=' <a class="me-1 modal_button" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-action="'. route('order.delete', $this) . '">
+        if (Auth::user()->isAdmin()) {
+            $html .=' <a class="me-1 modal_button" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-action="'. route('order.delete', $this) . '">
                           <i data-feather="trash" class="me-50"></i>
                        </a>';
+        }
         $html .= '</div>';
         return $html;
     }

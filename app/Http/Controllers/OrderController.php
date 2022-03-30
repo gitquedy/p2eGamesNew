@@ -121,11 +121,11 @@ class OrderController extends Controller
             $cart['coin']= Coin::where('id', $cart['coin_id'])->first();
             $cart['coingecko'] = $cart['coin']->coingecko;
             $cart['exchangeFixPrice'] = SystemSetting::first()->exchange_fix_price;
-            $cart['computedPrice'] = $cart['coin']->computedPrice($cart['qty']);
-            $cart['transactionFee'] = $cart['coin']->getTransactionFee($cart['qty']);
 
 
             if ($cart['transaction'] == "buy") {
+                $cart['computedPrice'] = $cart['coin']->computedPrice($cart['qty']);
+                $cart['transactionFee'] = $cart['coin']->getTransactionFee($cart['qty']);
                 if(isset($cart['total'])){
                     if($cart['total'] != $cart['exchangeFixPrice'] + $cart['computedPrice'] + $cart['transactionFee']){
                         $output = ['success' => 0,
@@ -137,6 +137,8 @@ class OrderController extends Controller
                 $cart['total'] = $cart['exchangeFixPrice'] + $cart['computedPrice'] + $cart['transactionFee'];
             }
             else if($cart['transaction'] == "sell") {
+                $cart['computedPrice'] = $cart['coin']->computedSellPrice($cart['qty']);
+                $cart['transactionFee'] = $cart['coin']->getSellTransactionFee($cart['qty']);
                 if(isset($cart['total'])){
                     if($cart['total'] != $cart['computedPrice'] - ($cart['exchangeFixPrice'] + $cart['transactionFee'])){
                         $output = ['success' => 0,

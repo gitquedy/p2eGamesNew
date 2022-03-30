@@ -60,4 +60,13 @@ class Coin extends Model
         $transaction_fee = SystemSetting::first()->exchange_transaction_fee;
         return ($this->computedPrice() * $qty) * ($transaction_fee / 100);
     }
+
+    public function computedSellPrice($qty = 1){
+        return $this->sellPrice * $qty;
+    }
+
+    public function getSellTransactionFee($qty){
+        $transaction_fee = SystemSetting::first()->exchange_transaction_fee;
+        return ($this->computedSellPrice() * $qty) * ($transaction_fee / 100);
+    }
 }
