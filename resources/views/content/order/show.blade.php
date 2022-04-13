@@ -153,7 +153,11 @@
                   <span class="fw-bold">$60.00</span>
                 </td> -->
                 <td class="py-1">
+                  @if ($order->transaction == "buy")
                   <span class="fw-bold">{{ number_format($order->priceWithMarkup, 2) }}</span>
+                  @elseif ($order->transaction == "sell")
+                  <span class="fw-bold">{{ number_format($order->priceWithMarkdown, 2) }}</span>
+                  @endif
                 </td>
                 <td class="py-1">{{ $order->qty }}</td>
                 <td class="py-1 text-end">

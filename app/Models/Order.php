@@ -64,7 +64,11 @@ class Order extends Model
     }
 
     public function getPriceWithMarkupAttribute(){
-        return ($this->usePrice * ($this->markup_price / 100)) + $this->usePrice;
+        return $this->usePrice + ($this->usePrice * ($this->markup_price / 100));
+    }
+
+    public function getPriceWithMarkdownAttribute(){
+        return $this->usePrice - ($this->usePrice * ($this->markup_price / 100));
     }
 
     public function getTransactionBadge() {
