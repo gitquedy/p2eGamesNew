@@ -1,3 +1,4 @@
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3614132171497947" crossorigin="anonymous"></script>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="MEcDljo3"></script>
 <!-- <script type="text/javascript" async src="//platform.twitter.com/widgets.js"></script> -->
 <!-- BEGIN: Vendor JS-->

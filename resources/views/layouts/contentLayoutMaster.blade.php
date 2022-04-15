@@ -32,8 +32,7 @@ data-textdirection="{{ env('MIX_CONTENT_DIRECTION') === 'rtl' ? 'rtl' : 'ltr' }}
 
   {{-- Include core + vendor Styles --}}
   @include('panels/styles')
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3614132171497947"
-     crossorigin="anonymous"></script>
+
 </head>
 <!-- END: Head-->
 
