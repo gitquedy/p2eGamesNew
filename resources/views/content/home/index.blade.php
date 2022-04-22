@@ -56,7 +56,7 @@
                 <td class="text-start ps-1 pe-0 px-sm-0 text-truncate w-100 mw-0">
                   <a href="{{ route('game.show', $gainer) }}">
                         <img src="{{ $gainer->imageUrl() }}" alt="{{ $gainer->name }}" width="30" height="30">
-                        <span class="emp_name fw-bold">{{ $gainer->name }}</span>
+                        <span class="ms-0 ms-sm-1 emp_name fw-bold">{{ $gainer->name }}</span>
                     {{-- <div class="d-flex justify-content-left align-items-center">
                       <div class="bg-light-red me-1">
                       </div>
@@ -90,7 +90,7 @@
                 <td class="text-start ps-1 pe-0 px-sm-0 text-truncate w-100 mw-0">
                   <a href="{{ route('game.show', $loser) }}">
                       <img src="{{ $loser->imageUrl() }}" alt="{{ $loser->name }}" width="30" height="30">
-                      <span class="emp_name text-truncate fw-bold">{{ $loser->name }}</span>
+                      <span class="ms-0 ms-sm-1 emp_name text-truncate fw-bold">{{ $loser->name }}</span>
                     {{-- <div class="d-flex justify-content-left align-items-center">
                       <div class="bg-light-red me-1">
                       </div>
