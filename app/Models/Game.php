@@ -16,7 +16,7 @@ class Game extends Model
 
     protected $table = 'games';
 
-    protected $fillable = ['name', 'user_id', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'medium' , 'facebook', 'governance_price_change_percentage_24h', 'rank', 'redflag', 'rugpull', 'slug'];
+    protected $fillable = ['name', 'user_id', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved',  'is_sponsored', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'medium' , 'facebook', 'governance_price_change_percentage_24h', 'rank', 'redflag', 'rugpull', 'slug'];
 
     public static function syncRank(){
         $games = Game::withAvg('reviews', 'rating')->orderBy('reviews_avg_rating', 'desc')->get();

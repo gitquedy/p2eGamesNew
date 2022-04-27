@@ -233,7 +233,7 @@
           </div>
           <hr/>
           <div class="card-body" id="reviewsCard">
-
+            
           </div>
         </div>
       </div>

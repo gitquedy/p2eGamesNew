@@ -89,6 +89,7 @@ class GameController extends Controller
                     }
                 }
             }else{
+                $game->orderBy('is_sponsored', 'desc');
                 $game->orderBy('rank', 'asc');
             }
 
@@ -151,10 +152,15 @@ class GameController extends Controller
             })
 
             ->addColumn('rank', function(Game $game) {
-                return $game->rank;
+                if ($game->is_sponsored) {
+                    return '<i class="fa fa-star text-primary"></i>';
+                }
+                else{
+                    return $game->rank;
+                }
             })
 
-            ->rawColumns(['action', 'nameAndImgDisplay', 'genres', 'blockchains', 'devices', 'status', 'f2p', 'ratings'])
+            ->rawColumns(['action', 'rank', 'nameAndImgDisplay', 'genres', 'blockchains', 'devices', 'status', 'f2p', 'ratings'])
             ->make(true);
         }
         return view('content.game.index', compact('breadcrumbs'));
@@ -426,7 +432,6 @@ class GameController extends Controller
     }
 
     public function reviews(Request $request,Game $game){
-
         $reviews = $game->reviews()->withCount('useful')->orderBy('useful_count', 'desc');
         if($request->rating != "all"){
             $reviews->where('rating', $request->rating);

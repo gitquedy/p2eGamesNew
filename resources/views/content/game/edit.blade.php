@@ -188,6 +188,15 @@
                   </select>
               </div>
           </div>
+          <div class="col-4">
+              <div class="form-group">
+                  <label for="is_sponsored">Sponsored:</label>
+                  <select class="form-control" name="is_sponsored">
+                    <option value="0" {{ $game->is_sponsored == 0 ? 'selected' : '' }}>No</option>
+                    <option value="1" {{ $game->is_sponsored == 1 ? 'selected' : '' }}>Yes</option>
+                  </select>
+              </div>
+          </div>
         </div>
         </div>
         <div class="modal-footer">

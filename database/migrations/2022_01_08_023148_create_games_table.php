@@ -34,6 +34,7 @@ class CreateGamesTable extends Migration
             $table->string('f2p');
             $table->text('screenshots')->nullable();
             $table->boolean('is_approved')->default(0);
+            $table->boolean('is_spornsored')->default(0);
             $table->boolean('redflag')->default(0);
             $table->boolean('rugpull')->default(0);
 

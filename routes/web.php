@@ -132,7 +132,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::post('/pte/', [PrivateSaleController::class, 'store'])->name('privateSale.submit');
     Route::get('game/show/{game}', [GameController::class, 'show'])->name('game.show.login');
 });
-Route::get('profile/{user:eth_address}/', [UserController::class, 'profile'])->name('user.profile');
+Route::get('profile/{user}/', [UserController::class, 'profile'])->name('user.profile');
 
 
 // Route::get('/', function () {
