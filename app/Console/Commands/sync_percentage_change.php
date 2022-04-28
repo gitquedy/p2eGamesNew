@@ -12,7 +12,7 @@ class sync_percentage_change extends Command
      *
      * @var string
      */
-    protected $signature = 'game:sync';
+    protected $signature = 'game:syncpercentage';
 
     /**
      * The console command description.

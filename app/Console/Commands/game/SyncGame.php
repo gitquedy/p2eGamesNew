@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\game;
 
+use App\Models\Game;
 use Illuminate\Console\Command;
 
 class SyncGame extends Command
@@ -39,12 +40,13 @@ class SyncGame extends Command
     {
         // Sync Coingecko
         $games = Game::whereNotNull('governance_token')->get();
+        
+        // Sync Rank
+        Game::syncRank();
 
         foreach($games as $game){
             $game->syncCoingeckoData();
         }
 
-        // Sync Rank
-        Game::syncRank();
     }
 }
