@@ -19,7 +19,7 @@ class Game extends Model
     protected $fillable = ['name', 'user_id', 'description', 'short_description' , 'image', 'status', 'device', 'governance_token', 'rewards_token', 'minimum_investment', 'f2p', 'screenshots', 'is_approved',  'is_sponsored', 'genre_ids', 'blockchain_ids', 'website', 'twitter', 'discord', 'telegram', 'medium' , 'facebook', 'governance_price_change_percentage_24h', 'rank', 'redflag', 'rugpull', 'slug'];
 
     public static function syncRank(){
-        $games = Game::withAvg('reviews', 'rating')->orderBy('reviews_avg_rating', 'desc')->get();
+        $games = Game::withAvg('reviews', 'rating')->withCount('reviews')->orderBy('reviews_avg_rating', 'desc')->orderBy('reviews_count', 'desc')->get();
         $iteration = 1;
         foreach($games as $game){
             $game->update(['rank' => $iteration]);
@@ -64,9 +64,6 @@ class Game extends Model
 
         return ($relation) ? round($relation->aggregate, 2) : 0;
     }
-
-
-
 
      public function genres(){
           $ids = explode(',', $this->genre_ids);

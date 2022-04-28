@@ -54,11 +54,17 @@
 
 @if($request->user())
 <li class="nav-item dropdown {{ $request->segment(1) == 'exchange' && $request->segment(2) == '' ? 'active' : '' }}" data-menu="dropdown">
-  <a href="{{ route('exchange.index') }}" class="nav-link d-flex align-items-center dropdown-toggle" target="_self" data-bs-toggle="dropdown">
+  <a href="#" class="nav-link d-flex align-items-center dropdown-toggle" target="_self" data-bs-toggle="dropdown">
     <i data-feather="shopping-cart"></i>
     <span>Exchange</span>
   </a>
   <ul class="dropdown-menu" data-bs-popper="none">
+      <li class="nav-item {{ $request->segment(1) == 'order' ? 'active' : '' }}">
+        <a href="{{ route('exchange.index') }}" class="dropdown-item d-flex align-items-center">
+          <i data-feather="shopping-cart"></i>
+          <span>Buy Crypto</span>
+        </a>
+      </li>
       <li class="nav-item {{ $request->segment(1) == 'order' ? 'active' : '' }}">
         <a href="{{ route('order.index') }}" class="dropdown-item d-flex align-items-center">
           <i data-feather="shopping-bag"></i>
