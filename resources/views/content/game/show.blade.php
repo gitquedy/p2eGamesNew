@@ -45,45 +45,110 @@
       min-height: 100%;
       object-fit: cover;
     }
+
+    .btn-xs {
+      padding: 0.3rem 0.5rem;
+      font-size: 0.8rem;
+      border-radius: 0.358rem;
+    }
+
+
+    .outer { 
+      margin:0 auto;
+    }
+    .owl-theme .owl-nav [class*='owl-'] { 
+      -webkit-transition: all .3s ease; 
+      transition: all .3s ease; 
+    }
+    .owl-theme .owl-nav [class*='owl-'].disabled:hover { 
+      background-color: #D6D6D6; 
+    }
+    #big.owl-theme { 
+      position: relative; 
+    }
+    #big.owl-theme .owl-next, #big.owl-theme .owl-prev {
+      width: 22px; 
+      line-height:40px; 
+      height: 40px;
+      margin-top: -20px; 
+      position: absolute; 
+      text-align:center; 
+      top: 50%; 
+    }
+    #big.owl-theme .owl-prev { 
+      left: 10px; 
+    }
+    #big.owl-theme .owl-next { 
+      right: 10px; 
+    }
+    /*#thumbs.owl-theme .owl-next, #thumbs.owl-theme .owl-prev { background:#333; }*/
   </style>
 @endsection
 
 @section('content')
 <!-- app e-commerce details start -->
 <section class="app-ecommerce-details">
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 py-1 px-0 text-center">
-          <img class="img-fluid" src="{{ $game->imageUrl() }}" alt="banner" style="height:250px; max-width: 235px" />
-        </div>
-        <div class="col-sm-12 col-md-8 col-lg-8 col-xl-9">
+  <div class="row">
+    <div class="col-md-4 order-md-1">
+      <div class="card">
+        <div class="card-body">
           <div class="row">
-            <div class="col-lg-8 col-sm-6 text-center text-sm-start">
-              <h4>{{ $game->name }} </h4>
+            <div class="col-sm-4 col-md-12 col-lg-4 mb-1">
+              <div class="d-flex ">
+                <img class="img-fluid" src="{{ $game->imageUrl() }}" alt="banner" style="height:140px; max-width: 140px" />
+              </div>
             </div>
-            <div class="col-lg-4 col-sm-6 align-items-end text-end d-flex justify-content-center justify-content-sm-end p-0">
-              {!! $game->get3rdPartyDisplay() !!}
+            <div class="col-sm-8 col-md-12 col-lg-8 mb-1">
+              <div class="row">
+                <div class="d-flex align-items-center">
+                  <h4 class="d-flex align-items-center">{{ $game->name }}</h4>
+                  <small class="ms-1">{!! $game->getStatusDisplay() !!}</small>
+                </div>
+                <div class="d-flex align-items-center">
+                  <div class="read-only-ratings rating" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
+                  {{ $game->avgRating }}/5 <small class="d-none ms-1 d-sm-block" > out of {{ $game->reviews()->count() }} reviews</small>
+                </div>
+              </div>
+              <div class="py-1">
+                {!! $game->get3rdPartyDisplay() !!}
+              </div>
             </div>
           </div>
-          <div class="ecommerce-details-price d-flex flex-wrap mt-1 justify-content-center justify-content-sm-start">
-            <h4 class="item-price me-1">{!! $game->getStatusDisplay() !!}</h4>
-            <div class="read-only-ratings rating" data-rateyo-rating="{{ $game->avgRating }}" data-rateyo-read-only="true"></div>
-            <h4>&nbsp; {{ $game->avgRating }}/5</h4><small class="d-none d-sm-block" > &nbsp; out of {{ $game->reviews()->count() }} reviews</small>
-          </div>
-          <p class="card-text">
-            {{ $game->description }}
-          </p>
-          @isset($game->screenshots)
-            <div class="owl-carousel owl-cgame owl-theme mb-1" style="cursor:pointer;">
-              @foreach(explode(',', $game->screenshots) as $screenshot)
-                <img class="img-thumbnail modal_button" src="{{ $game->screenshotUrl($screenshot) }}" data-action="{{ route('game.screenshots', ['game' => $game, 'default' => $screenshot]) }}" alt="Game Screenshot">
-              @endforeach
-            </div>
+          @if($game->governance_token)
+              <div class="d-flex my-1 mx-0">
+                <div class="me-1 d-flex align-items-center">
+                  {!! $game->getCoinDisplay($governance_coin) !!}
+                </div>
+                <div class="mb-25 fw-bolder"> {{ $governance_coin['name'] }} ({{ strtoupper($governance_coin['symbol']) }}) 
+                  <div class="d-flex">
+                    <p class="fw-bolder mb-0 me-1">₱ {{ $governance_coin['market_data']['current_price']['php'] }}</p>
+                    <span class="badge badge-sm badge-light-secondary">
+                      <i class="text-{{ $governance_coin['market_data']['price_change_percentage_24h'] < 0 ? 'danger' : 'success'}} font-small-3" data-feather="arrow-{{ $governance_coin['market_data']['price_change_percentage_24h'] < 0 ? 'down' : 'up'}}"></i>
+                      <span class="align-middle">{{ number_format($governance_coin['market_data']['price_change_percentage_24h'], 2) }}%</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+          @endif
+          @if($game->rewards_token)
+              <div class="d-flex my-1 mx-0">
+                <div class="me-1 d-flex align-items-center">
+                  {!! $game->getCoinDisplay($rewards_coin) !!}
+                </div>
+                <div class="mb-25 fw-bolder"> {{ $rewards_coin['name'] }} ({{ strtoupper($rewards_coin['symbol']) }}) 
+                  <div class="d-flex">
+                    <p class="fw-bolder mb-0 me-1">₱ {{ $rewards_coin['market_data']['current_price']['php'] }}</p>
+                    <span class="badge badge-sm badge-light-secondary">
+                      <i class="text-{{ $rewards_coin['market_data']['price_change_percentage_24h'] < 0 ? 'danger' : 'success'}} font-small-3" data-feather="arrow-{{ $rewards_coin['market_data']['price_change_percentage_24h'] < 0 ? 'down' : 'up'}}"></i>
+                      <span class="align-middle">{{ number_format($rewards_coin['market_data']['price_change_percentage_24h'], 2) }}%</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
           @endif
           <div class="row">
-            <div class="col-sm-7">
-              <h4>Game Info</h4>
+            <div class="col">
+              <br>
               <div class="table-responsive mb-2">
                 <table class="table align-items-start text-start table-bordered">
                   <tbody>
@@ -121,48 +186,62 @@
                   </tbody>
                 </table>
               </div>
-            <!--   <h4>Upcoming Events</h4>
-              <div class="table-responsive mb-2">
-                <table class="table align-items-start text-start table-bordered">
-                  <tbody>
-                    <tr>
-                      <th>February 19, 2022</th>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th>All day</th>
-                      <td>Event Title</td>
-                    </tr>
-                    <tr>
-                      <th>February 20, 2022</th>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th>All day</th>
-                      <td>Event Title</td>
-                    </tr>
-                    <tr>
-                      <th>February 20, 2022</th>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th>All day</th>
-                      <td>Event Title</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div> -->
-              <div class="d-flex justify-content-left align-items-center">
-                <div class="fb-share-button pe-1" data-href="{{ route('game.show', $game) }}" data-layout="button" data-size="large">
-                  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('game.show', $game) }};src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
-                </div>
-                  <a class="btn btn-info btn-sm" data-size="large"
-                href="https://twitter.com/intent/tweet?text=Check this awesome NFT play-to-earn Game!&url={{ route('game.show', $game) }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="f-icon" data-e="twitter"></i> Tweet</a>
+            </div>
+          </div>
+          <a href="#comment_section"><button class="btn btn-success btn-lg d-block w-100 text-uppercase"> Write a Review </button></a>
+          <br>
+          <a href="{{$game->website}}" target="_blank"><button class="btn btn-success btn-lg d-block w-100 text-uppercase"> Play Game </button></a>
+        </div>
+      </div>
+      <div class="m-2 text-center">
+        {{-- Ads Here --}}
+        {{-- <img class="img-fluid mb-2" src="https://via.placeholder.com/300x250"> --}}
+        <img class="img-fluid" src="{{asset('images/home/banner/full_dd809e130df04b45bfbc13ad2b5534d1260645ec.png')}}">
+      </div>
+    </div>
+    <div class="col-md-8 order-md-12">
+      <div class="card">
+        <div class="card-body">
+          @isset($game->screenshots)
+            <div class="outer">
+              <div id="big" class="owl-carousel owl-theme">
+                @foreach(explode(',', $game->screenshots) as $screenshot)
+                  <img class="item" src="{{ $game->screenshotUrl($screenshot) }}" data-action="{{ route('game.screenshots', ['game' => $game, 'default' => $screenshot]) }}" alt="Game Screenshot">
+                @endforeach
               </div>
             </div>
-            <div class="col-sm-5 pt-1 text-center">
-              {{-- <img class="img-fluid mb-2" src="https://via.placeholder.com/300x250"> --}}
-              <img class="img-fluid" src="{{asset('images/home/banner/full_dd809e130df04b45bfbc13ad2b5534d1260645ec.png')}}">
+            <div id="thumbs" class="owl-carousel owl-cgame owl-theme mb-1" style="cursor:pointer;">
+              @foreach(explode(',', $game->screenshots) as $screenshot)
+                <img class="img-thumbnail" src="{{ $game->screenshotUrl($screenshot) }}" data-action="{{ route('game.screenshots', ['game' => $game, 'default' => $screenshot]) }}" alt="Game Screenshot">
+              @endforeach
+            </div>
+          @endif
+          <div class="row">
+            <div class="col-12">
+              <p class="card-text">
+                {{ $game->description }}
+              </p>
+            </div>
+            <div class="col-12 mt-3">
+              <!-- Governance Token -->
+              @if($game->governance_token)
+                @include('content.game.partials.coin-chart', ['game' => $game, 'coin' => $governance_coin, 'chart_name' => 'governance_market_chart'])
+              @endif
+              <!-- Governance token -->
+            </div>
+            <div class="col-12">
+               <!-- Rewards Token -->
+              @if($game->rewards_token)
+                @include('content.game.partials.coin-chart', ['game' => $game, 'coin' => $rewards_coin, 'chart_name' => 'rewards_market_chart'])
+              @endif
+              <!-- Rewards token -->
+            </div>
+            <div class="d-flex justify-content-left align-items-center">
+              <div class="fb-share-button pe-1" data-href="{{ route('game.show', $game) }}" data-layout="button" data-size="large">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('game.show', $game) }};src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+              </div>
+                <a class="btn btn-info btn-sm" data-size="large"
+              href="https://twitter.com/intent/tweet?text=Check this awesome NFT play-to-earn Game!&url={{ route('game.show', $game) }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="f-icon" data-e="twitter"></i> Tweet</a>
             </div>
           </div>
         </div>
@@ -170,21 +249,9 @@
     </div>
   </div>
 
-  <!-- Governance Token -->
-    @if($game->governance_token)
-      @include('content.game.partials.coin-chart', ['game' => $game, 'coin' => $governance_coin, 'chart_name' => 'governance_market_chart'])
-    @endif
-    <!-- Governance token -->
-
-     <!-- Rewards Token -->
-    @if($game->rewards_token)
-      @include('content.game.partials.coin-chart', ['game' => $game, 'coin' => $rewards_coin, 'chart_name' => 'rewards_market_chart'])
-    @endif
-    <!-- Rewards token -->
     @if($game->reviews()->count() > 0)
-
     <!-- x -->
-    <div class="col-12 mt-1" id="blogComment">
+      <div class="col-12 mt-1" id="blogComment">
         <h6 class="section-label mt-25">Reviews</h6>
         <div class="card">
           <div class="card-body">
@@ -258,10 +325,11 @@
           </div>
         </div>
       </div>
-
     @endif
     <!-- reviews -->
+    </div>
 
+    <div id="comment_section">
     @if(Auth::user())
       @if($game->allReviews()->where('user_id', Auth::user()->id)->count() < 1)
       <div class="col-12 mt-1" id="wreview">
@@ -334,36 +402,116 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-      $(".owl-carousel.owl-cgame").owlCarousel({
-        lazyLoad:true,
-        loop:false,
-        margin:5,
-        nav:false,
-        dots:false,
-        autoplay:false,
-        autoplayTimeout:5000,
-        smartSpeed:2000,
-        autoHeight:true,
-        autoplayHoverPause: true,
-        responsiveClass:false,
-        responsive:{
-            0:{
-                nav:false,
-                items:1
-            },
-            768:{
-                nav:false,
-                items:2
-            },
-            900:{
-                nav:false,
-                items:3
-            },
-            1280:{
-                nav:false,
-                items:4
-            }
+      var bigimage = $("#big");
+      var thumbs = $("#thumbs");
+      //var totalslides = 10;
+      var syncedSecondary = true;
+
+      bigimage
+        .owlCarousel({
+        items: 1,
+        slideSpeed: 2000,
+        nav: true,
+        autoplay: true,
+        dots: false,
+        loop: true,
+        responsiveRefreshRate: 200,
+        navText: [
+          '<i class="fa fa-arrow-left" aria-hidden="true"></i>',
+          '<i class="fa fa-arrow-right" aria-hidden="true"></i>'
+        ]
+      })
+        .on("changed.owl.carousel", syncPosition);
+
+      thumbs
+        .on("initialized.owl.carousel", function() {
+        thumbs
+          .find(".owl-item")
+          .eq(0)
+          .addClass("current");
+      })
+        .owlCarousel({
+          lazyLoad:true,
+          loop:false,
+          margin:5,
+          nav:false,
+          dots:false,
+          autoplay:false,
+          autoplayTimeout:5000,
+          smartSpeed:2000,
+          autoHeight:true,
+          autoplayHoverPause: true,
+          responsiveClass:false,
+          responsive:{
+              0:{
+                  nav:false,
+                  items:2
+              },
+              768:{
+                  nav:false,
+                  items:2
+              },
+              900:{
+                  nav:false,
+                  items:3
+              },
+              1280:{
+                  nav:false,
+                  items:4
+              }
+          }
+        })
+        .on("changed.owl.carousel", syncPosition2);
+
+      function syncPosition(el) {
+        //if loop is set to false, then you have to uncomment the next line
+        //var current = el.item.index;
+
+        //to disable loop, comment this block
+        var count = el.item.count - 1;
+        var current = Math.round(el.item.index - el.item.count / 2 - 0.5);
+
+        if (current < 0) {
+          current = count;
         }
+        if (current > count) {
+          current = 0;
+        }
+        //to this
+        thumbs
+          .find(".owl-item")
+          .removeClass("current")
+          .eq(current)
+          .addClass("current");
+        var onscreen = thumbs.find(".owl-item.active").length - 1;
+        var start = thumbs
+        .find(".owl-item.active")
+        .first()
+        .index();
+        var end = thumbs
+        .find(".owl-item.active")
+        .last()
+        .index();
+
+        if (current > end) {
+          thumbs.data("owl.carousel").to(current, 100, true);
+        }
+        if (current < start) {
+          thumbs.data("owl.carousel").to(current - onscreen, 100, true);
+        }
+      }
+
+      function syncPosition2(el) {
+        if (syncedSecondary) {
+          var number = el.item.index;
+          bigimage.data("owl.carousel").to(number, 100, true);
+        }
+      }
+
+      thumbs.on("click", ".owl-item", function(e) {
+        e.preventDefault();
+        var number = $(this).index();
+        bigimage.data("owl.carousel").to(number, 300, true);
       });
 
       $('.onChange-event-ratings')
