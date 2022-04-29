@@ -9,6 +9,18 @@
   <link rel="stylesheet" href="{{ asset('vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/forms/select/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/jquery.rateyo.min.css')}}">
+  <style>
+    tr.sponsored td {
+      background-color: #fff;
+      font-size: 1.2rem;
+      font-weight: bolder;
+
+    }
+    tr.sponsored {
+      box-shadow: 0 0 10px 0px #ccc;
+    }
+
+  </style>
 @endsection
 
 <section id="card-actions">
@@ -249,6 +261,15 @@
         $('#genre').html(data);
         $('#genre').select2();
       });
+
+      var createdRow = function (row, data, index) {
+          if (data['is_sponsored'] == 1) {
+              // console.dir();
+              $(row).addClass("sponsored");
+          }
+      }
+
+      
 
   </script>
   <script src="{{ asset('js/scripts/tables/table-datatables-basic.js') }}"></script>

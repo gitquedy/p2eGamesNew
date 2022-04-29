@@ -27,6 +27,7 @@ $(function () {
           next: '&nbsp;'
         }
       },
+      "createdRow": typeof(createdRow) === 'undefined' ? function(){} : createdRow,
       "drawCallback": typeof(drawCallback) === 'undefined' ? function(){} : drawCallback,
     });
     // $('div.head-label').html('<h6 class="mb-0"> ' + table_title +' </h6>');

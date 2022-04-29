@@ -91,9 +91,9 @@
 
 {{-- @if (Auth::check()) --}}
   <li class="{{ $request->segment(1) == 'game' && $request->segment(2) == 'create' ? 'active' : '' }}">
-    <a href="{{ route('game.create') }}" class="nav-link d-flex align-items-center" target="_self">
+    <a href="{{ route('game.create') }}" class="nav-link d-flex align-items-center btn-sm bg-success text-light fw-bold rounded" target="_self">
       <i data-feather="plus-circle"></i>
-      <span>Add Game</span>
+      <span>Submit Game</span>
     </a>
   </li>
 {{-- @endif --}}
