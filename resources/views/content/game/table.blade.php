@@ -236,8 +236,8 @@
             }
           }];
       @endif
-        var displayLength = 10;
-        var lengthMenu = [10, 50, 100];
+        var displayLength = 20;
+        var lengthMenu = [10, 20, 50, 100];
 
       var drawCallback = function( settings ) {
         $('[data-bs-toggle="tooltip"]').tooltip();

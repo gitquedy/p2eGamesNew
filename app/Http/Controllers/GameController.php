@@ -72,7 +72,8 @@ class GameController extends Controller
             }else{
                 $game->where('is_approved', 1);
             }
-
+            
+            $game->orderBy('is_sponsored', 'desc');
             if($request->has('filter')){
                 $filters = ['top', 'recent', 'rugpull', 'redflag', 'alphabetical'];
                 if(in_array($request->filter, $filters)){
@@ -89,7 +90,6 @@ class GameController extends Controller
                     }
                 }
             }else{
-                $game->orderBy('is_sponsored', 'desc');
                 $game->orderBy('rank', 'asc');
             }
 

@@ -121,7 +121,7 @@
                 </div>
                 <div class="mb-25 fw-bolder"> {{ $governance_coin['name'] }} ({{ strtoupper($governance_coin['symbol']) }}) 
                   <div class="d-flex">
-                    <p class="fw-bolder mb-0 me-1">₱ {{ $governance_coin['market_data']['current_price']['php'] }}</p>
+                    <p class="fw-bolder mb-0 me-1">₱ {{ rtrim(sprintf('%f',floatval($governance_coin['market_data']['current_price']['php'])),'0') }}</p>
                     <span class="badge badge-sm badge-light-secondary">
                       <i class="text-{{ $governance_coin['market_data']['price_change_percentage_24h'] < 0 ? 'danger' : 'success'}} font-small-3" data-feather="arrow-{{ $governance_coin['market_data']['price_change_percentage_24h'] < 0 ? 'down' : 'up'}}"></i>
                       <span class="align-middle">{{ number_format($governance_coin['market_data']['price_change_percentage_24h'], 2) }}%</span>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="mb-25 fw-bolder"> {{ $rewards_coin['name'] }} ({{ strtoupper($rewards_coin['symbol']) }}) 
                   <div class="d-flex">
-                    <p class="fw-bolder mb-0 me-1">₱ {{ $rewards_coin['market_data']['current_price']['php'] }}</p>
+                    <p class="fw-bolder mb-0 me-1">₱ {{ rtrim(sprintf('%f',floatval($rewards_coin['market_data']['current_price']['php'])),'0') }}</p>
                     <span class="badge badge-sm badge-light-secondary">
                       <i class="text-{{ $rewards_coin['market_data']['price_change_percentage_24h'] < 0 ? 'danger' : 'success'}} font-small-3" data-feather="arrow-{{ $rewards_coin['market_data']['price_change_percentage_24h'] < 0 ? 'down' : 'up'}}"></i>
                       <span class="align-middle">{{ number_format($rewards_coin['market_data']['price_change_percentage_24h'], 2) }}%</span>

@@ -6,7 +6,7 @@
       </div>
       <div class="col-md-6 text-center text-md-end">
         {{-- d-flex align-items-center flex-wrap mt-sm-0 mt-1 --}}
-        <h3 class="fw-bolder mb-0 me-1">₱ {{ $coin['market_data']['current_price']['php'] }}</h3>
+        <h3 class="fw-bolder mb-0 me-1">₱ {{ rtrim(sprintf('%f',floatval($coin['market_data']['current_price']['php'])),'0') }}</h3>
         <span class="badge badge-light-secondary">
           <i class="text-{{ $coin['market_data']['price_change_percentage_24h'] < 0 ? 'danger' : 'success'}} font-small-3" data-feather="arrow-{{ $coin['market_data']['price_change_percentage_24h'] < 0 ? 'down' : 'up'}}"></i>
           <span class="align-middle">{{ number_format($coin['market_data']['price_change_percentage_24h'], 2) }}%</span>
