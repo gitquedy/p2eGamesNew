@@ -31,7 +31,7 @@ $configData = Helper::applClasses();
     <div class="shadow-bottom"></div>
     <!-- Horizontal menu content-->
     <div class="navbar-container main-menu-content" data-menu="menu-container">
-      <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
+      <ul class="nav navbar-nav justify-content-around" id="main-menu-navigation" data-menu="menu-navigation">
         <li class="nav-item {{ $request->segment(1) == '' && $request->segment(2) == '' ? 'active' : '' }}">
           <a href="/" class="nav-link d-flex align-items-center">
             <i data-feather="home"></i>
